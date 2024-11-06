@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from "react";
+import '../assets/css/ContactPage.css'
 
-const ContactPage = ( showAlert ) => {
+const ContactPage = ({ showAlert }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [feedbackData, setFeedbackData] = useState({
         name: "",
@@ -70,49 +71,50 @@ const ContactPage = ( showAlert ) => {
                 setIsSubmitted(true);
                 setTimeout(() => {
                     setIsSubmitted(false);
-                }, 2000);
+                }, 3000);
             }
         }
     };
 
     return (
-        <div className="feedback_form p-4 shadow">
-            <h1 className="feedback_title text-center mb-5">Feedback Form</h1>
+        <div className="feedback_form_container">
+        <div className="feedback_form p-4">
+            <h1 className="feedback_title text-center mb-5 font-custom-2">Contact Us</h1>
             <div className="mb-4">
+                <label>Name*</label>
                 <input
                     className="feedback_input form-control"
                     type="text"
                     id="feedback_name"
-                    placeholder="Name"
                     value={feedbackData.name}
                     onChange={handleChange}
                 />
             </div>
             <div className="mb-4">
+                <label>Phone*</label>
                 <input
                     className="feedback_input form-control"
                     type="text"
                     id="feedback_phone"
-                    placeholder="Phone"
                     value={feedbackData.phone}
                     onChange={handleChange}
                 />
             </div>
             <div className="mb-4">
+                <label>Email*</label>
                 <input
                     className="feedback_input form-control"
                     type="email"
                     id="feedback_email"
-                    placeholder="Email"
                     value={feedbackData.email}
                     onChange={handleChange}
                 />
             </div>
             <div className="mb-5">
+                <label>Message*</label>
                 <textarea
                     className="feedback_textarea form-control"
                     id="feedback_message"
-                    placeholder="Message"
                     rows="4"
                     value={feedbackData.message}
                     onChange={handleChange}
@@ -122,9 +124,10 @@ const ContactPage = ( showAlert ) => {
                 className="feedback_button btn btn-primary w-100"
                 type="button"
                 onClick={submitFeedback}
-            >
+                disabled={isSubmitted}>
                 Send Message
             </button>
+        </div>
         </div>
     );
 };

@@ -6,6 +6,10 @@
   .carousel-item {
     height: 200px !important;
   }
+
+  .browseCategoriesBox {
+    width: 70vw !important;
+  }
 }
 
 @media (min-width: 700px) and (max-width: 1199px) {

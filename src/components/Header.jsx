@@ -58,7 +58,7 @@ const Header = ({ action }) => {
                 <button className="header-icon" onClick={() => { navigateCall('home') }}>
                     <img src="https://kedaiemasion.my/assets/png-ion.png" alt="logo" width="100px" height="40px" />{/* height 40px */}
                 </button>
-                <div className="header-user-btn header-btn" onClick={() => { handleNavigate('user') }}>
+                <div className="header-user-btn header-btn" onClick={() => { navigateCall('user') }}>
                     <button>
                         <FaUser className="header-icon-size" />
                     </button>
