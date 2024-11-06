@@ -2,6 +2,7 @@
     background-color: #ffcf77;
     padding: 30px;
     padding-bottom: 10px;
+    min-height: 640px;
 }
 
 .footer-menu-list {
@@ -65,6 +66,10 @@
 }
 
 @media (min-width: 700px) {
+    .footer-container {
+        min-height: 465px;
+    }
+
     .footer-menu-list {
         flex-direction: row;
     }
