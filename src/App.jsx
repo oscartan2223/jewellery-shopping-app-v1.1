@@ -11,6 +11,7 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import LocationPage from './components/LocationPage';
 import FAQPage from './components/FAQPage';
+import ContactPage from './components/ContactPage';
 
 const App = () => {
   return (
@@ -107,6 +108,7 @@ const AppContent = () => {
             <Route path="/login" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/location" element={<LocationPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact" element={<ContactPage showAlert={showAlert} />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -119,7 +121,7 @@ const AppContent = () => {
             <Route path="/password" element={<ResetPasswordPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            
              */}
           </Routes>
         </div>
