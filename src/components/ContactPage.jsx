@@ -77,7 +77,7 @@ const ContactPage = ({ showAlert }) => {
     };
 
     return (
-        <div className="feedback_form_container">
+        <div className="site-container">
         <div className="feedback_form p-4">
             <h1 className="feedback_title text-center mb-5 font-custom-2">Contact Us</h1>
             <div className="mb-4">

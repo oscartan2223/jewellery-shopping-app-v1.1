@@ -3,6 +3,7 @@
     padding: 30px;
     padding-bottom: 10px;
     min-height: 640px;
+    position: relative;
 }
 
 .footer-menu-list {
@@ -77,4 +78,10 @@
     .footer-menu {
         width: 50%;
     }
+}
+
+.footer-social-container {
+    position: absolute;
+    left: 30px;
+    bottom: 10px;
 }
