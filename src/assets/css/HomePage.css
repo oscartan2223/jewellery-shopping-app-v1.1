@@ -1,0 +1,204 @@
+.shopCategories {
+  padding-bottom: 50px;
+}
+
+@media (min-width: 100px) and (max-width: 699px) {
+  .carousel-item {
+    height: 200px !important;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1199px) {
+  .carousel-item {
+    height: 350px !important;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1799px) {
+  .carousel-item {
+    height: 420px !important;
+  }
+}
+
+@media (min-width: 1800px) and (max-width: 1999px) {
+  .carousel-item {
+    height: 490px !important;
+  }
+}
+
+@media (min-width: 2000px) {
+  .carousel-item {
+    height: 560px !important;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 767px) {
+  .shopCategoriesBoxes {
+    width: 50%;
+  }
+}
+
+@media (min-width: 200px) and (max-width: 749px) {
+  .shopCategoriesItem {
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .shopCategoriesBoxes {
+    width: 70%;
+  }
+}
+
+@media (min-width: 990px) {
+  .shopCategoriesBoxes {
+    width: 20% !important;
+  }
+}
+
+
+.browseCategories {
+  background-color: rgb(252, 243, 218);
+  padding-top: 30px;
+  padding-bottom: 50px;
+  max-width: 100vw;
+}
+
+.browseCategories.second {
+  background-color: rgb(255, 236, 185);
+}
+
+.browseCategoriesListContainer {
+  padding-left: 50px;
+  padding-right: 50px;
+  position: relative;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.browseLeft {
+  position: absolute;
+  left: 20px;
+  top: 0;
+}
+
+.browseRight {
+  position: absolute;
+  right: 20px;
+  top: 0;
+}
+
+.browseCategoriesList {
+  overflow: auto;
+  cursor: grab;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+}
+
+.browseCategoriesTab {
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.browseCategoriesTab>h3 {
+  font-size: 14px;
+  user-select: none;
+  margin: 0;
+}
+
+.tab-selected>h3 {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.browseCategoriesBoxesContainer {
+  position: relative;
+  width: 100vw;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.browseCategoriesBoxes {
+  max-width: 100vw;
+}
+
+.browseCategoriesBox {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.boxScrollButtonContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(100vw - 4rem);
+}
+
+.boxScrollButton {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.pl-4 {
+  padding-left: 4px;
+}
+
+.pr-4 {
+  padding-right: 4px;
+}
+
+.browseBoxLeft {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  z-index: 2;
+  background-color: rgba(250, 235, 215, 0.2);
+  visibility: hidden;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.browseBoxLeft > * {
+  display: inline-block;
+}
+
+.browseBoxRight {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  width: auto;
+  z-index: 2;
+  background-color: rgba(250, 235, 215, 0.2);
+  visibility: hidden;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.browseBoxRight > * {
+  display: inline-block;
+}
+
+.browseCategoriesBoxes:hover .browseBoxLeft,
+.browseCategoriesBoxes:hover .browseBoxRight {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0s linear 0s;
+  cursor: default;
+}

@@ -1,0 +1,97 @@
+@import '~bootstrap';
+
+.content-height {
+    min-height: calc(100vh - 640px - 56px);
+}
+
+@media (min-width: 700px) {
+    .content-height {
+        min-height: calc(100vh - 465px - 56px);
+    }
+}
+
+.font-custom {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.font-custom-2 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+html, body {
+    overflow: auto; /* Allow scrolling */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+}
+
+html {
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+body {
+    -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+}
+button {
+    background: transparent;
+    border: none;
+}
+
+main {
+    margin-top: 8px;
+}
+
+.all-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide-scroll-container {
+    overflow: hidden;
+    overflow: scroll;
+}
+
+.hide-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scroll-container {
+    scrollbar-width: none;
+}
+
+.hide-scroll-container {
+    -ms-overflow-style: none;
+}
+
+.underline {
+    position: relative;
+    display: inline-block;
+}
+
+.underline::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.underline:hover::after {
+    animation: underlineAnimation 0.3s forwards;
+}
+
+@keyframes underlineAnimation {
+    0% {
+        width: 0;
+        left: 50%;
+    }
+    100% {
+        width: 100%;
+        left: 0;
+    }
+}
