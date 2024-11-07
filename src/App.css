@@ -1,5 +1,9 @@
 @import '~bootstrap';
 
+.z-first {
+    z-index: 1000000000000;
+}
+
 .content-height {
     min-height: calc(100vh - 640px - 56px);
 }

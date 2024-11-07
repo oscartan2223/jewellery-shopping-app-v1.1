@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { UserService } from './service';
 
 const AuthContext = createContext();
@@ -6,25 +6,26 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userInformation, setUserInfo] = useState(null);
-    const [loading, setLoading] = useState(true); // To manage loading state
+    const [loading, setLoading] = useState(true);
+    const onLoad = useRef(false);
 
     useEffect(() => {
+        if (onLoad.current) return;
+        onLoad.current = true;
         const userInfoLocal = localStorage.getItem('userInfo');
-        const userInfoSession = sessionStorage.getItem('userInfo');
 
-        const userInfo = userInfoLocal ? JSON.parse(userInfoLocal) : userInfoSession ? JSON.parse(userInfoSession) : null;
+        const userInfo = userInfoLocal ? JSON.parse(userInfoLocal) : null;
 
         if (userInfo) {
-            autoLogin(userInfo); // Call autoLogin if user info exists
+            autoLogin(userInfo);
         } else {
-            setLoading(false); // Set loading to false if no user info
+            setLoading(false);
         }
-    }, []); // Empty dependency array ensures this runs once on mount
+    }, []);
 
     const autoLogin = async (userInfo) => {
         try {
-            // Assuming you have a login function that takes user info and performs the login API call
-            const response = await UserService.loginAccount(userInfo.email, userInfo.password); // Call your login service
+            const response = await UserService.loginAccount(userInfo.email, userInfo.password);
             if (response.status) {
                 const lastestUserInfo = {
                     email: response.data.email,
@@ -37,18 +38,17 @@ export const AuthProvider = ({ children }) => {
                 setUserInfo(lastestUserInfo);
                 setIsLoggedIn(true);
             } else {
-                // Clear outdated user info from localStorage and sessionStorage
                 localStorage.removeItem('userInfo');
-                sessionStorage.removeItem('userInfo');
                 setUserInfo(null);
                 setIsLoggedIn(false);
             }
 
         } catch (error) {
-            console.error("Auto-login failed:", error);
-            // Handle any errors if the auto-login fails (e.g., show a notification)
+            localStorage.removeItem('userInfo');
+            console.error('error', 'Failed to login!');
+            alert('Session expired, please login again!');
         } finally {
-            setLoading(false); // Stop loading regardless of success or failure
+            setLoading(false);
         }
     };
 
@@ -63,12 +63,6 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const loginSession = (userInfo) => {
-        sessionStorage.setItem('userInfo', JSON.stringify(userInfo)); // Store for non-remembered session
-        setUserInfo(userInfo); // Set user info in state
-        setIsLoggedIn(true);
-    };
-
     const logout = () => {
         localStorage.removeItem('userInfo');
         sessionStorage.removeItem('userInfo'); // Clear session storage on logout
@@ -77,8 +71,44 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, userInformation, login, loginSession, logout, loading }}>
-            {loading ? <div>Loading...</div> : children} {/* Show loading state while checking auth */}
+        <AuthContext.Provider value={{ isLoggedIn, userInformation, login, logout, loading }}>
+            {loading ?
+                <>
+                    <style>{`
+                        .display-dot {
+                        display: inline-block;
+                        position: relative;
+                        }
+                        .display-dot::after {
+                        content: '.';
+                        position: absolute;
+                        animation: dot-anim 1.5s steps(3) infinite;
+                        }
+
+                        @keyframes dot-anim {
+                        0% {
+                            content: '.';
+                        }
+                        33% {
+                            content: '..';
+                        }
+                        66% {
+                            content: '...';
+                        }
+                        100% {
+                            content: '.';
+                        }
+                        }
+                    `}</style>
+                    <div className="z-first position-fixed top-0 end-0 bottom-0 start-0 bg-dark opacity-75 all-center flex-column">
+                        <div className="spinner-border text-primary" role="status" />
+                        <span className="mt-2 text-white display-dot">Authenticating...</span>
+                    </div>
+                    {children}
+                </>
+                :
+                children
+            }
         </AuthContext.Provider>
     );
 };

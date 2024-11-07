@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../authContext';
 
 const Footer = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, logout } = useAuth();
     const navigate = useNavigate();
 
     const openFacebookPage = () => {
@@ -50,6 +50,7 @@ const Footer = () => {
                 <div className="footer-menu">
                     <h2 className="font-custom">Profile</h2>
                     <p className="font-custom" onClick={() => { handleNavigate('profile') }}>My Account</p>
+                    {isLoggedIn && <p className="font-custom" onClick={() => { logout(); navigate('/'); }}>Logout</p>}
                     <p className="font-custom" onClick={() => { handleNavigate('order') }}>Order History</p>
                 </div>
             </div>
