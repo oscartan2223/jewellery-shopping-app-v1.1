@@ -17,6 +17,21 @@
     color: #000000 !important;
 }
 
+.password-input {
+    position: relative;
+}
+
+.password-input>input {
+    padding-right: 30px;
+}
+
+.password-view {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    display: inline-flex;
+}
+
 .login-forgot {
     margin-bottom: 0.3rem !important;
     cursor: pointer;

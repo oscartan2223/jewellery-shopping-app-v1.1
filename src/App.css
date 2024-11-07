@@ -26,10 +26,6 @@ html, body {
     min-height: calc(100vh - 66px) !important;
 }
 
-/* * {
-    box-sizing: content-box;
-} */
-
 html::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
 }

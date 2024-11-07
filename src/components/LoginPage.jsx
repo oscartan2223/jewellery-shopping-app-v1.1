@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import '../assets/css/LoginPage.css';
 import { useAuth } from '../authContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const LoginPage = ({ showAlert }) => {
   const { isLoggedIn } = useAuth();
+  const [viewPassword, setViewPassword] = useState(false);
   const [loginData, setLoginData] = useState({
     phone: "",
     password: ""
@@ -34,14 +36,21 @@ const LoginPage = ({ showAlert }) => {
           value={loginData.phone}
           onChange={handleChange}
         />
+        <div className="password-input">
+
+        
         <input
           className="feedback_input form-control  mb-3"
-          type="password"
+          type={viewPassword ? 'text' : 'password'}
           id="login_password"
           placeholder="Password"
           value={loginData.password}
           onChange={handleChange}
         />
+        <div className="password-view" onClick={() => {setViewPassword(!viewPassword)}}>
+          {viewPassword ? <FaEye /> : <FaEyeSlash/>}
+        </div>
+        </div>
         <p className="login-text login-forgot text-center"><a href='/forgot'>Forgot your password?</a></p>
         <button
           className="login_button btn-secondary w-100"
