@@ -19,27 +19,33 @@
 }
 
 html, body {
-    overflow: auto; /* Allow scrolling */
+    overflow: auto;
 }
 
+[id=root] {
+    min-height: calc(100vh - 66px) !important;
+}
+
+/* * {
+    box-sizing: content-box;
+} */
+
 html::-webkit-scrollbar, body::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+    display: none;
 }
 
 html {
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    min-height: 100vh;
+    scrollbar-width: none;
 }
 
 body {
-    -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+    min-height: 100vh;
+    -ms-overflow-style: none;
 }
 button {
     background: transparent;
     border: none;
-}
-
-main {
-    
 }
 
 .all-center {

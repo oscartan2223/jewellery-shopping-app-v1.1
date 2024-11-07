@@ -49,7 +49,6 @@ const AppContent = () => {
   const contentStyle = {
     minWidth: '100%',
     overflow: handleOpen !== '' ? 'hidden' : 'auto',
-    marginTop: '56px'
   };
 
   useEffect(() => {

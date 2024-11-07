@@ -18,10 +18,11 @@
 
 .feedback_title {
     color: #333;
+    font-size: 40px;
 }
 
 .feedback_button {
-    background-color: #007bff;
+    background-color: #000000;
     border: none;
     color: white;
     padding: 10px 15px;
@@ -31,7 +32,7 @@
 }
 
 .feedback_button:hover {
-    background-color: #0056b3;
+    background-color: #414141;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
@@ -41,8 +42,8 @@
 }
 
 .feedback_input:focus, .feedback_textarea:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #474747;
+    box-shadow: 0 0 5px rgba(78, 78, 78, 0.5);
 }
 
 .form-control {

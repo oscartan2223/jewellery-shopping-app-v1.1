@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/css/Footer.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../authContext';
 
 const Footer = () => {
+    const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
 
     const openFacebookPage = () => {
@@ -27,6 +29,7 @@ const Footer = () => {
     }
 
     const handleNavigate = (target) => {
+        if ( !isLoggedIn && target === 'profile' ) { target = "login"; };
         setTimeout(() => {
             navigate(target);
         }, 200)

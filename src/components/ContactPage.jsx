@@ -121,11 +121,11 @@ const ContactPage = ({ showAlert }) => {
                 />
             </div>
             <button
-                className="feedback_button btn btn-primary w-100"
+                className="feedback_button btn-secondary w-100"
                 type="button"
                 onClick={submitFeedback}
                 disabled={isSubmitted}>
-                Send Message
+                <strong>Send Message</strong>
             </button>
         </div>
         </div>
