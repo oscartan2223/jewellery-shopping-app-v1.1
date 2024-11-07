@@ -59,14 +59,13 @@ export const AuthProvider = ({ children }) => {
             setIsLoggedIn(true);
         } catch (error) {
             console.error("Login failed:", error);
-            // Handle any login errors
         }
     };
 
     const logout = () => {
         localStorage.removeItem('userInfo');
-        sessionStorage.removeItem('userInfo'); // Clear session storage on logout
-        setUserInfo(null); // Clear user info in state
+        sessionStorage.removeItem('userInfo');
+        setUserInfo(null);
         setIsLoggedIn(false);
     };
 
