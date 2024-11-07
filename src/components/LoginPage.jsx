@@ -84,6 +84,7 @@ const LoginPage = ({ showAlert }) => {
           placeholder="Phone"
           value={loginData.phone}
           onChange={handleChange}
+          onKeyDown={h}
         />
         <div className="password-input">
           <input
