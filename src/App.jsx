@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from './authContext';
 import { StockProvider } from './stockContext';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 import LocationPage from './components/LocationPage';
 import FAQPage from './components/FAQPage';
 import ContactPage from './components/ContactPage';
@@ -109,9 +110,10 @@ const AppContent = () => {
             <Route path="/location" element={<LocationPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage showAlert={showAlert} />} />
+            <Route path="/register" element={<RegisterPage />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
-            <Route path="/register" element={<RegisterPage />} />
+            
 
             <Route path="/stock" element={<StockPage />} />
             <Route path="/promotion" element={<PromotionPage />} />

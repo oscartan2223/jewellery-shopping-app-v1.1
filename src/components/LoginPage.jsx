@@ -84,7 +84,7 @@ const LoginPage = ({ showAlert }) => {
           placeholder="Phone"
           value={loginData.phone}
           onChange={handleChange}
-          onKeyDown={h}
+          onKeyDown={(e) => {if(e.key === "Enter") {document.getElementById('login_password').focus();}}}
         />
         <div className="password-input">
           <input
@@ -94,6 +94,7 @@ const LoginPage = ({ showAlert }) => {
             placeholder="Password"
             value={loginData.password}
             onChange={handleChange}
+            onKeyDown={(e) => {if(e.key === "Enter") {handleLogin();}}}
           />
           <div className="password-view" onClick={() => { setViewPassword(!viewPassword) }}>
             {viewPassword ? <FaEye /> : <FaEyeSlash />}
