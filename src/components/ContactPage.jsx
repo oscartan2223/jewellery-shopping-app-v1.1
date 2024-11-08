@@ -1,5 +1,6 @@
-import React, { useState, useEffect} from "react";
-import '../assets/css/ContactPage.css'
+import React, { useState, useEffect, useRef } from "react";
+import '../assets/css/ContactPage.css';
+import { Rating, ThinStar } from '@smastrom/react-rating'
 
 const ContactPage = ({ showAlert }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -9,6 +10,7 @@ const ContactPage = ({ showAlert }) => {
         email: "",
         message: "",
     });
+    const [rating, setRating] = useState(2);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -78,56 +80,63 @@ const ContactPage = ({ showAlert }) => {
 
     return (
         <div className="site-container">
-        <div className="feedback_form p-4">
-            <h1 className="feedback_title text-center mb-5 font-custom-2">Contact Us</h1>
-            <div className="mb-4">
-                <label>Name*</label>
-                <input
-                    className="feedback_input form-control"
-                    type="text"
-                    id="feedback_name"
-                    value={feedbackData.name}
-                    onChange={handleChange}
-                />
+            <div className="feedback_form p-4">
+                <h1 className="feedback_title text-center mb-5 font-custom-2">Contact Us</h1>
+                <div className="mb-4">
+                    <label>Name*</label>
+                    <input
+                        className="feedback_input form-control"
+                        type="text"
+                        id="feedback_name"
+                        value={feedbackData.name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label>Phone*</label>
+                    <input
+                        className="feedback_input form-control"
+                        type="text"
+                        id="feedback_phone"
+                        value={feedbackData.phone}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label>Email*</label>
+                    <input
+                        className="feedback_input form-control"
+                        type="email"
+                        id="feedback_email"
+                        value={feedbackData.email}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4 row d-flex w-100">
+                    <label className="dynamic-label">Rating*</label>
+                    <Rating className="rating-class"
+                        value={rating}
+                        onChange={setRating}
+                    />
+                </div>
+                <div className="mb-5">
+                    <label>Message*</label>
+                    <textarea
+                        className="feedback_textarea form-control"
+                        id="feedback_message"
+                        rows="4"
+                        value={feedbackData.message}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button
+                    className="feedback_button btn-secondary w-100"
+                    type="button"
+                    onClick={submitFeedback}
+                    disabled={isSubmitted}>
+                    <strong>Send Message</strong>
+                </button>
             </div>
-            <div className="mb-4">
-                <label>Phone*</label>
-                <input
-                    className="feedback_input form-control"
-                    type="text"
-                    id="feedback_phone"
-                    value={feedbackData.phone}
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="mb-4">
-                <label>Email*</label>
-                <input
-                    className="feedback_input form-control"
-                    type="email"
-                    id="feedback_email"
-                    value={feedbackData.email}
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="mb-5">
-                <label>Message*</label>
-                <textarea
-                    className="feedback_textarea form-control"
-                    id="feedback_message"
-                    rows="4"
-                    value={feedbackData.message}
-                    onChange={handleChange}
-                />
-            </div>
-            <button
-                className="feedback_button btn-secondary w-100"
-                type="button"
-                onClick={submitFeedback}
-                disabled={isSubmitted}>
-                <strong>Send Message</strong>
-            </button>
-        </div>
         </div>
     );
 };

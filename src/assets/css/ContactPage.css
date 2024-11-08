@@ -41,11 +41,38 @@
     transform: translateY(1px);
 }
 
-.feedback_input:focus, .feedback_textarea:focus {
+.feedback_input:focus,
+.feedback_textarea:focus {
     border-color: #474747;
     box-shadow: 0 0 5px rgba(78, 78, 78, 0.5);
 }
 
 .form-control {
     background-color: transparent !important;
+}
+
+.rr--box {
+    min-width: 30px;
+    margin-right: 25px;
+}
+
+.rr--on {
+    fill: #ffb23f;
+    stroke: #e17b21;
+}
+
+.rr--off {
+    fill: rgba(255, 255, 255, 0);
+    stroke: #eda76a;
+}
+
+.rating-class {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    width: 80%;
+}
+
+.dynamic-label {
+    display: inline-block; /* Makes the label adjust its width based on the content */
 }

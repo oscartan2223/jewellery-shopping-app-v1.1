@@ -1,0 +1,72 @@
+.register_form {
+    width: 90%;
+    max-width: 300px;
+    padding-top: 56px;
+}
+
+.register-title {
+    font-size: 30px;
+    line-height: 22px;
+}
+
+.register-text {
+    font-size: 12px;
+    margin-bottom: 2.5rem !important;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input>input {
+    padding-right: 30px;
+}
+
+.password-view {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.register_button {
+    background-color: #000000;
+    border: none;
+    color: white;
+    margin-top: 1.5rem;
+    margin-bottom: 6.5rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.register_button:hover {
+    background-color: #414141;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.register_button:active {
+    transform: translateY(1px);
+}
+
+.back-login-arrow {
+    font-size: 23px;
+    cursor: pointer;
+}
+
+@media (min-width: 700px) {
+    .register_form {
+        max-width: 570px;
+    }
+
+    .back-login-arrow {
+        font-size: 26px;
+    }
+
+    .register-title {
+        line-height: 20px;
+    }
+}
