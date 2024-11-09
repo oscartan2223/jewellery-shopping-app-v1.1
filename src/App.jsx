@@ -13,6 +13,7 @@ import RegisterPage from './components/RegisterPage';
 import LocationPage from './components/LocationPage';
 import FAQPage from './components/FAQPage';
 import ContactPage from './components/ContactPage';
+import ForgotPasswordPage from './components/ForgotPasswordPage';
 
 const App = () => {
   return (
@@ -111,6 +112,7 @@ const AppContent = () => {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage showAlert={showAlert} />} />
             <Route path="/register" element={<RegisterPage showAlert={showAlert} />} />
+            <Route path="/forgot" element={<ForgotPasswordPage showAlert={showAlert} />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             
@@ -122,7 +124,6 @@ const AppContent = () => {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/password" element={<ResetPasswordPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/login" element={<LoginPage />} />
             
              */}
           </Routes>

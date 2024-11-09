@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../assets/css/ContactPage.css';
-import { Rating, ThinStar } from '@smastrom/react-rating'
+import { Rating } from '@smastrom/react-rating'
 
 const ContactPage = ({ showAlert }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -10,7 +10,7 @@ const ContactPage = ({ showAlert }) => {
         email: "",
         message: "",
     });
-    const [rating, setRating] = useState(2);
+    const [rating, setRating] = useState(0);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -27,6 +27,7 @@ const ContactPage = ({ showAlert }) => {
     useEffect(() => {
         if (isSubmitted) {
             setFeedbackData({ name: "", phone: "", email: "", message: "" });
+            setRating(0);
         }
     }, [isSubmitted, setFeedbackData]);
 
@@ -65,6 +66,10 @@ const ContactPage = ({ showAlert }) => {
                 showAlert('warning', "Phone cannot be empty!");
             }
 
+            // else if (rating === 0) {
+            //     showAlert('warning', "Rating cannot be empty!");
+            // }
+
             else if (feedbackData.message === '') {
                 showAlert('warning', "Message cannot be empty!");
             }
@@ -83,7 +88,7 @@ const ContactPage = ({ showAlert }) => {
             <div className="feedback_form p-4">
                 <h1 className="feedback_title text-center mb-5 font-custom-2">Contact Us</h1>
                 <div className="mb-4">
-                    <label>Name*</label>
+                    <label>Name<strong className="text-danger">*</strong></label>
                     <input
                         className="feedback_input form-control"
                         type="text"
@@ -93,7 +98,7 @@ const ContactPage = ({ showAlert }) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label>Phone*</label>
+                    <label>Phone<strong className="text-danger">*</strong></label>
                     <input
                         className="feedback_input form-control"
                         type="text"
@@ -103,7 +108,7 @@ const ContactPage = ({ showAlert }) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label>Email*</label>
+                    <label>Email<strong className="text-danger">*</strong></label>
                     <input
                         className="feedback_input form-control"
                         type="email"
@@ -113,14 +118,14 @@ const ContactPage = ({ showAlert }) => {
                     />
                 </div>
                 <div className="mb-4 row d-flex w-100">
-                    <label className="dynamic-label">Rating*</label>
+                    <label className="dynamic-label">Rating</label>
                     <Rating className="rating-class"
                         value={rating}
                         onChange={setRating}
                     />
                 </div>
                 <div className="mb-5">
-                    <label>Message*</label>
+                    <label>Message<strong className="text-danger">*</strong></label>
                     <textarea
                         className="feedback_textarea form-control"
                         id="feedback_message"
