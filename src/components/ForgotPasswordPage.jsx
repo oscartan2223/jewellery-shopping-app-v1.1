@@ -1,31 +1,31 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import '../assets/css/ForgotPasswordPage.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const ForgotPasswordPage = ({ showAlert }) => {
     const navigate = useNavigate();
     const [resetPhase, setResetPhase] = useState(1);
-    const [forgot_countdown, setForgotCountdown] = useState(120);
-    const [isCounting, setIsCounting] = useState(false);
-    const [otpLabel, setOtpLabel] = useState("Send OTP");
+    const [forgotEmail, setForgotEmail] = useState();
+    const [viewPassword, setViewPassword] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [isActive, setIsActive] = useState(false);
     const [forgotData, setForgotData] = useState({
-        name: "",
-        phone: "",
         email: "",
-        message: "",
+        otp: "",
+        password: "",
+        reenterpassword: "",
     });
 
-    const handleResendOTP = useCallback(() => {
-        if (!isCounting) {
-            setIsCounting(true);
-            setOtpLabel("Request OTP in 02:00");
-            setForgotCountdown(120);
-        }
-    }, [isCounting]);
+    const handleRequest = () => {
+        setTimeLeft(120);
+        setIsActive(true);
+    };
 
     const handleForgot = useCallback(() => {
         switch (resetPhase) {
             case 1:
-                const emailValue = document.getElementById('f_email').value;
+                const emailValue = document.getElementById('forgot_email').value;
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                 if (!emailValue) {
@@ -34,11 +34,11 @@ const ForgotPasswordPage = ({ showAlert }) => {
                     showAlert('warning', 'Please enter a valid email address!');
                 } else {
                     setResetPhase(2);
-                    handleResendOTP();
+                    handleRequest();
                 }
                 break;
             case 2:
-                const otpValue = document.getElementById('submit1');
+                const otpValue = document.getElementById('forgot_otp');
 
                 if (!otpValue.value) {
                     showAlert('warning', 'OTP cannot be empty!');
@@ -55,8 +55,8 @@ const ForgotPasswordPage = ({ showAlert }) => {
                 }
                 break;
             case 3:
-                const passwordValue = document.getElementById('f_password').value;
-                const confirmPasswordValue = document.getElementById('fr_password').value;
+                const passwordValue = document.getElementById('forgot_password').value;
+                const confirmPasswordValue = document.getElementById('forgot_reenterpassword').value;
 
                 if (!passwordValue) {
                     showAlert('warning', "Password cannot be empty!");
@@ -86,7 +86,7 @@ const ForgotPasswordPage = ({ showAlert }) => {
             default:
                 break;
         }
-    }, [resetPhase, handleResendOTP]);
+    }, [resetPhase, handleRequest]);
 
     const handleCheckOtp = () => {
         // Code here to compare OTP right or wrong
@@ -95,63 +95,122 @@ const ForgotPasswordPage = ({ showAlert }) => {
 
     const handleChange = (e) => {
         const { id, value } = e.target;
+
+        if (id === "forgot_otp" && !/^\d*$/.test(value)) {
+            showAlert('warning', 'OTP Code must contain only numbers!');
+            return;
+        }
+
+        if (id === "forgot_otp" && value.length > 6) {
+            showAlert('warning', 'OTP code must contain 6 digits only.')
+            return;
+        }
+
         setForgotData((prevData) => ({
             ...prevData,
             [id.replace("forgot_", "")]: value,
         }));
     };
 
+    useEffect(() => {
+        let interval;
+
+        if (isActive && timeLeft > 0) {
+            interval = setInterval(() => {
+                setTimeLeft((prevTime) => prevTime - 1);
+            }, 1000);
+        } else if (timeLeft === 0) {
+            clearInterval(interval);
+            setIsActive(false);
+        }
+
+        return () => clearInterval(interval);
+    }, [isActive, timeLeft]);
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    };
+
     return (
-        <div>
-            {resetPhase === 1 &&
-                <div>
-                    <h1>Enter Your Email</h1>
-                    <p>Please enter your email at below. You will be receive an email for 6-digit verfication code.</p>
-                    <input
-                        className="feedback_input form-control"
-                        type="text"
-                        id="forgot_email"
-                        value={forgotData.email}
-                        onChange={handleChange}
-                    />
-                    <button>Proceed</button>
-                </div>
-            }
-            {resetPhase === 2 &&
-                <div>
-                    <h1>Enter OTP Code</h1>
-                    <p>Please enter the 6-digits verfication code from your email at below.</p>
-                    <input
-                        className="feedback_input form-control"
-                        type="text"
-                        id="forgot_otp"
-                        value={forgotData.otp}
-                        onChange={handleChange}
-                    />
-                    <label>Request OTP</label>
-                    <button>Verify</button>
-                </div>
-            }
-            {resetPhase === 3 &&
-                <div>
-                    <h1>Reset Password</h1>
-                    <p>Please type the new password at below to reset your account's password.</p>
-                    <input
-                        className="feedback_input form-control"
-                        type="text"
-                        id="forgot_password"
-                        value={forgotData.password}
-                        onChange={handleChange}
-                    />
-                    <input
-                        className="feedback_input form-control"
-                        type="text"
-                        id="forgot_reenterpassword"
-                        value={forgotData.reenterpassword}
-                        onChange={handleChange}
-                    />
-                </div>
-            }
+        <div className="w-100 all-center">
+            <div className="forgot-form">
+                {resetPhase === 1 &&
+                    <div className="all-center flex-column">
+                        <h1 className="forgot-title w-100 text-center mb-4 font-custom">Enter Your Email</h1>
+                        <p className="mb-4">Please enter your email at below. You will be receive an email for 6-digit verfication code.</p>
+                        <input
+                            className="feedback_input form-control mb-4"
+                            type="text"
+                            id="forgot_email"
+                            placeholder="Email"
+                            value={forgotData.email}
+                            onChange={handleChange}
+                        />
+                        <button
+                            className="forgot_button btn-secondary w-100"
+                            type="button"
+                            onClick={handleForgot}>
+                            <strong>Proceed</strong>
+                        </button>
+                    </div>
+                }
+                {resetPhase === 2 &&
+                    <div className="all-center flex-column">
+                        <h1 className="forgot-title w-100 text-center mb-4 font-custom">Enter OTP Code</h1>
+                        <p className="mb-4">Please enter the 6-digits verfication code from your email at below.</p>
+                        <input
+                            className="feedback_input form-control mb-5"
+                            type="text"
+                            id="forgot_otp"
+                            value={forgotData.otp}
+                            placeholder="6-digits OTP code"
+                            onChange={handleChange}
+                        />
+                        <button className="mb-1 text-decoration-underline" onClick={handleRequest} disabled={isActive}>{isActive ? `Request in ${formatTime(timeLeft)}` : 'Request'}</button>
+                        <button
+                            className="forgot_button btn-secondary w-100"
+                            type="button"
+                            onClick={handleForgot}>
+                            <strong>Verify</strong>
+                        </button>
+                    </div>
+                }
+                {resetPhase === 3 &&
+                    <div className="all-center flex-column">
+                        <h1 className="forgot-title w-100 text-center mb-4 font-custom">Reset Password</h1>
+                        <p className="mb-4">Please type the new password at below to reset your account's password.</p>
+                        <input
+                            className="feedback_input form-control mb-3"
+                            type="password"
+                            id="forgot_password"
+                            placeholder="Enter new password"
+                            value={forgotData.password}
+                            onChange={handleChange}
+                        />
+                        <div className="password-input">
+                            <input
+                                className="feedback_input form-control  mb-4"
+                                type={viewPassword ? 'text' : 'password'}
+                                id="forgot_reenterpassword"
+                                placeholder="Re-enter new password"
+                                value={forgotData.reenterpassword}
+                                onChange={handleChange}
+                            />
+                            <div className="password-view" onClick={() => { setViewPassword(!viewPassword) }}>
+                                {viewPassword ? <FaEye /> : <FaEyeSlash />}
+                            </div>
+                        </div>
+                        <button
+                            className="forgot_button btn-secondary w-100"
+                            type="button"
+                            onClick={handleForgot}>
+                            <strong>Reset</strong>
+                        </button>
+                    </div>
+                }
+            </div>
         </div>
     );
 };

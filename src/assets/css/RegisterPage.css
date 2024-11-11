@@ -57,6 +57,30 @@
     cursor: pointer;
 }
 
+.register-otp-container {
+    position: relative;
+}
+
+.register-request-button {
+    position: absolute;
+    top: 8px;
+    bottom: calc(1rem + 8px);
+    right: 10px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+}
+
+.register-request-button:hover {
+    background-color: rgb(83, 83, 83);
+}
+
 @media (min-width: 700px) {
     .register_form {
         max-width: 570px;

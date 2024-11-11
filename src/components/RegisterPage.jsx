@@ -10,6 +10,8 @@ const RegisterPage = ({ showAlert }) => {
     const navigate = useNavigate();
     const { isLoggedIn, register } = useAuth();
     const [viewPassword, setViewPassword] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [isActive, setIsActive] = useState(false);
     const [registerData, setRegisterData] = useState({
         email: "",
         name: "",
@@ -27,11 +29,23 @@ const RegisterPage = ({ showAlert }) => {
 
     const handleChange = (e) => {
         const { id, value } = e.target;
+
+        if (id === "register_otp" && !/^\d*$/.test(value)) {
+            showAlert('warning', 'OTP Code must contain only numbers!');
+            return;
+        }
+
+        if (id === "register_otp" && value.length > 6) {
+            showAlert('warning', 'OTP code must contain 6 digits only.')
+            return;
+        }
+        
         setRegisterData((prevData) => ({
             ...prevData,
             [id.replace("register_", "")]: value,
         }));
     };
+    
 
     const handleRegister = () => {
         const registerEmail = document.getElementById('register_email').value;
@@ -112,6 +126,32 @@ const RegisterPage = ({ showAlert }) => {
         return true;
     };
 
+    useEffect(() => {
+        let interval;
+
+        if (isActive && timeLeft > 0) {
+            interval = setInterval(() => {
+                setTimeLeft((prevTime) => prevTime - 1);
+            }, 1000);
+        } else if (timeLeft === 0) {
+            clearInterval(interval);
+            setIsActive(false);
+        }
+
+        return () => clearInterval(interval);
+    }, [isActive, timeLeft]);
+
+    const handleRequest = () => {
+        setTimeLeft(120);
+        setIsActive(true);
+    };
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    };
+
     return (
         <div className="w-100 all-center">
             <div className="register_form d-flex flex-column">
@@ -173,15 +213,20 @@ const RegisterPage = ({ showAlert }) => {
                         {viewPassword ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>
-                <input
-                    className="feedback_input form-control mb-3"
-                    type="text"
-                    id="register_otp"
-                    placeholder="Email OTP Code"
-                    value={registerData.otp}
-                    onChange={handleChange}
-                    onKeyDown={(e) => { if (e.key === "Enter") { handleRegister(); } }}
-                />
+                <div className="register-otp-container">
+                    <input
+                        className="feedback_input form-control mb-3"
+                        type="text"
+                        id="register_otp"
+                        placeholder="Email OTP Code"
+                        value={registerData.otp}
+                        onChange={handleChange}
+                        onKeyDown={(e) => { if (e.key === "Enter") { handleRegister(); } }}
+                    />
+                    <button className="register-request-button" onClick={handleRequest} disabled={isActive}>
+                        {isActive ? `${formatTime(timeLeft)}` : 'Request'}
+                    </button>
+                </div>
                 <button
                     className="register_button btn-secondary w-100"
                     type="button"
