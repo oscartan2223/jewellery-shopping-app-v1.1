@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import '../assets/css/ForgotPasswordPage.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
+import Tooltip from '@mui/material/Tooltip';
 
 const ForgotPasswordPage = ({ showAlert }) => {
     const navigate = useNavigate();
@@ -138,7 +140,12 @@ const ForgotPasswordPage = ({ showAlert }) => {
             <div className="forgot-form">
                 {resetPhase === 1 &&
                     <div className="all-center flex-column">
-                        <h1 className="forgot-title w-100 text-center mb-4 font-custom">Enter Your Email</h1>
+                        <h1 className="w-100 forgot-title text-center font-custom mb-5 position-relative">
+                            Enter Your Email
+                            <Tooltip title="Back to Login" arrow placement="top">
+                                <FaArrowLeft className="back-login-arrow position-absolute top-0 bottom-0 start-0" onClick={() => { navigate('/login'); }} />
+                            </Tooltip>
+                        </h1>
                         <p className="mb-4">Please enter your email at below. You will be receive an email for 6-digit verfication code.</p>
                         <input
                             className="feedback_input form-control mb-4"
@@ -158,7 +165,12 @@ const ForgotPasswordPage = ({ showAlert }) => {
                 }
                 {resetPhase === 2 &&
                     <div className="all-center flex-column">
-                        <h1 className="forgot-title w-100 text-center mb-4 font-custom">Enter OTP Code</h1>
+                        <h1 className="w-100 forgot-title text-center font-custom mb-4 position-relative">
+                            Enter OTP Code
+                            <Tooltip title="Back" arrow placement="top">
+                                <FaArrowLeft className="back-login-arrow position-absolute top-0 bottom-0 start-0" onClick={() => { setResetPhase(resetPhase - 1) }} />
+                            </Tooltip>
+                        </h1>
                         <p className="mb-4">Please enter the 6-digits verfication code from your email at below.</p>
                         <input
                             className="feedback_input form-control mb-5"
@@ -179,7 +191,12 @@ const ForgotPasswordPage = ({ showAlert }) => {
                 }
                 {resetPhase === 3 &&
                     <div className="all-center flex-column">
-                        <h1 className="forgot-title w-100 text-center mb-4 font-custom">Reset Password</h1>
+                        <h1 className="w-100 forgot-title text-center font-custom mb-4 position-relative">
+                            Reset Password
+                            <Tooltip title="Back" arrow placement="top">
+                                <FaArrowLeft className="back-login-arrow position-absolute top-0 bottom-0 start-0" onClick={() => { setResetPhase(resetPhase - 2) }} />
+                            </Tooltip>
+                        </h1>
                         <p className="mb-4">Please type the new password at below to reset your account's password.</p>
                         <input
                             className="feedback_input form-control mb-3"

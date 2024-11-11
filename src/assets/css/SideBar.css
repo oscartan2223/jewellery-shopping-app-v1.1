@@ -77,6 +77,12 @@
     justify-content: center;
 }
 
+@media (min-height: 0px) and (max-height:450px) {
+    .sidebar-search-list {
+        max-height: 95vh !important;
+    }
+}
+
 @keyframes SlideIn {
     0% {
         transform: translateY(-100%);

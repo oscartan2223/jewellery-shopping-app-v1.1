@@ -126,9 +126,17 @@ const HomePage = ({ showAlert }) => {
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
           </div>
           <div className="carousel-inner">
             <div className="carousel-item active">
+              <img
+                src="https://www.pohkong.com.my/cdn/shop/files/11.11_Exclusive__DesktopBanner_5760x2190_852ba0c2-92d7-4ad9-8e16-05e3165a2565.jpg?v=1731056930&width=1950"
+                className="d-block w-100"
+                alt="Advertisement"
+              />
+            </div>
+            <div className="carousel-item">
               <img
                 src="https://www.pohkong.com.my/cdn/shop/files/Untitled_design_72.png?v=1730103122&width=1080"
                 className="d-block w-100"
