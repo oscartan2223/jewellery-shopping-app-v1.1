@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './carousel/carousel.css';
 import './carousel/carousel.rtl.css';
 import '../assets/css/HomePage.css';
@@ -11,7 +10,6 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 
 const HomePage = ({ showAlert }) => {
-  const navigate = useNavigate();
   const { stocks } = useStock();
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
@@ -36,13 +34,9 @@ const HomePage = ({ showAlert }) => {
     setShopCategories(shopCategoryItem);
 
     setBrowseCategoriesItem(stocks.current);
-  }, []);
+  }, [stocks]);
 
-  const handleNavigate = () => {
-    navigate('/login');
-  };
-
-  const setSelectedItem = (position, category_id) => {
+  const setSelectedItem = useCallback((position, category_id) => {
     const selected_data = stocks.current
       .map(category => category.items.find(item => item.id === category_id))
       .filter(item => item !== undefined);
@@ -53,7 +47,7 @@ const HomePage = ({ showAlert }) => {
         return newList;
       });
     }
-  };
+  }, [stocks, setSelectedBrowseCategoriesItem]);
 
   const handleTab = (index, id) => {
     const tabs = document.querySelectorAll(`.browseCategoriesTab[data-index="${index}"]`);
@@ -103,8 +97,7 @@ const HomePage = ({ showAlert }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (stocks.current) {
-        stocks.current.map((categories, index) => {
-          console.log("here");
+        stocks.current.forEach((categories, index) => {
           handleTab(index, categories.items[0].id);
           setSelectedItem(index, categories.items[0].id);
         });
@@ -112,7 +105,7 @@ const HomePage = ({ showAlert }) => {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [stocks.current]);
+  }, [stocks, setSelectedItem]);
 
 
   return (

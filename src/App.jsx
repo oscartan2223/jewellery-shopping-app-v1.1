@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, useSearchParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css'
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -104,7 +104,7 @@ const AppContent = () => {
         </div>
       }
       <main className="hide-scroll-container" style={shouldRenderHeaderSidebarFooter ? containerStyle : {}}>
-        <div className="hide-scroll-container content-height" style={shouldRenderHeaderSidebarFooter ? contentStyle : {}}>
+        <div className="hide-scroll-container content-container" style={shouldRenderHeaderSidebarFooter ? contentStyle : {}}>
           <Routes>
             <Route path="/" element={<HomePage showAlert={showAlert} />} />
             <Route path="/login" element={<LoginPage showAlert={showAlert} />} />

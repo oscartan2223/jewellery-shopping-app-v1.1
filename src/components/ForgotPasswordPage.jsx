@@ -19,10 +19,10 @@ const ForgotPasswordPage = ({ showAlert }) => {
         reenterpassword: "",
     });
 
-    const handleRequest = () => {
+    const handleRequest = useCallback(() => {
         setTimeLeft(120);
         setIsActive(true);
-    };
+    },[]);
 
     const handleForgot = useCallback(() => {
         switch (resetPhase) {
@@ -88,7 +88,7 @@ const ForgotPasswordPage = ({ showAlert }) => {
             default:
                 break;
         }
-    }, [resetPhase, handleRequest]);
+    }, [resetPhase, handleRequest, navigate, showAlert]);
 
     const handleCheckOtp = () => {
         // Code here to compare OTP right or wrong

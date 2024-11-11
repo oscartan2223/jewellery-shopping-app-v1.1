@@ -4,12 +4,13 @@
     z-index: 1000000000000;
 }
 
-.content-height {
+.content-container {
     min-height: calc(100vh - 640px - 56px);
+    background-color: rgb(253, 249, 242);
 }
 
 @media (min-width: 700px) {
-    .content-height {
+    .content-container {
         min-height: calc(100vh - 465px - 56px);
     }
 }
