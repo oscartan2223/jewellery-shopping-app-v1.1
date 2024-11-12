@@ -7,9 +7,11 @@ import { useStock } from '../stockContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 
 const HomePage = ({ showAlert }) => {
+  const navigate = useNavigate();
   const { stocks } = useStock();
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
@@ -181,7 +183,7 @@ const HomePage = ({ showAlert }) => {
         </div>
         <div className="shopCategoriesItem row hide-scroll-container">
           {shopCategories.map(category => (
-            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column">
+            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => {navigate('/item', {state: { categoryId: category.id, otherData: 'Some data' }} )}}>
               <div className="ratio ratio-1x1 w-100">
                 <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
               </div>
