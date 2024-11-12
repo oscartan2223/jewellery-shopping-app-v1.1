@@ -191,7 +191,7 @@ const HomePage = ({ showAlert }) => {
         </div>
       </section>
 
-      {browseCategoriesItem !== '' && selectedBrowseCategoriesItem !== '' &&
+      {browseCategoriesItem !== undefined && selectedBrowseCategoriesItem !== '' &&
         browseCategoriesItem.map((categories, index) =>
           <section className={`browseCategories overflow-hidden ${index % 2 === 0 ? "" : "second"}`} key={index}>
             <div className="shopCatagoriesTitle col-md-12 all-center mb-4">

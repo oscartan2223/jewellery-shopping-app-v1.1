@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
                     `}</style>
                     <div className="z-first position-fixed top-0 end-0 bottom-0 start-0 bg-dark opacity-75 all-center flex-column">
                         <div className="spinner-border text-primary" role="status" />
-                        <span className="mt-2 text-white display-dot">Authenticating...</span>
+                        <span className="mt-2 text-white display-dot">Authenticating</span>
                     </div>
                     {children}
                 </>

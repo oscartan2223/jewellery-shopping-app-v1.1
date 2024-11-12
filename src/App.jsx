@@ -14,6 +14,7 @@ import LocationPage from './components/LocationPage';
 import FAQPage from './components/FAQPage';
 import ContactPage from './components/ContactPage';
 import ForgotPasswordPage from './components/ForgotPasswordPage';
+import ProfilePage from './components/ProfilePage';
 
 const App = () => {
   return (
@@ -113,6 +114,7 @@ const AppContent = () => {
             <Route path="/contact" element={<ContactPage showAlert={showAlert} />} />
             <Route path="/register" element={<RegisterPage showAlert={showAlert} />} />
             <Route path="/forgot" element={<ForgotPasswordPage showAlert={showAlert} />} />
+            <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             

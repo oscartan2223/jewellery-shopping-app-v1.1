@@ -1,0 +1,51 @@
+.profile-form {
+    width: 90%;
+    max-width: 300px;
+    padding-top: 56px;
+}
+
+.disabled-input {
+    color: #aaa;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+}
+
+.profile-update-button {
+    background-color: rgb(10, 181, 10);
+    border: none;
+    color: white;
+    margin-bottom: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.profile-update-button:hover {
+    background-color: rgb(74, 211, 74);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.profile-back-button {
+    background-color: rgb(10, 44, 181);
+    border: none;
+    color: white;
+    margin-bottom: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.profile-back-button:hover {
+    background-color: rgb(57, 89, 218);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+@media (min-width: 700px) {
+    .profile-form {
+        max-width: 570px;
+    }
+}
