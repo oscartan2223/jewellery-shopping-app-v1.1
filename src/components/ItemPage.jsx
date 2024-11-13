@@ -30,7 +30,7 @@ const ItemPage = ({ }) => {
             <div className="item-boxes-container">
                 <div className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3">
                     <div className="item-box-image">
-                        
+                        <iframe src="http://192.168.42.183:3000/home"/>
                     </div>
                     <h5 className="font-custom">999.9/24K BUNGA RAYA GOLD BAR(100G)</h5>
                     <p className="font-custom">Price: RM1000 ~ RM2000</p>
