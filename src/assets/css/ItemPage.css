@@ -1,7 +1,160 @@
 .item-container {
     display: flex;
     justify-content: center;
-    padding: 20px;
     flex-direction: column;
 }
 
+.item-filter {
+    position: sticky;
+    top: 100px;
+}
+
+.item-filter-button {
+    height: 20px;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.item-filter-icon {
+    height: 100%;
+    font-size: 16px;
+}
+
+.item-filter-button>label {
+    height: 100%;
+    margin-left: 5px;
+    line-height: 18px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.item-filter-button>label:hover {
+    color: rgb(80, 80, 80);
+}
+
+.item-box-container {
+    cursor: pointer;
+}
+
+.item-image {
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.item-heading {
+    font-weight: bold;
+}
+
+@media (min-width: 1400px) {
+    .item-filter {
+        padding-left: 20px;
+    }
+
+    .item-container {
+        padding: 40px;
+    }
+
+    .item-image {
+        aspect-ratio: 1.2;
+    }
+
+    .item-box-container {
+        padding: 20px;
+    }
+
+    .item-heading {
+        font-size: 20px;
+    }
+
+    .item-content {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width:1399px) {
+    .item-filter {
+        padding-left: 18px;
+    }
+
+    .item-container {
+        padding: 35px;
+    }
+
+    .item-box-container {
+        padding: 18px;
+    }
+
+    .item-heading {
+        font-size: 17px;
+    }
+
+    .item-content {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 950px) and (max-width:1199px) {
+    .item-filter {
+        padding-left: 15px;
+    }
+
+    .item-container {
+        padding: 30px;
+    }
+
+    .item-box-container {
+        padding: 15px;
+    }
+
+    .item-heading {
+        font-size: 15px;
+    }
+
+    .item-content {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 650px) and (max-width:949px) {
+    .item-filter {
+        padding-left: 13px;
+    }
+
+    .item-container {
+        padding: 25px;
+    }
+
+    .item-box-container {
+        padding: 13px;
+    }
+
+    .item-heading {
+        font-size: 14px;
+    }
+
+    .item-content {
+        font-size: 11px;
+    }
+}
+
+@media (max-width:649px) {
+    .item-filter {
+        padding-left: 8px;
+    }
+
+    .item-container {
+        padding: 20px;
+    }
+
+    .item-box-container {
+        padding: 8px;
+    }
+
+    .item-heading {
+        font-size: 12px;
+    }
+
+    .item-content {
+        font-size: 9px;
+    }
+}

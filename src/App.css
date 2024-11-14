@@ -38,6 +38,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 html {
     min-height: 100vh;
     scrollbar-width: none;
+    position: relative;
 }
 
 body {

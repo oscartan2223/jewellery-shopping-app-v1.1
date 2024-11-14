@@ -90,7 +90,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="footer-icon">
-                    <img src="https://kedaiemasion.my/assets/png-ion.png" alt="logo" width="200px" height="60px" />
+                    <img src="https://kedaiemasion.my/assets/png-ion.png" alt="logo" width="200px" height="60px" onClick={() => {window.scrollTo({top: 0});}} />
                 </div>
 
                 <label className="company-no fw-bold">Copyright ©️ 2008-2024 & Kedai Emas Ion (586139-K) </label>
