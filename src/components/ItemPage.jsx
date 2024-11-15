@@ -14,17 +14,20 @@ const ItemPage = () => {
     useEffect(() => {
         if (data) {
             console.log(data);  // Log the data if it's passed via navigate
-            data.categoryId
         } else {
             console.log('No data passed.');
         }
     }, [data])
 
     useEffect(() => {
-        if (stocks) {
-            setStockList(stockList);
+        if (stocks.current) {
+            const items = stocks.current.flatMap(eachGroup => 
+                eachGroup.items.map(eachItem => eachItem)
+            );
+            setCurrentItemList(items);
         }
-    }, []);
+    }, [stocks]);
+    
 
     return (
         <div className="item-container">
