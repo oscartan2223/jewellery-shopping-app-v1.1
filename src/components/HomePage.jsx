@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const HomePage = ({ showAlert }) => {
   const navigate = useNavigate();
   const { stocks } = useStock();
+  const [adsText, setAdsText] = useState('CNY Special Promotion! Free gift when purchase RM 10 000 onwards. T&C apply')
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
   const [selectedBrowseCategoriesItem, setSelectedBrowseCategoriesItem] = useState([]);
@@ -27,11 +28,11 @@ const HomePage = ({ showAlert }) => {
     });
 
     const shopCategoryItem = [
-      { id: "A1", heading: "Pendants & Charms", imageUrl: "https://www.pohkong.com.my/cdn/shop/collections/Image.webp?v=1720618689&width=360" },
-      { id: "A2", heading: "Rings", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Image_9_9245a167-96c6-4700-ab90-3299825fa98b.png?v=1717572859&width=360" },
-      { id: "A3", heading: "Bars, Notes & Coins", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Gold_Bar_5g.png?v=1721187049&width=360" },
-      { id: "A4", heading: "Earrings", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Screenshot_2023-12-11_at_5.14_1_5.png?v=1717572905&width=360" },
-      { id: "A5", heading: "Bangles", imageUrl: "https://www.pohkong.com.my/cdn/shop/collections/Image_3.webp?v=1720618819&width=360" },
+      { id: 1, heading: "Pendants & Charms", imageUrl: "https://www.pohkong.com.my/cdn/shop/collections/Image.webp?v=1720618689&width=360" },
+      { id: 2, heading: "Rings", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Image_9_9245a167-96c6-4700-ab90-3299825fa98b.png?v=1717572859&width=360" },
+      { id: 3, heading: "Bars, Notes & Coins", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Gold_Bar_5g.png?v=1721187049&width=360" },
+      { id: 4, heading: "Earrings", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Screenshot_2023-12-11_at_5.14_1_5.png?v=1717572905&width=360" },
+      { id: 5, heading: "Bangles", imageUrl: "https://www.pohkong.com.my/cdn/shop/collections/Image_3.webp?v=1720618819&width=360" },
     ];
     setShopCategories(shopCategoryItem);
 
@@ -177,13 +178,19 @@ const HomePage = ({ showAlert }) => {
         </div>
       </div>
 
+      <div className='animation-ads-container'>
+        <div className="animation-container">
+          <div className="ads-content fomt-custom-2">{adsText}</div>
+        </div>
+      </div>
+
       <section className="shopCategories overflow-hidden">
         <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
           <h1 className="mb-0 font-custom">Shop by Category</h1>
         </div>
         <div className="shopCategoriesItem row hide-scroll-container">
           {shopCategories.map(category => (
-            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => {navigate('/item', {state: { categoryId: category.id, otherData: 'Some data' }} )}}>
+            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { navigate('/item', { state: { categoryId: category.id, otherData: 'Some data' } }) }}>
               <div className="ratio ratio-1x1 w-100">
                 <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
               </div>

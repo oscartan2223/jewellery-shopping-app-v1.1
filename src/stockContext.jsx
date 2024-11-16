@@ -201,7 +201,7 @@ export const StockProvider = ({ children }) => {
                         {
                           id: "A2",
                           heading: "MODERN WARFARE 5G GOLD BAR",
-                          type: "gold",
+                          type: "silver",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali2401cmyk.png?v=1729153204&width=180",
                           price: 200,
                           stock: [

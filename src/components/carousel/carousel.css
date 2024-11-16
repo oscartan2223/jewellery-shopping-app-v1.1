@@ -17,7 +17,7 @@ p{
 }
 
 .carousel {
-  margin-bottom: 4rem;
+  margin-bottom: 0 !important;
 }
 
 .carousel-caption {

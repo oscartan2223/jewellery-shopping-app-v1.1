@@ -11,6 +11,9 @@ const ItemPage = () => {
     const [stockList, setStockList] = useState();
     const [currentItemList, setCurrentItemList] = useState([]);
     const [filterBox, setFilterBox] = useState(false);
+    const [searchList, setSearchList] = useState();
+    const [filterSearchList, setFilterSearchList] = useState();
+    const [typeList, setTypeList] = useState();
 
     useEffect(() => {
         if (filterBox) {
@@ -20,24 +23,45 @@ const ItemPage = () => {
         }
     }, [filterBox]);
 
+    // useEffect(() => {
+    //     if (stocks.current) {
+    //         const items = stocks.current.flatMap(eachGroup =>
+    //             eachGroup.items.map(eachItem => eachItem)
+    //         );
+    //         setCurrentItemList(items);
+    //     }
+    // }, [stocks]);
 
     useEffect(() => {
-        if (data) {
-            console.log(data);  // Log the data if it's passed via navigate
-        } else {
-            console.log('No data passed.');
-        }
-    }, [data])
+        if (data && data.categoryId && stocks.current) {
+            console.log(data);
+            const stock_list = stocks.current.forEach(eachCategoryItem => {
+                const stock_item = eachCategoryItem.items.forEach(eachItemStock => {
+                    if (eachItemStock.id === data.categoryId) {
+                        const search_list = eachItemStock.item.map(item => ({
+                            heading: item.heading,
+                            type: item.type,
+                        }));
+                        setSearchList(search_list);
+                        setFilterSearchList(search_list);
 
-    useEffect(() => {
-        if (stocks.current) {
-            const items = stocks.current.flatMap(eachGroup =>
-                eachGroup.items.map(eachItem => eachItem)
-            );
-            setCurrentItemList(items);
+                        const type_list = [...new Set(eachItemStock.item.map(item => item.type))];
+                        console.log(type_list);
+                        setTypeList(["All", ...type_list]);
+                    }
+                });
+            });
         }
-    }, [stocks]);
+    }, []);
 
+    const capitalizeFirstLetter = (str) => {
+        if (!str || str.length === 0) return str;
+        const firstChar = str.charAt(0);
+        if (/[a-zA-Z]/.test(firstChar)) {
+            return firstChar.toUpperCase() + str.slice(1);
+        }
+        return str;
+    };
 
     return (
         <div className="item-container">
@@ -49,36 +73,48 @@ const ItemPage = () => {
                         <label>Show Filters</label>
                     </span>
                     <div className={`item-filter-box ${filterBox ? 'item-filter-box-show' : 'item-filter-box-hide'}`}>
-                        <div className="item-filter-title font-custom fw-bold mb-4">
-                            FILTERS
-                            <button className="item-filter-close-btn" onClick={() => { setFilterBox(!filterBox) }}>
-                                <FaTimes />
-                            </button>
+                        <div className="item-filter-content-box">
+                            <div className="item-filter-title font-custom fw-bold mb-4">
+                                FILTERS
+                                <button className="item-filter-close-btn" onClick={() => { setFilterBox(!filterBox) }}>
+                                    <FaTimes />
+                                </button>
+                            </div>
+                            <div className="item-filter-content-container">
+                                <div className="mb-3">
+                                    <button className="w-100 font-custom-2 fw-bold text-start p-0">
+                                        Types
+                                    </button>
+                                    <div className={`d-flex flex-column`}>
+                                        {typeList && typeList.length > 0 ? (
+                                            typeList.map((type, index) => (
+                                                <span className="w-100 font-custom-2" key={index}>
+                                                    <input className="" type="checkbox" />
+                                                    {capitalizeFirstLetter(type)}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="w-100 font-custom-2">No type available</span>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button className="w-100 font-custom-2 fw-bold text-start p-0">
+                                        Advanced
+                                    </button>
+                                    <div className={`d-flex flex-column`}>
+                                        <span className="w-100 font-custom-2"><input className="" type="checkbox" />With box only</span>
+                                        <span className="w-100 font-custom-2"><input className="" type="checkbox" />Certificate only</span>
+                                    </div>
+                                </div>
+                                <div className="mt-5">
+
+                                    Price, Measurement and Weight.....
+                                </div>
+
+                            </div>
                         </div>
-                        <div className="overflow-auto">
-                            <div className="mb-3">
-                                <button className="w-100 font-custom-2 fw-bold text-start p-0">
-                                    Types
-                                </button>
-                                <div className={`d-flex flex-column`}>
-                                    <span className="w-100 font-custom-2">All</span>
-                                    <span className="w-100 font-custom-2">Gold</span>
-                                    <span className="w-100 font-custom-2">Silver</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <button className="w-100 font-custom-2 fw-bold text-start p-0">
-                                    Advanced
-                                </button>
-                                <div className={`d-flex flex-column`}>
-                                    <span className="w-100 font-custom-2">With box only</span>
-                                    <span className="w-100 font-custom-2">Certificate only</span>
-                                </div>
-                            </div>
-
-                                Price, Measurement and Weight.....
-                            </div>
                     </div>
                     <div className={`item-filter-box-overlay ${filterBox ? 'item-filter-box-overlay-show' : ''}`} onClick={() => { setFilterBox(!filterBox) }}>
                     </div>
