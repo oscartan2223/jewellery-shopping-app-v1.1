@@ -5,8 +5,7 @@
 }
 
 .item-filter {
-    position: sticky;
-    top: 100px;
+    margin-bottom: 20px;
 }
 
 .item-filter-button {
@@ -18,6 +17,74 @@
 .item-filter-icon {
     height: 100%;
     font-size: 16px;
+}
+
+.item-filter-box {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 320px;
+    background-color: rgb(255, 255, 255);
+    z-index: 9000002;
+    transform: translateX(-100%);
+    padding: 15px;
+}
+
+.item-filter-title {
+    width: 100%;
+    font-size: 15px;
+    position: relative;
+}
+
+.item-filter-close-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.item-filter-box-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9000001;
+    transform: translateX(200%);
+}
+
+.item-filter-box-show {
+    animation: SlideFilterIn 1s 1 forwards;
+}
+
+@keyframes SlideFilterIn {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.item-filter-box-hide {
+    animation: SlideFilterOut 0.3s 1 forwards;
+}
+
+@keyframes SlideFilterOut {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.item-filter-box-overlay-show {
+    transform: translateX(0);
 }
 
 .item-filter-button>label {
@@ -46,6 +113,10 @@
 }
 
 @media (min-width: 1400px) {
+    .item-filter-box {
+        width: 25%;
+    }
+
     .item-filter {
         padding-left: 20px;
     }
@@ -72,6 +143,11 @@
 }
 
 @media (min-width: 1200px) and (max-width:1399px) {
+    .item-filter-box {
+        width: 35%;
+        max-width: 500px;
+    }
+
     .item-filter {
         padding-left: 18px;
     }
@@ -94,6 +170,11 @@
 }
 
 @media (min-width: 950px) and (max-width:1199px) {
+    .item-filter-box {
+        width: 45%;
+        max-width: 450px;
+    }
+
     .item-filter {
         padding-left: 15px;
     }
@@ -116,6 +197,11 @@
 }
 
 @media (min-width: 650px) and (max-width:949px) {
+    .item-filter-box {
+        width: 60%;
+        max-width: 400px;
+    }
+
     .item-filter {
         padding-left: 13px;
     }
@@ -138,6 +224,11 @@
 }
 
 @media (max-width:649px) {
+    .item-filter-box {
+        width: 100%;
+        max-width: 320px;
+    }
+
     .item-filter {
         padding-left: 8px;
     }
