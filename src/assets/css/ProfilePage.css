@@ -11,7 +11,7 @@
 }
 
 .profile-update-button {
-    background-color: rgb(10, 181, 10);
+    background-color: #000000;
     border: none;
     color: white;
     margin-bottom: 1.5rem;
@@ -22,15 +22,15 @@
 }
 
 .profile-update-button:hover {
-    background-color: rgb(74, 211, 74);
+    background-color: #414141;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
 .profile-back-button {
-    background-color: rgb(10, 44, 181);
+    background-color: #ffffff;
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-bottom: 1.5rem;
     padding: 10px 15px;
     border-radius: 5px;
@@ -39,7 +39,8 @@
 }
 
 .profile-back-button:hover {
-    background-color: rgb(57, 89, 218);
+    background-color: #5e5e5e;
+    color: rgb(201, 201, 201);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }

@@ -10,7 +10,7 @@
 
 .header-content {
     position: relative;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     display: flex;
     width: 100%;
@@ -26,18 +26,106 @@
     margin-right: 5px;
 }
 
+.header-dropdown-btn {
+    display: flex;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+}
+
+.header-dropdown-btn>button>.header-icon-size,
+.header-dropdown-btn>button>.header-cart-num {
+    font-size: 13px;
+}
+
+.header-dropdown-btn>button>.header-cart-num {
+    line-height: 20px;
+}
+
 .header-sidebar-btn {
     position: absolute;
-    left: 10px;
+    right: 10px;
 }
 
 .header-search-btn {
     position: absolute;
-    left: 52px;
+    right: 94px;
+}
+
+.header-search-btn-portrait {
+    position: absolute;
+    right: 52px !important;
 }
 
 .header-icon {
     z-index: 9000001;
+    padding-left: 10px;
+}
+
+.header-menu-list {
+    width: calc(100% - 42px - 198px - 20px);
+    height: 100%;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header-menu-dropdown {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 56px;
+    z-index: 8999999;
+    background-color: rgb(255, 242, 219);
+    padding-top: 8px;
+    animation: SlideDown 1s 1 forwards;
+}
+
+@keyframes SlideDown {
+    0% {
+        opacity: 0
+    }
+    
+    100% {
+        opacity: 1;
+    }
+}
+
+.header-menu-dropdown>span {
+    font-size: 12px;
+}
+
+.header-menu-content {
+    display: inline-flex;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgb(31, 31, 31);
+    cursor: pointer;
+}
+
+.header-menu-content-spacing {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.header-menu-content:hover {
+    color: rgb(95, 95, 95);
+}
+
+.header-menu-icon-list {
+    height: 100%;
+    display: flex;
+    padding-left: 5px;
+    padding-bottom: 10px;
 }
 
 .header-user-btn {
@@ -58,6 +146,11 @@
 .header-btn>button {
     color: rgb(0, 0, 0);
     display: flex;
+}
+
+.header-btn>button:hover,
+.header-dropdown-btn>button:hover{
+    color: rgb(95, 95, 95);
 }
 
 .header-icon-size {

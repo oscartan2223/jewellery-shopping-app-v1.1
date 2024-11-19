@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../assets/css/ContactPage.css';
-import { Rating } from '@smastrom/react-rating'
+import { Rating } from '@smastrom/react-rating';
 
 const ContactPage = ({ showAlert }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);

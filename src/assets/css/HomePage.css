@@ -1,4 +1,13 @@
 
+.carousel-nav-btn {
+  width: auto !important;
+}
+
+.carousel-nav-btn>.carousel-nav-icon {
+  width: 4rem !important;
+  height: 4rem !important;
+}
+
 .animation-container {
   position: relative;
   width: 100%;
@@ -17,6 +26,7 @@
   bottom: 0;
   text-wrap: nowrap;
   animation: walkAcross 30s linear infinite;
+  user-select: none;
 }
 
 @keyframes walkAcross {
@@ -43,6 +53,26 @@
 
 .shopCategories {
   padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+.shopCategoriesBoxes {
+  margin-bottom: 20px;
+}
+
+.rr--hf-svg-on {
+  fill: #ffb23f;
+  stroke: #e17b21;
+}
+
+.rr--hf-svg-off {
+  fill: rgba(255, 255, 255, 0);
+  stroke: #eda76a;
+}
+
+defs>linearGradient {
+  fill: #ffb23f;
+  stroke: #e17b21;
 }
 
 @media (min-width: 100px) and (max-width: 699px) {

@@ -8,17 +8,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { Rating } from '@smastrom/react-rating';
 
 
 const HomePage = ({ showAlert }) => {
   const navigate = useNavigate();
   const { stocks } = useStock();
-  const [adsText, setAdsText] = useState('CNY Special Promotion! Free gift when purchase RM 10 000 onwards. T&C apply')
+  const [adsText, setAdsText] = useState('CNY Special Promotion! Up to 10% off when purchase RM 10 000 onwards. T&C apply')
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
   const [selectedBrowseCategoriesItem, setSelectedBrowseCategoriesItem] = useState([]);
   const [buttonVisibility, setButtonVisibility] = useState([]);
   const listRefs = useRef([]);
+  const [rating, setRating] = useState(3.7);
+  const [adsData, setAdsData] = useState([
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: { target: 'item', data: '' } },
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(11).png", details: { target: 'contact' } },
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(10).png", details: { target: 'faq' } },
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(13).png", details: { link: 'https://wa.me/60195481017' } },
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(8).png", details: { target: 'location' } },
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(4).png", details: null },
+    { imgUrl: "https://www.pohkong.com.my/cdn/shop/files/Effective_1st_August_2024_we_require_your_personal_data_for_e-invoice_compliance_as_mandated_by_the_government._Please_provide_necessary_information_when_requested._1.png?v=1722579957&width=1080", details: null },
+  ]);
 
   useEffect(() => {
     const carouselElement = document.getElementById('myCarousel');
@@ -110,71 +121,43 @@ const HomePage = ({ showAlert }) => {
     return () => clearTimeout(timer);
   }, [stocks, setSelectedItem]);
 
+  const handleOpenTarget = (select_target) => {
+    if (!select_target) return;
+    if (select_target.link) {
+      window.location.href = select_target.link;
+      return;
+    }
+    setTimeout(() => {
+      select_target.data ? navigate(select_target.target, { state: { data: select_target.data } }) 
+        : navigate(select_target.target);
+    }, 200)
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="hide-scroll-container">
       <div className="content-site">
         <div id="myCarousel" className="carousel slide mb-6" data-bs-ride="carousel">
-          <div className="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
-          </div>
           <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/11.11_Exclusive__DesktopBanner_5760x2190_852ba0c2-92d7-4ad9-8e16-05e3165a2565.jpg?v=1731056930&width=1950"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/Untitled_design_72.png?v=1730103122&width=1080"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/DEEPAVALI_WEB_DESKTOP_BANNER_5760x2190_1639a333-4869-4906-9bb1-59a09f74c755.jpg?v=1729154197&width=1080"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/Tranz_x_KLFW_2024_Web_Banner_Desktop.jpg?v=1722325614&width=1080"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/5760x2190-100_R1.jpg?v=1721099746&width=1080"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/Dinar_Gold_Bar_5760_x_2190_R1_1.jpg?v=1721202014&width=1080"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="https://www.pohkong.com.my/cdn/shop/files/Effective_1st_August_2024_we_require_your_personal_data_for_e-invoice_compliance_as_mandated_by_the_government._Please_provide_necessary_information_when_requested._1.png?v=1722579957&width=1080"
-                className="d-block w-100"
-                alt="Advertisement"
-              />
-            </div>
+            {adsData.map((ad, index) => (
+              <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+                <img
+                  src={ad.imgUrl}
+                  className="d-block w-100"
+                  alt={`Advertisement ${index + 1}`}
+                  onClick={() => { handleOpenTarget(ad.details) }}
+                />
+              </div>
+            ))}
           </div>
+          <button class="carousel-control-prev carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon carousel-nav-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Left</span>
+          </button>
+          <button class="carousel-control-next carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon carousel-nav-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Right</span>
+          </button>
         </div>
       </div>
 
@@ -184,21 +167,7 @@ const HomePage = ({ showAlert }) => {
         </div>
       </div>
 
-      <section className="shopCategories overflow-hidden">
-        <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
-          <h1 className="mb-0 font-custom">Shop by Category</h1>
-        </div>
-        <div className="shopCategoriesItem row hide-scroll-container">
-          {shopCategories.map(category => (
-            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { navigate('/item', { state: { categoryId: category.id, otherData: 'Some data' } }) }}>
-              <div className="ratio ratio-1x1 w-100">
-                <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
-              </div>
-              <p className="all-center underline fw-bold cursor-pointer user-select-none font-custom">{category.heading}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+
 
       {browseCategoriesItem !== undefined && selectedBrowseCategoriesItem !== '' &&
         browseCategoriesItem.map((categories, index) =>
@@ -256,6 +225,31 @@ const HomePage = ({ showAlert }) => {
           </section>
         )
       }
+
+      <section className="shopCategories overflow-hidden">
+        <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
+          <h1 className="mb-0 font-custom">Shop by Category</h1>
+        </div>
+        <div className="shopCategoriesItem row hide-scroll-container">
+          {shopCategories.map(category => (
+            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { navigate('/item', { state: { categoryId: category.id, otherData: 'Some data' } }) }}>
+              <div className="ratio ratio-1x1 w-100">
+                <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
+              </div>
+              <p className="all-center underline fw-bold cursor-pointer user-select-none font-custom">{category.heading}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <Rating className="rating-class"
+          style={{ height: 30 }}
+          readOnly
+          orientation="vertical"
+          value={rating}
+        />
+      </section>
     </div>
   );
 };

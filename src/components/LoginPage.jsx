@@ -75,8 +75,8 @@ const LoginPage = ({ showAlert }) => {
   return (
     <div className="w-100 all-center">
       <div className="login_form d-flex flex-column">
-        <h1 className="login-title text-center font-custom mb-4">Login</h1>
-        <p className="login-text text-center font-custom">Don't have an account? <a href="/register">Sign Up here.</a></p>
+        <h1 className="login-title text-center font-custom mb-4">Customer Login</h1>
+        <p className="login-text text-center font-custom">Don't have an account? <a href="/register">Register</a></p>
         <input
           className="feedback_input form-control mb-3"
           type="text"
