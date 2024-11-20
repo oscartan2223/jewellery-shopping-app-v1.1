@@ -196,6 +196,22 @@ defs>linearGradient {
   font-size: 13px;
 }
 
+defs + g {
+  fill: none;
+}
+
+.rating-class.read {
+  margin-left: 6px;
+  width: auto;
+  padding: 0;
+}
+
+.rating-class.read>.rr--box {
+  margin-right: 6px;
+  min-width: 20px;
+  cursor: default;
+}
+
 .browseCategoriesBoxesContainer {
   position: relative;
   width: 100vw;
@@ -278,4 +294,121 @@ defs>linearGradient {
   opacity: 1;
   transition: opacity 0.3s ease, visibility 0s linear 0s;
   cursor: default;
+}
+
+.home-rate {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.home-rate-container {
+  display: flex;
+  height: 150px;
+  min-width: 320px;
+  width: 70%;
+  max-width: 700px;
+}
+
+.home-rate-rating {
+  width: 136px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-rate-ave {
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  font-size: 55px;
+  cursor: default;
+  user-select: none;
+}
+
+.home-rate-num {
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  font-size: 10px;
+  cursor: default;
+  user-select: none;
+}
+
+.home-rate-sum {
+  display: flex;
+  width: calc(100% - 136px);
+  flex-direction: column;
+  height: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.home-rate-sum > * {
+  flex: 1;
+}
+
+.home-rate-sum-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.home-rate-star-label {
+  display: inline-flex;
+  height: 20px;
+  width: 15px;
+  margin-right: 5px;
+  line-height: 18px;
+  font-size: 10px;
+  user-select: none;
+  cursor: default;
+}
+
+.home-rate-outer-bar {
+  height: 20px;
+  background-color: #ffebb2;
+  width: calc(100% - 20px);
+  border: 2px solid #FF7700;
+  position: relative;
+}
+
+.home-rate-inner-bar {
+  z-index: 1;
+  background-color: #FFA600;
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 60px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -30px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  user-select: none;
+}
+
+.home-rate-inner-bar:hover .tooltip,
+.home-rate-inner-bar:focus .tooltip {
+  visibility: visible;
+  opacity: 1;
 }

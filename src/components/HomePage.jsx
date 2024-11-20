@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { Rating } from '@smastrom/react-rating';
+import { Rating, Star } from '@smastrom/react-rating';
 
 
 const HomePage = ({ showAlert }) => {
@@ -20,7 +20,15 @@ const HomePage = ({ showAlert }) => {
   const [selectedBrowseCategoriesItem, setSelectedBrowseCategoriesItem] = useState([]);
   const [buttonVisibility, setButtonVisibility] = useState([]);
   const listRefs = useRef([]);
-  const [rating, setRating] = useState(3.7);
+  const [rating, setRating] = useState({
+    star: 4.67,
+    number: 1445,
+    one: 200,
+    two: 40,
+    three: 18,
+    four: 130,
+    five: 1291
+  });
   const [adsData, setAdsData] = useState([
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: { target: 'item', data: '' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(11).png", details: { target: 'contact' } },
@@ -128,11 +136,30 @@ const HomePage = ({ showAlert }) => {
       return;
     }
     setTimeout(() => {
-      select_target.data ? navigate(select_target.target, { state: { data: select_target.data } }) 
+      select_target.data ? navigate(select_target.target, { state: { data: select_target.data } })
         : navigate(select_target.target);
     }, 200)
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    const svgElements = document.querySelectorAll('.rr--box svg > defs + g');
+    svgElements.forEach((group) => {
+      group.style.position = 'relative';
+      const halfFillGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      halfFillGroup.style.position = 'absolute';
+      halfFillGroup.style.top = 0;
+      halfFillGroup.style.left = 0;
+      halfFillGroup.style.zIndex = 1;
+
+      const halfPolygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      halfPolygon.setAttribute('points', '25 9.02 16.4 7.75 12.46 0 8.59 7.79 0 9.14 6.21 15.23 4.85 23.81 12.55 19.79 20.3 23.74 18.85 15.17 25 9.02');
+      halfPolygon.setAttribute('fill', 'orange');
+      halfPolygon.style.clipPath = 'inset(0 50% 0 0)';
+      halfFillGroup.appendChild(halfPolygon);
+      group.appendChild(halfFillGroup);
+    });
+  }, []);
 
   return (
     <div className="hide-scroll-container">
@@ -150,13 +177,13 @@ const HomePage = ({ showAlert }) => {
               </div>
             ))}
           </div>
-          <button class="carousel-control-prev carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon carousel-nav-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Left</span>
+          <button className="carousel-control-prev carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon carousel-nav-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Left</span>
           </button>
-          <button class="carousel-control-next carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon carousel-nav-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Right</span>
+          <button className="carousel-control-next carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span className="carousel-control-next-icon carousel-nav-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Right</span>
           </button>
         </div>
       </div>
@@ -242,14 +269,73 @@ const HomePage = ({ showAlert }) => {
         </div>
       </section>
 
-      <section>
-        <Rating className="rating-class"
-          style={{ height: 30 }}
-          readOnly
-          orientation="vertical"
-          value={rating}
-        />
-      </section>
+      {rating && rating.star &&
+        <section className="home-rate">
+          <div className="home-rate-container">
+
+            <div className="home-rate-rating">
+              <h1 className="home-rate-ave">{rating.star}</h1>
+              <p className="home-rate-num">{`(${rating.number} reviews)`}</p>
+              <Rating className="rating-class read"
+                style={{ height: 30 }}
+                readOnly
+                orientation="vertical"
+                value={rating.star}
+              />
+            </div>
+
+            <div className="home-rate-sum">
+
+              <div className="home-rate-sum-container">
+                <label className="home-rate-star-label">1</label>
+                <span className="home-rate-outer-bar">
+                  <span className="home-rate-inner-bar" style={{ width: `${(rating.one / rating.number) * 100}%` }} title={`${rating.one}`}>
+                    <span className="tooltip">{rating.one}</span>
+                  </span>
+                </span>
+              </div>
+
+              <div className="home-rate-sum-container">
+                <label className="home-rate-star-label">2</label>
+                <span className="home-rate-outer-bar">
+                  <span className="home-rate-inner-bar" style={{ width: `${(rating.two / rating.number) * 100}%` }} title={`${rating.two}`}>
+                    <span className="tooltip">{rating.two}</span>
+                  </span>
+                </span>
+              </div>
+
+              <div className="home-rate-sum-container">
+                <label className="home-rate-star-label">3</label>
+                <span className="home-rate-outer-bar">
+                  <span className="home-rate-inner-bar" style={{ width: `${(rating.three / rating.number) * 100}%` }} title={`${rating.three}`}>
+                    <span className="tooltip">{rating.three}</span>
+                  </span>
+                </span>
+              </div>
+
+              <div className="home-rate-sum-container">
+                <label className="home-rate-star-label">4</label>
+                <span className="home-rate-outer-bar">
+                  <span className="home-rate-inner-bar" style={{ width: `${(rating.four / rating.number) * 100}%` }} title={`${rating.four}`}>
+                    <span className="tooltip">{rating.four}</span>
+                  </span>
+                </span>
+              </div>
+
+              <div className="home-rate-sum-container">
+                <label className="home-rate-star-label">5</label>
+                <span className="home-rate-outer-bar">
+                  <span className="home-rate-inner-bar" style={{ width: `${(rating.five / rating.number) * 100}%` }} title={`${rating.five}`}>
+                    <span className="tooltip">{rating.five}</span>
+                  </span>
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      }
     </div>
   );
 };

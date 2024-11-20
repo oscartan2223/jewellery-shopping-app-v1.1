@@ -2,7 +2,7 @@
     background-color: #ffcf77;
     padding: 30px;
     padding-bottom: 10px;
-    min-height: 640px;
+    min-height: 600px;
     position: relative;
 }
 
@@ -43,8 +43,6 @@
 .footer-block.icons {
     justify-content: flex-start !important;
     height: 40px;
-    margin-top: 40px;
-    margin-bottom: 20px;
 }
 
 .block-icon {
@@ -63,12 +61,12 @@
 }
 
 .company-no {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 @media (min-width: 700px) {
     .footer-container {
-        min-height: 465px;
+        min-height: 300px;
     }
 
     .footer-menu-list {
@@ -76,7 +74,7 @@
     }
 
     .footer-menu {
-        width: 50%;
+        width: 33.33%;
     }
 }
 

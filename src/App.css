@@ -9,13 +9,13 @@
 }
 
 .content-container {
-    min-height: calc(100vh - 640px - 56px);
+    min-height: calc(100vh - 600px - 56px);
     background-color: rgb(253, 249, 242);
 }
 
 @media (min-width: 700px) {
     .content-container {
-        min-height: calc(100vh - 465px - 56px);
+        min-height: calc(100vh - 300px - 56px);
     }
 }
 
