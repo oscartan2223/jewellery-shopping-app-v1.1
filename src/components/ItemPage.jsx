@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useStock } from '../stockContext';
 import { FaFilter, FaTimes } from 'react-icons/fa';
 import '../assets/css/ItemPage.css';
+import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
 
 const ItemPage = () => {
     const location = useLocation();
@@ -14,6 +15,22 @@ const ItemPage = () => {
     const [searchList, setSearchList] = useState();
     const [filterSearchList, setFilterSearchList] = useState();
     const [typeList, setTypeList] = useState();
+    const [initLoad, setInitLoad] = useState(true);
+    const [checkedStates, setCheckedStates] = useState([]);
+
+    const [minItemPrice, setMinItemPrice] = useState(0);
+    const [maxItemPrice, setMaxItemPrice] = useState(99999);
+    const [minItemMeasurement, setMinItemMeasurement] = useState(0);
+    const [maxItemMeasurement, setMaxItemMeasurement] = useState(99999);
+    const [minItemWeight, setMinItemWeight] = useState(0);
+    const [maxItemWeight, setMaxItemWeight] = useState(99999);
+
+    const [currentMinItemPrice, setCurrentMinItemPrice] = useState(0);
+    const [currentMaxItemPrice, setCurrentMaxItemPrice] = useState(99999);
+    const [currentMinItemMeasurement, setCurrentMinItemMeasurement] = useState(0);
+    const [currentMaxItemMeasurement, setCurrentMaxItemMeasurement] = useState(99999);
+    const [currentMinItemWeight, setCurrentMinItemWeight] = useState(0);
+    const [currentMaxItemWeight, setCurrentMaxItemWeight] = useState(99999);
 
     useEffect(() => {
         if (filterBox) {
@@ -31,6 +48,71 @@ const ItemPage = () => {
     //         setCurrentItemList(items);
     //     }
     // }, [stocks]);
+    const handleCheckboxChange = (index) => {
+        const updatedCheckedStates = [...checkedStates];
+        updatedCheckedStates[index] = !updatedCheckedStates[index];
+        setCheckedStates(updatedCheckedStates);
+    };
+
+    const GetMinMax = (type, data) => {
+        if (data.length === 0) {
+            return type === "price" ? "No prices available" :
+                type === "weight" ? "No weights available" :
+                    type === "measurement" ? "No measurements available" :
+                        type === "width" ? "No widths available" :
+                            "Invalid type";
+        }
+
+        const initialValues = { min: Infinity, max: -Infinity };
+
+        const { min, max } = data.reduce((acc, stock) => {
+            const value = type === "price" ? stock.actual_price :
+                type === "weight" ? stock.weight :
+                    type === "measurement" ? stock.measurement :
+                        type === "width" ? stock.size :
+                            null;
+
+            if (value !== null) {
+                if (value < acc.min) {
+                    acc.min = value;
+                }
+                if (value > acc.max) {
+                    acc.max = value;
+                }
+            }
+
+            return acc;
+        }, initialValues);
+
+        if (min === Infinity) {
+            return type === "price" ? "No prices available in this filter range." :
+                type === "weight" ? "No weights available in this filter range." :
+                    type === "measurement" ? "No measurements available in this filter range." :
+                        type === "width" ? "No widths available in this filter range." :
+                            null;
+        }
+
+        return type === "price" ? `RM${min}.00 ~ RM${max}.00` :
+            type === "weight" ? `Weight: ${min}g ~ ${max}g` :
+                type === "measurement" ? `Measurement: ${min} ~ ${max}` :
+                    type === "width" ? `Width: ${min} ~ ${max}` :
+                        null;
+    };
+
+    const updateItemMeasurement = (min, max) => {
+        setMinItemMeasurement(min);
+        setMaxItemMeasurement(max);
+    };
+
+    const updateItemPrice = (min, max) => {
+        setMinItemPrice(min);
+        setMaxItemPrice(max);
+    };
+
+    const updateItemWeight = (min, max) => {
+        setMinItemWeight(min);
+        setMaxItemWeight(max);
+    };
 
     useEffect(() => {
         if (data && data.categoryId && stocks.current) {
@@ -65,14 +147,15 @@ const ItemPage = () => {
 
     return (
         <div className="item-container">
-            <h1 className="w-100 mb-4 text-center font-custom">Category Name</h1>
+            <h1 className="w-100 mb-5 text-center font-custom">Category Name</h1>
             <div className="item-filter-container">
                 <div className="item-filter">
-                    <span className="item-filter-button" onClick={() => { setFilterBox(!filterBox) }}>
+                    <span className="item-filter-button" onClick={() => { setFilterBox(!filterBox); setInitLoad(false); }}>
                         <FaFilter className="item-filter-icon" />
                         <label>Show Filters</label>
                     </span>
-                    <div className={`item-filter-box ${filterBox ? 'item-filter-box-show' : 'item-filter-box-hide'}`}>
+                    <div className={`item-filter-box ${filterBox ? 'item-filter-box-show' : !initLoad ? 'item-filter-box-hide' : 'item-filter-box-hidden'}`}>
+                        <button className="item-filter-btn" onClick={() => {setFilterBox(!filterBox)}}>Apply</button>
                         <div className="item-filter-content-box">
                             <div className="item-filter-title font-custom fw-bold mb-4">
                                 FILTERS
@@ -80,7 +163,7 @@ const ItemPage = () => {
                                     <FaTimes />
                                 </button>
                             </div>
-                            <div className="item-filter-content-container">
+                            <div className="item-filter-content-container hide-scroll-container">
                                 <div className="mb-3">
                                     <button className="w-100 font-custom-2 fw-bold text-start p-0">
                                         Types
@@ -88,8 +171,9 @@ const ItemPage = () => {
                                     <div className={`d-flex flex-column`}>
                                         {typeList && typeList.length > 0 ? (
                                             typeList.map((type, index) => (
-                                                <span className="w-100 font-custom-2" key={index}>
-                                                    <input className="" type="checkbox" />
+                                                <span className="item-filter-text w-100 font-custom-2" key={index}>
+                                                    <input className="item-filter-checkbox" type="checkbox" 
+                                                     checked={checkedStates[index]} onChange={() => handleCheckboxChange(index)}/>
                                                     {capitalizeFirstLetter(type)}
                                                 </span>
                                             ))
@@ -104,13 +188,47 @@ const ItemPage = () => {
                                         Advanced
                                     </button>
                                     <div className={`d-flex flex-column`}>
-                                        <span className="w-100 font-custom-2"><input className="" type="checkbox" />With box only</span>
-                                        <span className="w-100 font-custom-2"><input className="" type="checkbox" />Certificate only</span>
+                                        <span className="item-filter-text w-100 font-custom-2">
+                                            <input className="item-filter-checkbox" type="checkbox" />
+                                            With box only
+                                        </span>
+                                        <span className="item-filter-text w-100 font-custom-2">
+                                            <input className="item-filter-checkbox" type="checkbox" />
+                                            Certificate only
+                                        </span>
                                     </div>
                                 </div>
-                                <div className="mt-5">
-
-                                    Price, Measurement and Weight.....
+                                <div className="mt-5 d-flex flex-column w-100">
+                                    <div className="item-slider-container">
+                                        <label className="item-adjust-label font-custom-2">Price</label>
+                                        <MultiRangeSlider
+                                            min={0}
+                                            max={99999}
+                                            initialMinValue={currentMinItemPrice}
+                                            initialMaxValue={currentMaxItemPrice}
+                                            onChange={({ min, max }) => updateItemPrice(min, max)}
+                                        />
+                                    </div>
+                                    <div className="item-slider-container">
+                                        <label className="item-adjust-label font-custom-2">Measurement</label>
+                                        <MultiRangeSlider
+                                            min={0}
+                                            max={99999}
+                                            initialMinValue={currentMinItemMeasurement}
+                                            initialMaxValue={currentMaxItemMeasurement}
+                                            onChange={({ min, max }) => updateItemMeasurement(min, max)}
+                                        />
+                                    </div>
+                                    <div className="item-slider-container">
+                                        <label className="item-adjust-label font-custom-2">Weight</label>
+                                        <MultiRangeSlider
+                                            min={0}
+                                            max={99999}
+                                            initialMinValue={currentMinItemWeight}
+                                            initialMaxValue={currentMaxItemWeight}
+                                            onChange={({ min, max }) => updateItemWeight(min, max)}
+                                        />
+                                    </div>
                                 </div>
 
                             </div>

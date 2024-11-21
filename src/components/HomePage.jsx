@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { Rating, Star } from '@smastrom/react-rating';
+import { Rating } from '@smastrom/react-rating';
 
 
 const HomePage = ({ showAlert }) => {
@@ -18,8 +18,6 @@ const HomePage = ({ showAlert }) => {
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
   const [selectedBrowseCategoriesItem, setSelectedBrowseCategoriesItem] = useState([]);
-  const [buttonVisibility, setButtonVisibility] = useState([]);
-  const listRefs = useRef([]);
   const [rating, setRating] = useState({
     star: 4.67,
     number: 1445,
@@ -29,6 +27,13 @@ const HomePage = ({ showAlert }) => {
     four: 130,
     five: 1291
   });
+  const ratingLevels = [
+    { label: 1, count: rating.one },
+    { label: 2, count: rating.two },
+    { label: 3, count: rating.three },
+    { label: 4, count: rating.four },
+    { label: 5, count: rating.five }
+  ];
   const [adsData, setAdsData] = useState([
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: { target: 'item', data: '' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(11).png", details: { target: 'contact' } },
@@ -46,16 +51,19 @@ const HomePage = ({ showAlert }) => {
       ride: 'carousel'
     });
 
-    const shopCategoryItem = [
-      { id: 1, heading: "Pendants & Charms", imageUrl: "https://www.pohkong.com.my/cdn/shop/collections/Image.webp?v=1720618689&width=360" },
-      { id: 2, heading: "Rings", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Image_9_9245a167-96c6-4700-ab90-3299825fa98b.png?v=1717572859&width=360" },
-      { id: 3, heading: "Bars, Notes & Coins", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Gold_Bar_5g.png?v=1721187049&width=360" },
-      { id: 4, heading: "Earrings", imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Screenshot_2023-12-11_at_5.14_1_5.png?v=1717572905&width=360" },
-      { id: 5, heading: "Bangles", imageUrl: "https://www.pohkong.com.my/cdn/shop/collections/Image_3.webp?v=1720618819&width=360" },
-    ];
-    setShopCategories(shopCategoryItem);
+    if (stocks.current) {
+      const shopCategoriesItem = stocks.current.flatMap(eachCategory =>
+        eachCategory.items.map(eachItem => ({
+          id: eachItem.id,
+          heading: eachItem.heading,
+          imageUrl: eachItem.imageUrl
+        }))
+      );
 
-    setBrowseCategoriesItem(stocks.current);
+      setShopCategories(shopCategoriesItem);
+
+      setBrowseCategoriesItem(stocks.current);
+    }
   }, [stocks]);
 
   const setSelectedItem = useCallback((position, category_id) => {
@@ -97,24 +105,6 @@ const HomePage = ({ showAlert }) => {
       listElement.scrollBy({ left: 100, behavior: 'smooth' });
     }
   };
-
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(() => {
-      const visibility = browseCategoriesItem.map((_, index) => {
-        const listElement = listRefs.current[index];
-        return listElement && listElement.scrollWidth > listElement.clientWidth;
-      });
-      setButtonVisibility(visibility);
-    });
-    listRefs.current.forEach((ref) => {
-      if (ref) {
-        resizeObserver.observe(ref);
-      }
-    });
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [browseCategoriesItem]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -161,6 +151,13 @@ const HomePage = ({ showAlert }) => {
     });
   }, []);
 
+  const naviItem = (data) => {
+    setTimeout(() => {
+      navigate('/item', { state: data });
+    }, 200)
+    window.scrollTo(0, 0);
+  }
+
   return (
     <div className="hide-scroll-container">
       <div className="content-site">
@@ -203,7 +200,7 @@ const HomePage = ({ showAlert }) => {
               <h1 className="mb-0 font-custom">{categories.category}</h1>
             </div>
             <div className="browseCategoriesListContainer mb-5">
-              <ul className="browseCategoriesList hide-scroll-container"
+              {/* <ul className="browseCategoriesList hide-scroll-container"
                 data-id={`browseCategoriesList-${index}`} ref={el => listRefs.current[index] = el}>
                 {categories.items.map(item =>
                   <li className="browseCategoriesTab" key={item.id} data-index={index}
@@ -222,21 +219,20 @@ const HomePage = ({ showAlert }) => {
                     <FontAwesomeIcon icon={faCaretRight} style={{ cursor: 'pointer' }} />
                   </button>
                 </>
-              )}
+              )} */}
             </div>
 
             <div className="browseCategoriesBoxesContainer">
               <div className="browseCategoriesBoxes row flex-nowrap overflow-auto hide-scroll-container" data-id={`item-box-${index}`}>
-                {selectedBrowseCategoriesItem[index] && selectedBrowseCategoriesItem[index].item &&
-                  selectedBrowseCategoriesItem[index].item.map(eachItem => (
-                    <div className="browseCategoriesBox col-sm-6 col-md-4 col-lg-3 col-xl-2 flex-column d-flex" key={eachItem.id} onClick={() => { console.log("success") }}>
-                      <div className="ratio ratio-1x1">
-                        <img src={eachItem.imageUrl} alt={eachItem.heading} className="img-fluid" />
-                      </div>
-                      <p className="text-center font-custom pl-4 pr-4">{eachItem.heading}</p>
-                      <p className="text-center font-custom fw-bold pl-4 pr-4">{`RM ${eachItem.price} per grams`}</p>
+                {categories.items.map(item => (
+                  <div className="browseCategoriesBox col-sm-6 col-md-4 col-lg-3 col-xl-2 flex-column d-flex" key={item.id} onClick={() => { naviItem({ categoryId: item.id, otherData: 'Some data' })}}>
+                    <div className="ratio ratio-1x1">
+                      <img src={item.imageUrl} alt={item.heading} className="img-fluid" />
                     </div>
-                  ))}
+                    <p className="text-center font-custom pl-4 pr-4">{item.heading}</p>
+
+                  </div>
+                ))}
                 <div className="boxScrollButtonContainer">
                   <div className="boxScrollButton">
                     <button className="browseBoxLeft" onClick={() => scrollLeft(`item-box-${index}`)}>
@@ -255,11 +251,11 @@ const HomePage = ({ showAlert }) => {
 
       <section className="shopCategories overflow-hidden">
         <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
-          <h1 className="mb-0 font-custom">Shop by Category</h1>
+          <h1 className="mb-4 font-custom">Shop by Category</h1>
         </div>
         <div className="shopCategoriesItem row hide-scroll-container">
           {shopCategories.map(category => (
-            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { navigate('/item', { state: { categoryId: category.id, otherData: 'Some data' } }) }}>
+            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { naviItem({ categoryId: category.id, otherData: 'Some data' }) }}>
               <div className="ratio ratio-1x1 w-100">
                 <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
               </div>
@@ -285,52 +281,20 @@ const HomePage = ({ showAlert }) => {
             </div>
 
             <div className="home-rate-sum">
-
-              <div className="home-rate-sum-container">
-                <label className="home-rate-star-label">1</label>
-                <span className="home-rate-outer-bar">
-                  <span className="home-rate-inner-bar" style={{ width: `${(rating.one / rating.number) * 100}%` }} title={`${rating.one}`}>
-                    <span className="tooltip">{rating.one}</span>
+              {ratingLevels.map((level) => (
+                <div key={level.label} className="home-rate-sum-container">
+                  <label className="home-rate-star-label">{level.label}</label>
+                  <span className="home-rate-outer-bar">
+                    <span
+                      className="home-rate-inner-bar"
+                      style={{ width: `${(level.count / rating.number) * 100}%` }}
+                      title={`${level.count}`}
+                    >
+                      <span className="tooltip">{level.count}</span>
+                    </span>
                   </span>
-                </span>
-              </div>
-
-              <div className="home-rate-sum-container">
-                <label className="home-rate-star-label">2</label>
-                <span className="home-rate-outer-bar">
-                  <span className="home-rate-inner-bar" style={{ width: `${(rating.two / rating.number) * 100}%` }} title={`${rating.two}`}>
-                    <span className="tooltip">{rating.two}</span>
-                  </span>
-                </span>
-              </div>
-
-              <div className="home-rate-sum-container">
-                <label className="home-rate-star-label">3</label>
-                <span className="home-rate-outer-bar">
-                  <span className="home-rate-inner-bar" style={{ width: `${(rating.three / rating.number) * 100}%` }} title={`${rating.three}`}>
-                    <span className="tooltip">{rating.three}</span>
-                  </span>
-                </span>
-              </div>
-
-              <div className="home-rate-sum-container">
-                <label className="home-rate-star-label">4</label>
-                <span className="home-rate-outer-bar">
-                  <span className="home-rate-inner-bar" style={{ width: `${(rating.four / rating.number) * 100}%` }} title={`${rating.four}`}>
-                    <span className="tooltip">{rating.four}</span>
-                  </span>
-                </span>
-              </div>
-
-              <div className="home-rate-sum-container">
-                <label className="home-rate-star-label">5</label>
-                <span className="home-rate-outer-bar">
-                  <span className="home-rate-inner-bar" style={{ width: `${(rating.five / rating.number) * 100}%` }} title={`${rating.five}`}>
-                    <span className="tooltip">{rating.five}</span>
-                  </span>
-                </span>
-              </div>
-
+                </div>
+              ))}
             </div>
 
           </div>

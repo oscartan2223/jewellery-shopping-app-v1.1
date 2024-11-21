@@ -34,7 +34,7 @@ export const StockProvider = ({ children }) => {
                     {
                       id: 1,
                       heading: "Gold Beans",
-                      imageUrl: "https://admin.kedaiemasion.my/assets/public/img/product_brand_icon/self_icon/thumb/RANTAI%20TANGAN%20EMAS.jpg?1730511340",
+                      imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy1.png?v=1729152828&width=180",
             
                       item: [
                         {
@@ -260,7 +260,7 @@ export const StockProvider = ({ children }) => {
                     {
                       id: 2,
                       heading: "Gold Bracelets",
-                      imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
+                      imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali2401cmyk.png?v=1729153204&width=180",
             
                       item: [
                         {
@@ -387,7 +387,7 @@ export const StockProvider = ({ children }) => {
                     {
                       id: 3,
                       heading: "Gold Necklace",
-                      imageUrl: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy.png?v=1729152276&width=180",
             
                       item: [
                         {
@@ -509,7 +509,7 @@ export const StockProvider = ({ children }) => {
                     {
                       id: 4,
                       heading: "Gold Bars",
-                      imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
+                      imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240201CMYK.png?v=1729153259&width=180",
             
                       item: [
                         {
@@ -636,7 +636,7 @@ export const StockProvider = ({ children }) => {
                     {
                       id: 5,
                       heading: "Group Item A",
-                      imageUrl: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240303copy.png?v=1729153314&width=180",
             
                       item: [
                         {
@@ -758,7 +758,7 @@ export const StockProvider = ({ children }) => {
                     {
                       id: 6,
                       heading: "Group Item B",
-                      imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
+                      imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240403copy2.png?v=1729153117&width=180",
             
                       item: [
                         {
