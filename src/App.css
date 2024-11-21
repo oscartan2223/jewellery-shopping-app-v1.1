@@ -107,3 +107,7 @@ button {
         left: 0;
     }
 }
+
+u {
+    cursor: pointer;
+}

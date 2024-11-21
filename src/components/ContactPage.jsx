@@ -32,7 +32,6 @@ const ContactPage = ({ showAlert }) => {
     }, [isSubmitted, setFeedbackData]);
 
     const handleFeedbackSubmit = (feedbackData) => {
-        console.log("Feedback submitted:", feedbackData);
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         // Email validation

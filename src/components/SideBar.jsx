@@ -19,7 +19,6 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue='' }) => {
         const fetchedData = ['Pendants & Charms', 'Rings', 'Couple Rings', 'Bar & Notes', 'Earrings', 'Bracelet', 'Bangle', 'Necklace']
         setSearchInput(searchInputValue);
         setPopularCategories(fetchedData);
-        console.log(stocks);
     }, []);
 
     const handleClose = () => {

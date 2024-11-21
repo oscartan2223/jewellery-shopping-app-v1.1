@@ -77,7 +77,6 @@ const AppContent = () => {
 
   const handleAction = (type) => {
     setHandleOpen(type);
-    console.log(type);
   };
 
   const closeSideBar = () => {

@@ -59,7 +59,6 @@ const Header = ({ action }) => {
             const containerWidth = headerMenuList.offsetWidth;
             const spanElements = Array.from(document.querySelectorAll('.header-menu-content'));
             const totalSpanWidth = spanElements.reduce((acc, span) => acc + (span ? span.offsetWidth : 0), 0);
-            console.log(totalSpanWidth, " ", containerWidth)
             // Add/remove classes based on layout condition
             if (totalSpanWidth > containerWidth) {
                 headerMenuList.classList.add('hide');
