@@ -14,56 +14,6 @@
     position: relative;
 }
 
-.sidebar-menu-list {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgb(255, 255, 255);
-    width: 315px;
-    animation: SlideOnMenu 0.5s 1;
-}
-
-@keyframes SlideOnMenu {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.sidebar-menu-list.close {
-    animation: SlideOffMenu 0.5s 1;
-}
-
-@keyframes SlideOffMenu {
-    0% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-}
-
-.sidebar-menu-list-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.sidebar-menu-close-btn {
-    width: 100%;
-    padding: 15px;
-    display: flex;
-}
-
 .sidebar-search-list {
     position: absolute;
     left: 0;

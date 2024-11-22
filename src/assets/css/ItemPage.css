@@ -1,7 +1,16 @@
 .item-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    width: 100vw;
+}
+
+.search-pattern {
+    max-width: 800px;
+    width: 70%;
+    min-width: 280px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .item-filter {
@@ -28,7 +37,6 @@
     background-color: rgb(255, 255, 255);
     z-index: 9000002;
     transform: translateX(-100%);
-
 }
 
 .item-filter-btn {

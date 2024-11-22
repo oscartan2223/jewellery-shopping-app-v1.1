@@ -59,7 +59,6 @@ const Header = ({ action }) => {
             const containerWidth = headerMenuList.offsetWidth;
             const spanElements = Array.from(document.querySelectorAll('.header-menu-content'));
             const totalSpanWidth = spanElements.reduce((acc, span) => acc + (span ? span.offsetWidth : 0), 0);
-            // Add/remove classes based on layout condition
             if (totalSpanWidth > containerWidth) {
                 headerMenuList.classList.add('hide');
                 headerMenuList.classList.remove('header-menu-list');
@@ -74,19 +73,12 @@ const Header = ({ action }) => {
         }
     };
 
-    // Resize listener
     useLayoutEffect(() => {
         const handleResize = () => {
-            window.requestAnimationFrame(updateLayout); // Update layout immediately during resize
+            window.requestAnimationFrame(updateLayout);
         };
-
-        // Set up event listener for window resize
         window.addEventListener('resize', handleResize);
-
-        // Initial layout check
         updateLayout();
-
-        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('resize', handleResize);
         };

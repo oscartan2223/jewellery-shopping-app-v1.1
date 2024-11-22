@@ -37,16 +37,6 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue='' }) => {
     return (
         <div className="sidebar-overlay">
             <div className="sidebar-content" onClick={handleClose}>
-                {value === "menu" &&
-                    <div className={`sidebar-menu-list ${closeAmination ? "close" : ""}`} onClick={(event) => event.stopPropagation()}>
-                        <div className="sidebar-menu-list-content">
-                            <button className="sidebar-menu-close-btn" onClick={handleClose}>
-                                <FaTimes />
-                            </button>
-                        </div>
-                    </div>
-                }
-
                 {value === "search" &&
                     <div className={`sidebar-search-list ${closeAmination ? "close" : ""}`} onClick={(event) => event.stopPropagation()}>
                         <div className="sidebar-search-list-content">

@@ -58,12 +58,12 @@ const ItemPage = () => {
         // );
 
         const filteredWithStock = currentItemList.item.map(item => {
-            let matchedType = checkedRef.current[0] === true ||  checkedRef.current[typeList.indexOf(item.type)] === true;
+            let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.indexOf(item.type)] === true;
             const stock = item.stock.filter(eachStock => {
                 const inPriceRange = eachStock.actual_price >= minItemPrice && eachStock.actual_price <= maxItemPrice;
                 const inWeightRange = eachStock.weight >= minItemWeight && eachStock.weight <= maxItemWeight;
                 const inMeasurementRange = eachStock.measurement >= minItemMeasurement && eachStock.measurement <= maxItemMeasurement;
-                const certCheck = document.getElementById('certCheck').checked ? eachStock.isCert === true: true;
+                const certCheck = document.getElementById('certCheck').checked ? eachStock.isCert === true : true;
                 const boxCheck = document.getElementById('boxCheck').checked ? eachStock.isBox === true : true;
 
                 return inPriceRange &&
@@ -101,22 +101,6 @@ const ItemPage = () => {
         }
     }, [stocks, data, setCurrentItemList, setFilteredItems]);
 
-    // const handleCheckboxChange = (index) => {
-    //     if (index === 0){
-    //         setCheckedStates(prevState => {
-    //             const newCheckedStates = new Array(prevState.length).fill(!prevState[0]);
-    //             return newCheckedStates;
-    //         });
-    //     }else {
-    //         setCheckedStates(prevState => {
-    //             const newCheckedStates = [...prevState];
-    //             newCheckedStates[index] = !newCheckedStates[index];
-    //             newCheckedStates[0] = newCheckedStates.slice(1).every(checked => checked);
-    //             return newCheckedStates;
-    //         });
-    //     }
-    // };
-
     const handleCheckboxChange = (index) => {
         const newCheckedStates = [...checkedStates];
         newCheckedStates[index] = !newCheckedStates[index];
@@ -130,22 +114,20 @@ const ItemPage = () => {
 
         setCheckedStates(newCheckedStates);
         checkedRef.current = newCheckedStates;
-
-        console.log("Checkbox states updated:", checkedRef.current);
     };
 
     const GetMinMax = (type, data) => {
         if (data.length === 0) {
             return type === "price" ? "No prices available" : type === "weight" ? "No weights available" :
-             type === "measurement" ? "No measurements available" : type === "width" ? "No widths available" :
-              "Invalid type";
+                type === "measurement" ? "No measurements available" : type === "width" ? "No widths available" :
+                    "Invalid type";
         }
 
         const initialValues = { min: Infinity, max: -Infinity };
 
         const { min, max } = data.reduce((acc, stock) => {
             const value = type === "price" ? stock.actual_price : type === "weight" ? stock.weight :
-             type === "measurement" ? stock.measurement : type === "width" ? stock.size : null;
+                type === "measurement" ? stock.measurement : type === "width" ? stock.size : null;
 
             if (value !== null) {
                 if (value < acc.min) {
@@ -161,12 +143,12 @@ const ItemPage = () => {
 
         if (min === Infinity) {
             return type === "price" ? "No prices available in this filter range." : type === "weight" ? "No weights available in this filter range." :
-             type === "measurement" ? "No measurements available in this filter range." : type === "width" ? "No widths available in this filter range."
-              : null;
+                type === "measurement" ? "No measurements available in this filter range." : type === "width" ? "No widths available in this filter range."
+                    : null;
         }
 
-        return type === "price" ? `RM${min}.00 ~ RM${max}.00` : type === "weight" ? `Weight: ${min}g ~ ${max}g` : 
-         type === "measurement" ? `Measurement: ${min} ~ ${max}` : type === "width" ? `Width: ${min} ~ ${max}` : null;
+        return type === "price" ? `RM${min}.00 ~ RM${max}.00` : type === "weight" ? `Weight: ${min}g ~ ${max}g` :
+            type === "measurement" ? `Measurement: ${min} ~ ${max}` : type === "width" ? `Width: ${min} ~ ${max}` : null;
     };
 
     const updateItemMeasurement = (min, max) => {
@@ -230,12 +212,15 @@ const ItemPage = () => {
         const checkbox = document.getElementById(id);
         checkbox.checked = !checkbox.checked;
     }
-    
+
 
     return (
         <div className="item-container">
-            <h1 className="w-100 mb-5 text-center font-custom">{currentItemList ? currentItemList.heading : 'Undefined'}</h1>
-            <div className="item-filter-container">
+            <h1 className="w-100 mb-4 text-center font-custom">{currentItemList ? currentItemList.heading : 'Undefined'}</h1>
+            <div className="search-pattern">
+                <input className="form-control" type="text" placeholder="Search" />
+            </div>
+            <div className="w-100 item-filter-container">
                 <div className="item-filter">
                     <span className="item-filter-button" onClick={() => { if (data) { setFilterBox(!filterBox); setInitLoad(false); } }}>
                         <FaFilter className="item-filter-icon" />
@@ -260,7 +245,7 @@ const ItemPage = () => {
                                             typeList.map((type, index) => (
                                                 <span className="item-filter-text w-100 font-custom-2" key={index} onClick={() => handleCheckboxChange(index)}>
                                                     <input className="item-filter-checkbox" type="checkbox"
-                                                        checked={checkedStates[index]}  readOnly/>
+                                                        checked={checkedStates[index]} readOnly />
                                                     {capitalizeFirstLetter(type)}
                                                 </span>
                                             ))
@@ -275,12 +260,12 @@ const ItemPage = () => {
                                         Advanced
                                     </button>
                                     <div className={`d-flex flex-column`}>
-                                        <span className="item-filter-text w-100 font-custom-2" onClick={() => {toggleCheckbox('boxCheck')}}>
-                                            <input className="item-filter-checkbox" type="checkbox" id="boxCheck" onClick={(e) => e.stopPropagation()}/>
+                                        <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('boxCheck') }}>
+                                            <input className="item-filter-checkbox" type="checkbox" id="boxCheck" onClick={(e) => e.stopPropagation()} />
                                             With box only
                                         </span>
-                                        <span className="item-filter-text w-100 font-custom-2" onClick={() => {toggleCheckbox('certCheck')}}>
-                                            <input className="item-filter-checkbox" type="checkbox" id="certCheck" onClick={(e) => e.stopPropagation()}/>
+                                        <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('certCheck') }}>
+                                            <input className="item-filter-checkbox" type="checkbox" id="certCheck" onClick={(e) => e.stopPropagation()} />
                                             Certificate only
                                         </span>
                                     </div>
@@ -329,11 +314,11 @@ const ItemPage = () => {
             <div className="item-boxes-container d-flex flex-wrap">
                 {filteredItems && filteredItems.item && filteredItems.item.length > 0 ? (
                     filteredItems.item.every(item => !item.stock || item.stock.length === 0) ? (
-                        <div>No stock available for all items. <u className="fw-bold cursor" onClick={() => {window.location.reload();}}>Clear Filter</u></div>
+                        <div>No stock available for all items. <u className="fw-bold cursor" onClick={() => { window.location.reload(); }}>Clear Filter</u></div>
                     ) : (
                         filteredItems.item.map((item, index) =>
                             item.stock && item.stock.length > 0 && (
-                                <div key={index} className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3">
+                                <div key={index} className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 col-xxxl-2">
                                     <div className="item-box-image">
                                         <img src={item.imageUrl} alt={item.heading} className="item-image mb-4" />
                                     </div>

@@ -111,3 +111,10 @@ button {
 u {
     cursor: pointer;
 }
+
+@media (min-width: 1700px) {
+    .col-xxxl-2 {
+        width: 16.67% !important;
+        flex: 0 0 auto;
+    }
+}
