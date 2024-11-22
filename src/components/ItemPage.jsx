@@ -9,16 +9,14 @@ const ItemPage = () => {
     const location = useLocation();
     const data = location.state;
     const { stocks } = useStock();
-    const [stockList, setStockList] = useState();
     const [currentItemList, setCurrentItemList] = useState(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [filterBox, setFilterBox] = useState(false);
-    const [searchList, setSearchList] = useState();
-    const [filterSearchList, setFilterSearchList] = useState();
     const [typeList, setTypeList] = useState();
     const [initLoad, setInitLoad] = useState(true);
     const [checkedStates, setCheckedStates] = useState([]);
     const checkedRef = useRef([])
+    const [itemQuery, setItemQuery] = useState("");
 
     const [minItemPrice, setMinItemPrice] = useState(0);
     const [maxItemPrice, setMaxItemPrice] = useState(99999);
@@ -37,47 +35,38 @@ const ItemPage = () => {
     const filterItem = useCallback((event, minItemPrice = currentMinItemPrice, maxItemPrice = currentMaxItemPrice,
         minItemWeight = currentMinItemMeasurement, maxItemWeight = currentMaxItemMeasurement,
         minItemMeasurement = currentMinItemMeasurement, maxItemMeasurement = currentMaxItemWeight) => {
-        // if (event.key === 'Enter') {
-        //     event.target.blur();
-        // }
+        if (event.key === 'Enter') {
+            event.target.blur();
+        }
 
-        // const query = event.target.value;
-        // setItemQuery(query);
-
-        // const lowerCaseQuery = query.toLowerCase();
-
-        // const filteredSearch = searchList.filter(item =>
-        //     item.heading.toLowerCase().includes(lowerCaseQuery) &&
-        //     (latestType === "All" || item.type.toLowerCase() === latestType.toLowerCase())
-        // );
-        // setFilterSearchList(filteredSearch);
-
-        // const filtered = content.item.filter(item =>
-        //     item.heading.toLowerCase().includes(lowerCaseQuery) &&
-        //     (latestType === "All" || item.type.toLowerCase() === latestType.toLowerCase())
-        // );
+        const query = event.target.value;
+        setItemQuery(query);
+        const lowerCaseQuery = query.toLowerCase();
 
         const filteredWithStock = currentItemList.item.map(item => {
             let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.indexOf(item.type)] === true;
+            let itemSearchQuery = item.heading.toLowerCase().includes(lowerCaseQuery);
             const stock = item.stock.filter(eachStock => {
                 const inPriceRange = eachStock.actual_price >= minItemPrice && eachStock.actual_price <= maxItemPrice;
                 const inWeightRange = eachStock.weight >= minItemWeight && eachStock.weight <= maxItemWeight;
                 const inMeasurementRange = eachStock.measurement >= minItemMeasurement && eachStock.measurement <= maxItemMeasurement;
                 const certCheck = document.getElementById('certCheck').checked ? eachStock.isCert === true : true;
                 const boxCheck = document.getElementById('boxCheck').checked ? eachStock.isBox === true : true;
+                const stockSearchQuery = eachStock.stockCode.toLowerCase().includes(lowerCaseQuery);
 
                 return inPriceRange &&
                     inWeightRange &&
                     inMeasurementRange &&
                     certCheck &&
                     boxCheck &&
-                    matchedType;
+                    matchedType &&
+                    (itemSearchQuery || stockSearchQuery);
             });
 
             return { ...item, stock };
         });
         setFilteredItems({ /*...content, */item: filteredWithStock });
-    }, [searchList, minItemPrice, maxItemPrice, minItemWeight, maxItemWeight, minItemMeasurement, maxItemMeasurement]);
+    }, [minItemPrice, maxItemPrice, minItemWeight, maxItemWeight, minItemMeasurement, maxItemMeasurement]);
 
     useEffect(() => {
         if (filterBox) {
@@ -166,18 +155,17 @@ const ItemPage = () => {
         setMaxItemWeight(max);
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.target.blur();
+        }
+    };
+
     useEffect(() => {
         if (data && data.categoryId && stocks.current) {
             const stock_list = stocks.current.forEach(eachCategoryItem => {
                 const stock_item = eachCategoryItem.items.forEach(eachItemStock => {
                     if (eachItemStock.id === data.categoryId) {
-                        const search_list = eachItemStock.item.map(item => ({
-                            heading: item.heading,
-                            type: item.type,
-                        }));
-                        setSearchList(search_list);
-                        setFilterSearchList(search_list);
-
                         const type_list = [...new Set(eachItemStock.item.map(item => item.type))];
                         setTypeList(["All", ...type_list]);
                         setCheckedStates(Array(["All", ...type_list].length).fill(true));
@@ -204,7 +192,7 @@ const ItemPage = () => {
         setCurrentMaxItemMeasurement(maxItemMeasurement);
         setCurrentMinItemWeight(minItemWeight);
         setCurrentMaxItemWeight(maxItemWeight);
-        filterItem({ target: { value: 'itemQuery' } }, minItemPrice, maxItemPrice, minItemMeasurement, maxItemMeasurement, minItemWeight, maxItemWeight);
+        filterItem({ target: { value: itemQuery } }, minItemPrice, maxItemPrice, minItemMeasurement, maxItemMeasurement, minItemWeight, maxItemWeight);
         setFilterBox(!filterBox);
     };
 
@@ -216,9 +204,10 @@ const ItemPage = () => {
 
     return (
         <div className="item-container">
-            <h1 className="w-100 mb-4 text-center font-custom">{currentItemList ? currentItemList.heading : 'Undefined'}</h1>
+            <h1 className="w-100 mb-4 text-center font-custom fs-1">{currentItemList ? currentItemList.heading : 'Unknown'}</h1>
             <div className="search-pattern">
-                <input className="form-control" type="text" placeholder="Search" />
+                <input className="form-control" type="text" placeholder="Search" 
+                 value={itemQuery} onChange={filterItem} onKeyDown={handleKeyDown} />
             </div>
             <div className="w-100 item-filter-container">
                 <div className="item-filter">
@@ -311,7 +300,7 @@ const ItemPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="item-boxes-container d-flex flex-wrap">
+            <div className="item-boxes-container d-flex flex-wrap w-100">
                 {filteredItems && filteredItems.item && filteredItems.item.length > 0 ? (
                     filteredItems.item.every(item => !item.stock || item.stock.length === 0) ? (
                         <div>No stock available for all items. <u className="fw-bold cursor" onClick={() => { window.location.reload(); }}>Clear Filter</u></div>
