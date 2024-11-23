@@ -9,10 +9,11 @@ const ItemPage = () => {
     const location = useLocation();
     const data = location.state;
     const { stocks } = useStock();
-    const [currentItemList, setCurrentItemList] = useState(null);
+    const currentItemList = useRef(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [filterBox, setFilterBox] = useState(false);
-    const [typeList, setTypeList] = useState();
+    // const [typeList, setTypeList] = useState();
+    const typeList = useRef();
     const [initLoad, setInitLoad] = useState(true);
     const [checkedStates, setCheckedStates] = useState([]);
     const checkedRef = useRef([])
@@ -42,30 +43,31 @@ const ItemPage = () => {
         const query = event.target.value;
         setItemQuery(query);
         const lowerCaseQuery = query.toLowerCase();
+        if (currentItemList.current && currentItemList.current.item) {
+            const filteredWithStock = currentItemList.current.item.map(item => {
+                let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.current.indexOf(item.type)] === true;
+                let itemSearchQuery = item.heading.toLowerCase().includes(lowerCaseQuery);
+                const stock = item.stock.filter(eachStock => {
+                    const inPriceRange = eachStock.actual_price >= minItemPrice && eachStock.actual_price <= maxItemPrice;
+                    const inWeightRange = eachStock.weight >= minItemWeight && eachStock.weight <= maxItemWeight;
+                    const inMeasurementRange = eachStock.measurement >= minItemMeasurement && eachStock.measurement <= maxItemMeasurement;
+                    const certCheck = document.getElementById('certCheck').checked ? eachStock.isCert === true : true;
+                    const boxCheck = document.getElementById('boxCheck').checked ? eachStock.isBox === true : true;
+                    const stockSearchQuery = eachStock.stockCode.toLowerCase().includes(lowerCaseQuery);
 
-        const filteredWithStock = currentItemList.item.map(item => {
-            let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.indexOf(item.type)] === true;
-            let itemSearchQuery = item.heading.toLowerCase().includes(lowerCaseQuery);
-            const stock = item.stock.filter(eachStock => {
-                const inPriceRange = eachStock.actual_price >= minItemPrice && eachStock.actual_price <= maxItemPrice;
-                const inWeightRange = eachStock.weight >= minItemWeight && eachStock.weight <= maxItemWeight;
-                const inMeasurementRange = eachStock.measurement >= minItemMeasurement && eachStock.measurement <= maxItemMeasurement;
-                const certCheck = document.getElementById('certCheck').checked ? eachStock.isCert === true : true;
-                const boxCheck = document.getElementById('boxCheck').checked ? eachStock.isBox === true : true;
-                const stockSearchQuery = eachStock.stockCode.toLowerCase().includes(lowerCaseQuery);
+                    return inPriceRange &&
+                        inWeightRange &&
+                        inMeasurementRange &&
+                        certCheck &&
+                        boxCheck &&
+                        matchedType &&
+                        (itemSearchQuery || stockSearchQuery);
+                });
 
-                return inPriceRange &&
-                    inWeightRange &&
-                    inMeasurementRange &&
-                    certCheck &&
-                    boxCheck &&
-                    matchedType &&
-                    (itemSearchQuery || stockSearchQuery);
+                return { ...item, stock };
             });
-
-            return { ...item, stock };
-        });
-        setFilteredItems({ /*...content, */item: filteredWithStock });
+            setFilteredItems({ /*...content, */item: filteredWithStock });
+        }
     }, [minItemPrice, maxItemPrice, minItemWeight, maxItemWeight, minItemMeasurement, maxItemMeasurement]);
 
     useEffect(() => {
@@ -79,16 +81,24 @@ const ItemPage = () => {
     useEffect(() => {
         if (stocks && stocks.current && data && data.categoryId) {
             let items = null;
-            for (let eachGroup of stocks.current) {
-                items = eachGroup.items.find(eachItem => {
+            if (data.otherData && data.otherData[0]) {
+                items = data.otherData[0].items.find(eachItem => {
                     return eachItem.id === data.categoryId;
                 });
-                if (items != null) break;
+            } else {
+                for (let eachGroup of stocks.current) {
+                    items = eachGroup.items.find(eachItem => {
+                        return eachItem.id === data.categoryId;
+                    });
+                    if (items != null) break;
+                };
             };
-            setCurrentItemList(items != null ? items : null);
+            currentItemList.current = items != null ? items : null;
+
+            console.log(items)
             setFilteredItems(items != null ? items : null);
-        }
-    }, [stocks, data, setCurrentItemList, setFilteredItems]);
+        };
+    }, [stocks, data, currentItemList, setFilteredItems]);
 
     const handleCheckboxChange = (index) => {
         const newCheckedStates = [...checkedStates];
@@ -167,7 +177,8 @@ const ItemPage = () => {
                 const stock_item = eachCategoryItem.items.forEach(eachItemStock => {
                     if (eachItemStock.id === data.categoryId) {
                         const type_list = [...new Set(eachItemStock.item.map(item => item.type))];
-                        setTypeList(["All", ...type_list]);
+                        typeList.current = ["All", ...type_list];
+
                         setCheckedStates(Array(["All", ...type_list].length).fill(true));
                         checkedRef.current = Array(["All", ...type_list].length).fill(true);
                     }
@@ -204,10 +215,10 @@ const ItemPage = () => {
 
     return (
         <div className="item-container">
-            <h1 className="w-100 mb-4 text-center font-custom fs-1">{currentItemList ? currentItemList.heading : 'Unknown'}</h1>
+            <h1 className="w-100 mb-4 text-center font-custom fs-1">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
             <div className="search-pattern">
-                <input className="form-control" type="text" placeholder="Search" 
-                 value={itemQuery} onChange={filterItem} onKeyDown={handleKeyDown} />
+                <input className="form-control" type="text" placeholder="Search"
+                    value={itemQuery} onChange={filterItem} onKeyDown={handleKeyDown} />
             </div>
             <div className="w-100 item-filter-container">
                 <div className="item-filter">
@@ -230,8 +241,8 @@ const ItemPage = () => {
                                         Types
                                     </button>
                                     <div className={`d-flex flex-column`}>
-                                        {typeList && typeList.length > 0 ? (
-                                            typeList.map((type, index) => (
+                                        {typeList.current && typeList.current.length > 0 ? (
+                                            typeList.current.map((type, index) => (
                                                 <span className="item-filter-text w-100 font-custom-2" key={index} onClick={() => handleCheckboxChange(index)}>
                                                     <input className="item-filter-checkbox" type="checkbox"
                                                         checked={checkedStates[index]} readOnly />

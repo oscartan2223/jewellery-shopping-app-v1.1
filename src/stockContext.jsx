@@ -255,63 +255,6 @@ export const StockProvider = ({ children }) => {
                             },
                           ]
                         },
-                        {
-                          id: "A3",
-                          heading: "GOLD BAR FULL MOON",//Patterns
-                          type: "silver",
-                          imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy.png?v=1729152276&width=180",
-                          price: 190,// Means that RM670/g
-                          stock: [
-                            {
-                              stock_id: 1,
-                              stockCode: "XCX2846X",
-                              isCert: true,
-                              isBox: true,
-                              imageUrl: [
-                                {
-                                  original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
-                                  thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
-                                },
-                                {
-                                  original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
-                                  thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
-                                },
-                                {
-                                  original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                                  thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                                }
-                              ],
-                              weight: 17,
-                              measurement: 11,
-                              actual_price: 209,
-                              size: 17
-                            },
-                            {
-                              stock_id: 2,
-                              stockCode: "XCX2847X",
-                              isCert: true,
-                              isBox: true,
-                              imageUrl: [
-                                {
-                                  original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
-                                  thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
-                                },
-                                {
-                                  original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
-                                  thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
-                                },
-                                {
-                                  original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                                  thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                                }
-                              ],
-                              weight: 19,
-                              measurement: 13,
-                              actual_price: 190,
-                              size: 15
-                            },
-                          ]
-                        },
                       ]
                     },
                     {

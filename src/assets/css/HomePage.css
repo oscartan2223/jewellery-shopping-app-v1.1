@@ -45,10 +45,82 @@
 
 .animation-ads-container {
   height: 50px;
-  z-index: 5;
   width: 100vw;
   background-color: rgb(255, 0, 0);
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
+}
+
+.home-search-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-direction: column;
+}
+
+.home-search-input-container {
+  position: relative;
+  min-width: 280px;
+  width: 85%;
+  max-width: 1400px;
+}
+
+.home-search-input {
+  padding-left: 30px;
+  padding-bottom: 8px;
+  padding-right: 80px;
+}
+
+.home-search-icon {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  left: 10px;
+  font-size: 14px;
+}
+
+.home-filter-btn {
+  position: absolute;
+  top: 5px;
+  width: 4rem;
+  bottom: 5px;
+  right: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+
+.home-filter-btn.openFilter {
+  background-color: rgb(65, 65, 65);
+  color: rgb(191, 191, 191);
+}
+
+.home-filter-container {
+  min-width: calc(280px - 6px);
+  width: calc(85% - 6px);
+  max-width: calc(1400px - 6px);
+  top: 0;
+  max-height: 0;
+  overflow-y: hidden;
+  border: 0.5px double rgb(221, 221, 221);
+  padding: 0 0px;
+  transition: max-height 1s ease-out, padding 1s ease-out;
+  visibility: hidden;
+}
+
+.home-filter-container.open {
+  max-height: 800px;
+  padding: 22px 8px;
+  visibility: visible;
+  padding-top: 30px;
+}
+
+.home-filter-container>.item-slider-container>.slider__left-value>.slider__left-input,
+.home-filter-container>.item-slider-container>.slider__right-value>.slider__right-input {
+  background: transparent;
 }
 
 .shopCategories {
@@ -411,4 +483,145 @@ defs + g {
 .home-rate-inner-bar:focus .tooltip {
   visibility: visible;
   opacity: 1;
+}
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 35px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider_switch {
+  position: absolute;
+  cursor: pointer;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f2f2f2;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider_switch:before {
+  position: absolute;
+  z-index: 2;
+  content: "";
+  height: 33px;
+  width: 35px;
+  left: 1px;
+  bottom: 1px;
+  background-color: rgb(233, 233, 233);
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+  -webkit-transition: .4s;
+  transition: all 0.4s ease-in-out;
+}
+
+.slider_switch:after {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  content: "Yes";
+  font-size: 15px;
+  text-align: left !important;
+  line-height: 35px;
+  padding-left: 0;
+  width: 99px;
+  color: #fff;
+  height: 35px;
+  border-radius: 100px;
+  background-color: #636363;
+  -webkit-transform: translateX(-62px);
+  -ms-transform: translateX(-62px);
+  transform: translateX(-62px);
+  transition: all 0.4s ease-in-out;
+}
+
+.switch input:checked + .slider_switch:after {
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+  padding-left: 25px;
+}
+
+.switch input:checked + .slider_switch:before {
+  background-color: #fff;
+}
+
+.switch input:checked + .slider_switch:before {
+  -webkit-transform: translateX(62px);
+  -ms-transform: translateX(62px);
+  transform: translateX(62px);
+}
+
+/* Rounded sliders */
+.slider_switch.round {
+  border-radius: 100px;
+}
+
+.slider_switch.round:before {
+  border-radius: 50%;
+}
+
+/* Correct positioning for NO label */
+.absolute-no {
+  position: absolute;
+  left: 0;
+  color: rgb(117, 122, 122);
+  text-align: right !important;
+  font-size: 15px;
+  width: calc(100% - 25px);
+  height: 35px;
+  line-height: 35px;
+  cursor: pointer;
+  z-index: 3;
+  user-select: none;
+}
+
+.item-cert-container {
+  height: 35px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.item-switch-label {
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.apply_button {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: calc(100% - 20px);
+  background-color: #000000;
+  border: none;
+  font-weight: bold;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.apply_button:hover {
+  background-color: #414141;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.apply_button:active {
+  transform: translateY(1px);
 }

@@ -6,18 +6,41 @@ import { Carousel } from 'bootstrap';
 import { useStock } from '../stockContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Rating } from '@smastrom/react-rating';
+import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
 
 
 const HomePage = ({ showAlert }) => {
   const navigate = useNavigate();
   const { stocks } = useStock();
-  const [adsText, setAdsText] = useState('CNY Special Promotion! Up to 10% off when purchase RM 10 000 onwards. T&C apply')
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
   const [selectedBrowseCategoriesItem, setSelectedBrowseCategoriesItem] = useState([]);
+  const [query, setQuery] = useState('');
+  const [filteredData, setFilteredData] = useState();
+
+  const [filterClick, setFilterClick] = useState(false);
+  const [certChecked, setCertChecked] = useState(false);
+  const [boxChecked, setBoxChecked] = useState(false);
+
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(99999);
+  const [minMeasurement, setMinMeasurement] = useState(0);
+  const [maxMeasurement, setMaxMeasurement] = useState(99999);
+  const [minWeight, setMinWeight] = useState(0);
+  const [maxWeight, setMaxWeight] = useState(99999);
+
+  const [currentMinPrice, setCurrentMinPrice] = useState(0);
+  const [currentMaxPrice, setCurrentMaxPrice] = useState(99999);
+  const [currentMinMeasurement, setCurrentMinMeasurement] = useState(0);
+  const [currentMaxMeasurement, setCurrentMaxMeasurement] = useState(99999);
+  const [currentMinWeight, setCurrentMinWeight] = useState(0);
+  const [currentMaxWeight, setCurrentMaxWeight] = useState(99999);
+
+  const [adsText, setAdsText] = useState('CNY Special Promotion! Up to 10% off when purchase RM 10 000 onwards. T&C apply')
+
   const [rating, setRating] = useState({
     star: 4.67,
     number: 1445,
@@ -27,6 +50,7 @@ const HomePage = ({ showAlert }) => {
     four: 130,
     five: 1291
   });
+
   const ratingLevels = [
     { label: 1, count: rating.one },
     { label: 2, count: rating.two },
@@ -34,6 +58,7 @@ const HomePage = ({ showAlert }) => {
     { label: 4, count: rating.four },
     { label: 5, count: rating.five }
   ];
+
   const [adsData, setAdsData] = useState([
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: { target: 'item', data: '' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(11).png", details: { target: 'contact' } },
@@ -63,6 +88,7 @@ const HomePage = ({ showAlert }) => {
       setShopCategories(shopCategoriesItem);
 
       setBrowseCategoriesItem(stocks.current);
+      setFilteredData(stocks.current);
     }
   }, [stocks]);
 
@@ -151,6 +177,104 @@ const HomePage = ({ showAlert }) => {
     });
   }, []);
 
+  const filterData = useCallback((event, minPrice = currentMinPrice, maxPrice = currentMaxPrice,
+    minWeight = currentMinMeasurement, maxWeight = currentMaxMeasurement,
+    minMeasurement = currentMinMeasurement, maxMeasurement = currentMaxWeight) => {
+    if (event.key === 'Enter') {
+      event.target.blur();
+    }
+
+    const searchQuery = event.target.value;
+    setQuery(searchQuery);
+    const lowerCaseQuery = searchQuery.toLowerCase();
+
+    const filteredData = browseCategoriesItem.map(category => {
+      const matchesCategory = category.category && category.category.toLowerCase().includes(lowerCaseQuery);
+      const filteredItems = category.items.map(group => {
+        const matchesGroup = group.heading.toLowerCase().includes(lowerCaseQuery);
+        const filteredStock = group.item.map(item => {
+          const matchesItem = item.heading.toLowerCase().includes(lowerCaseQuery);
+          const filteredStocks = item.stock.filter(stock => {
+            const inPriceRange = stock.actual_price >= minPrice && stock.actual_price <= maxPrice;
+            const inWeightRange = stock.weight >= minWeight && stock.weight <= maxWeight;
+            const inMeasurementRange = stock.measurement >= minMeasurement && stock.measurement <= maxMeasurement;
+            const matchesStockCode = stock.stockCode.toLowerCase().includes(lowerCaseQuery) || matchesItem || matchesGroup || matchesCategory;
+            const certCheck = document.getElementById('certCheck').checked ? stock.isCert === true : true;
+            const boxCheck = document.getElementById('boxCheck').checked ? stock.isBox === true : true;
+
+            return inPriceRange &&
+              inWeightRange &&
+              inMeasurementRange &&
+              matchesStockCode &&
+              certCheck &&
+              boxCheck;
+          });
+
+          if (filteredStocks.length > 0 || matchesItem) {
+            return {
+              ...item,
+              stock: filteredStocks
+            };
+          }
+
+          return null;
+        }).filter(item => item && item.stock.length > 0);
+
+        if (filteredStock.length > 0 || matchesGroup) {
+          return {
+            ...group,
+            item: filteredStock
+          };
+        }
+
+        return null;
+      }).filter(group => group && group.item.length > 0);
+
+      if (filteredItems.length > 0 || matchesCategory) {
+        return {
+          ...category,
+          items: filteredItems
+        };
+      }
+
+      return null;
+    }).filter(category => category);
+    setFilteredData(filteredData);
+  },);
+
+  const updateMeasurement = (min, max) => {
+    setMinMeasurement(min);
+    setMaxMeasurement(max);
+  };
+
+  const updatePrice = (min, max) => {
+    setMinPrice(min);
+    setMaxPrice(max);
+  };
+
+  const updateWeight = (min, max) => {
+    setMinWeight(min);
+    setMaxWeight(max);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.target.blur();
+    }
+  };
+
+  const applyFilter = () => {
+    setCurrentMinPrice(minPrice);
+    setCurrentMaxPrice(maxPrice);
+    setCurrentMinMeasurement(minMeasurement);
+    setCurrentMaxMeasurement(maxMeasurement);
+    setCurrentMinWeight(minWeight);
+    setCurrentMaxWeight(maxWeight);
+
+    filterData({ target: { value: query } }, minPrice, maxPrice, minMeasurement, maxMeasurement, minWeight, maxWeight);
+    setFilterClick(!filterClick);
+  };
+
   const naviItem = (data) => {
     setTimeout(() => {
       navigate('/item', { state: data });
@@ -191,41 +315,90 @@ const HomePage = ({ showAlert }) => {
         </div>
       </div>
 
-
-
-      {browseCategoriesItem !== undefined && selectedBrowseCategoriesItem !== '' &&
-        browseCategoriesItem.map((categories, index) =>
+      <div className="home-search-container">
+        <div className="home-search-input-container">
+          <input
+            className="form-control home-search-input"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+            value={query}
+            onChange={filterData}
+            onKeyDown={handleKeyDown}
+          />
+          <FaSearch className="home-search-icon" />
+          <button className={`home-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { setFilterClick(!filterClick) }}>Filter</button>
+        </div>
+        <div className={`home-filter-container ${filterClick ? 'open' : ''}`}>
+          <div className="item-slider-container">
+            <label className="item-adjust-label font-custom-2">Price</label>
+            <MultiRangeSlider
+              min={0}
+              max={99999}
+              initialMinValue={currentMinPrice}
+              initialMaxValue={currentMaxPrice}
+              onChange={({ min, max }) => updatePrice(min, max)}
+            />
+          </div>
+          <div className="item-slider-container">
+            <label className="item-adjust-label font-custom-2">Measurement</label>
+            <MultiRangeSlider
+              min={0}
+              max={99999}
+              initialMinValue={currentMinMeasurement}
+              initialMaxValue={currentMaxMeasurement}
+              onChange={({ min, max }) => updateMeasurement(min, max)}
+            />
+          </div>
+          <div className="item-slider-container">
+            <label className="item-adjust-label font-custom-2">Weight</label>
+            <MultiRangeSlider
+              min={0}
+              max={99999}
+              initialMinValue={currentMinWeight}
+              initialMaxValue={currentMaxWeight}
+              onChange={({ min, max }) => updateWeight(min, max)}
+            />
+          </div>
+          <div className="item-cert-container">
+            <label className="item-switch-label">Is Certificate Only</label>
+            <label className={`switch ${!filterClick ? 'hide' : ''}`}>
+              <input type="checkbox" checked={certChecked} id='certCheck' readOnly />
+              <span className="slider_switch round" onClick={() => { setCertChecked(!certChecked) }} />
+              <span className="absolute-no" onClick={() => { setCertChecked(!certChecked) }}>{certChecked ? '' : 'No'}</span>
+            </label>
+          </div>
+          <div className="item-cert-container">
+            <label className="item-switch-label">With Box Only</label>
+            <label className={`switch ${!filterClick ? 'hide' : ''}`}>
+              <input type="checkbox" checked={boxChecked} id='boxCheck' readOnly />
+              <span className="slider_switch round" onClick={() => { setBoxChecked(!boxChecked) }} />
+              <span className="absolute-no" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
+            </label>
+          </div>
+          <button className="apply_button" onClick={applyFilter}>
+            Apply Filter
+          </button>
+        </div>
+      </div>
+      {filteredData !== undefined && selectedBrowseCategoriesItem !== '' &&
+        filteredData.map((categories, index) =>
           <section className={`browseCategories overflow-hidden ${index % 2 === 0 ? "" : "second"}`} key={index}>
             <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
               <h1 className="mb-0 font-custom">{categories.category}</h1>
             </div>
-            <div className="browseCategoriesListContainer mb-5">
-              {/* <ul className="browseCategoriesList hide-scroll-container"
-                data-id={`browseCategoriesList-${index}`} ref={el => listRefs.current[index] = el}>
-                {categories.items.map(item =>
-                  <li className="browseCategoriesTab" key={item.id} data-index={index}
-                    onClick={() => { handleTab(index, item.id); setSelectedItem(index, item.id) }} id={`${index}-${item.id}`}>
-                    <h3 className="underline text-nowrap font-custom-2">{item.heading}</h3>
-                  </li>
-                )}
-              </ul>
-
-              {buttonVisibility[index] && (
-                <>
-                  <button className="browseLeft" onClick={() => scrollLeft(`browseCategoriesList-${index}`)}>
-                    <FontAwesomeIcon icon={faCaretLeft} style={{ cursor: 'pointer' }} />
-                  </button>
-                  <button className="browseRight" onClick={() => scrollRight(`browseCategoriesList-${index}`)}>
-                    <FontAwesomeIcon icon={faCaretRight} style={{ cursor: 'pointer' }} />
-                  </button>
-                </>
-              )} */}
-            </div>
-
+            <div className="browseCategoriesListContainer mb-5" />
             <div className="browseCategoriesBoxesContainer">
               <div className="browseCategoriesBoxes row flex-nowrap overflow-auto hide-scroll-container" data-id={`item-box-${index}`}>
                 {categories.items.map(item => (
-                  <div className="browseCategoriesBox col-sm-6 col-md-4 col-lg-3 col-xl-2 flex-column d-flex" key={item.id} onClick={() => { naviItem({ categoryId: item.id, otherData: 'Some data' })}}>
+                  <div className="browseCategoriesBox col-sm-6 col-md-4 col-lg-3 col-xl-2 flex-column d-flex" key={item.id}
+                    onClick={() => {
+                      naviItem({
+                        categoryId: item.id, otherData: filteredData.filter(eachCategory => {
+                          return eachCategory.items.find(eachItem => eachItem.id === item.id);
+                        })
+                      })
+                    }}>
                     <div className="ratio ratio-1x1">
                       <img src={item.imageUrl} alt={item.heading} className="img-fluid" />
                     </div>
@@ -255,7 +428,7 @@ const HomePage = ({ showAlert }) => {
         </div>
         <div className="shopCategoriesItem row hide-scroll-container">
           {shopCategories.map(category => (
-            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { naviItem({ categoryId: category.id, otherData: 'Some data' }) }}>
+            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { naviItem({ categoryId: category.id, otherData: category }) }}>
               <div className="ratio ratio-1x1 w-100">
                 <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
               </div>
