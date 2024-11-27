@@ -1,5 +1,28 @@
 @import '~bootstrap';
 
+:root {
+    --bg-first-color: rgb(253, 249, 242);
+    --bg-second-color: rgb(0, 0, 0);
+    --btn-first-color: rgb(0, 0, 0);
+    --btn-first-hover-color: rgb(56, 56, 56);
+    --btn-second-color: rgb(255, 255, 255);
+    --btn-second-hover-color: rgb(94, 94, 94);
+    --accordion-color: rgb(247, 247, 247);
+    --accordion-open-color: rgb(0, 123, 255);
+    --accordion-content-color: rgb(249, 249, 249);
+    --header-bg-color: rgb(255, 242, 219);
+    --header-dropdown-bg-color: rgb(255, 242, 219);
+    --footer-bg-color: rgb(255, 207, 119);
+    --ads-bg-color: rgb(255, 0, 0);
+    --bg-primary-catagorybox: rgb(252, 243, 218);
+    --bg-secondary-catagorybox: rgb(255, 236, 185);
+    --switch-off-btn: rgb(242, 242, 242);
+    --switch-on-btn: rgb(99, 99, 99);
+    --switch-btn-circle: rgb(233, 233, 233);
+    --slider-fill-bg: rgb(124, 124, 124);
+    --slider-unfill-bg: rgb(206, 212, 218);
+}
+
 .z-first {
     z-index: 1000000000000;
 }
@@ -8,9 +31,17 @@
     display: none !important;
 }
 
+.user-select-none {
+    user-select: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .content-container {
     min-height: calc(100vh - 600px - 56px);
-    background-color: rgb(253, 249, 242);
+    background-color: var(--bg-first-color);
 }
 
 @media (min-width: 700px) {

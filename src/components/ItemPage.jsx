@@ -4,6 +4,7 @@ import { useStock } from '../stockContext';
 import { FaFilter, FaTimes } from 'react-icons/fa';
 import '../assets/css/ItemPage.css';
 import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
+import StockDialog from "./StockDialog.jsx";
 
 const ItemPage = () => {
     const location = useLocation();
@@ -32,6 +33,8 @@ const ItemPage = () => {
     const [currentMaxItemMeasurement, setCurrentMaxItemMeasurement] = useState(99999);
     const [currentMinItemWeight, setCurrentMinItemWeight] = useState(0);
     const [currentMaxItemWeight, setCurrentMaxItemWeight] = useState(99999);
+    const [dialog, setDialog] = useState(false);
+    const stockItem = useRef();
 
     const filterItem = useCallback((event, minItemPrice = currentMinItemPrice, maxItemPrice = currentMaxItemPrice,
         minItemWeight = currentMinItemMeasurement, maxItemWeight = currentMaxItemMeasurement,
@@ -94,8 +97,6 @@ const ItemPage = () => {
                 };
             };
             currentItemList.current = items != null ? items : null;
-
-            console.log(items)
             setFilteredItems(items != null ? items : null);
         };
     }, [stocks, data, currentItemList, setFilteredItems]);
@@ -215,7 +216,10 @@ const ItemPage = () => {
 
     return (
         <div className="item-container">
-            <h1 className="w-100 mb-4 text-center font-custom fs-1">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
+            {dialog &&
+                <StockDialog stocks={stockItem.current} onClose={() => {setDialog(!dialog)}} />
+            }
+            <h1 className="w-100 mb-4 text-center font-custom fs-1 user-select-none">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
             <div className="search-pattern">
                 <input className="form-control" type="text" placeholder="Search"
                     value={itemQuery} onChange={filterItem} onKeyDown={handleKeyDown} />
@@ -318,7 +322,8 @@ const ItemPage = () => {
                     ) : (
                         filteredItems.item.map((item, index) =>
                             item.stock && item.stock.length > 0 && (
-                                <div key={index} className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 col-xxxl-2">
+                                <div key={index} className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 col-xxxl-2"
+                                    onClick={() => {stockItem.current = item; setDialog(!dialog);}}>
                                     <div className="item-box-image">
                                         <img src={item.imageUrl} alt={item.heading} className="item-image mb-4" />
                                     </div>
@@ -328,6 +333,8 @@ const ItemPage = () => {
                                     <p className="text-center item-content">{GetMinMax("measurement", item.stock)}</p>
                                     <p className="text-center item-content">{GetMinMax("width", item.stock)}</p>
                                     <p className="text-center item-content">Gold Type: {item.type}</p>
+                                    <p className="text-center item-content">Brand Code: HFR15673D</p>
+                                    <button className="text-center item-info-btn">More info</button>
                                 </div>
                             ))
                     )

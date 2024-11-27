@@ -19,7 +19,7 @@
     left: 0;
     top: 0;
     right: 0;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-first-color);
     min-height: 56px;
     max-height: 400px;
     animation: SlideIn 1s 1;
@@ -196,7 +196,6 @@
     bottom: 0;
     width: 100%;
     height: 1px;
-    background-color: #000;
     opacity: 0.1;
 }
 
@@ -219,7 +218,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-first-color);
     width: 315px;
     animation: SlideOnCart 0.5s 1;
 }

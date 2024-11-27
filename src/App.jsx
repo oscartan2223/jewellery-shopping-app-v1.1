@@ -16,7 +16,7 @@ import ContactPage from './components/ContactPage';
 import ForgotPasswordPage from './components/ForgotPasswordPage';
 import ProfilePage from './components/ProfilePage';
 import ItemPage from './components/ItemPage';
-import StockPage from './components/StockPage';
+import CartPage from './components/CartPage';
 
 const App = () => {
   return (
@@ -117,18 +117,17 @@ const AppContent = () => {
             <Route path="/forgot" element={<ForgotPasswordPage showAlert={showAlert} />} />
             <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             <Route path="/item" element={<ItemPage showAlert={showAlert} />} />
-            <Route path="/stock" element={<StockPage showAlert={showAlert} />} />
+            <Route path="/cart" element={<CartPage />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             
 
-            <Route path="/stock" element={<StockPage />} />
             <Route path="/promotion" element={<PromotionPage />} />
             <Route path="/installment" element={<InstallmentPage/>} /> 
             <Route path="/order" element={<OrderPage/>} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/password" element={<ResetPasswordPage />} />
-            <Route path="/cart" element={<CartPage />} />
+            
             
              */}
           </Routes>

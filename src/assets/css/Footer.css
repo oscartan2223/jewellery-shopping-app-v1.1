@@ -1,5 +1,5 @@
 .footer-container {
-    background-color: #ffcf77;
+    background-color: var(--footer-bg-color);
     padding: 30px;
     padding-bottom: 10px;
     min-height: 600px;

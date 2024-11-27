@@ -46,7 +46,7 @@
 .animation-ads-container {
   height: 50px;
   width: 100vw;
-  background-color: rgb(255, 0, 0);
+  background-color: var(--ads-bg-color);
   margin-bottom: 2.5rem;
 }
 
@@ -88,13 +88,13 @@
   right: 10px;
   font-weight: bold;
   font-size: 14px;
-  background-color: black;
+  background-color: var(--btn-first-color);
   color: white;
   border-radius: 5px;
 }
 
 .home-filter-btn.openFilter {
-  background-color: rgb(65, 65, 65);
+  background-color: var(--btn-first-hover-color);
   color: rgb(191, 191, 191);
 }
 
@@ -210,14 +210,14 @@ defs>linearGradient {
 
 
 .browseCategories {
-  background-color: rgb(252, 243, 218);
+  background-color: var(--bg-primary-catagorybox);
   padding-top: 30px;
   padding-bottom: 50px;
   max-width: 100vw;
 }
 
 .browseCategories.second {
-  background-color: rgb(255, 236, 185);
+  background-color: var(--bg-secondary-catagorybox);
 }
 
 .browseCategoriesListContainer {
@@ -506,7 +506,7 @@ defs + g {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f2f2f2;
+  background-color: var(--switch-off-btn);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -515,11 +515,11 @@ defs + g {
   position: absolute;
   z-index: 2;
   content: "";
-  height: 33px;
+  height: 35px;
   width: 35px;
-  left: 1px;
-  bottom: 1px;
-  background-color: rgb(233, 233, 233);
+  left: 0;
+  bottom: 0;
+  background-color: var(--switch-btn-circle);
   -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
   -webkit-transition: .4s;
@@ -539,10 +539,10 @@ defs + g {
   color: #fff;
   height: 35px;
   border-radius: 100px;
-  background-color: #636363;
-  -webkit-transform: translateX(-62px);
-  -ms-transform: translateX(-62px);
-  transform: translateX(-62px);
+  background-color: var(--switch-on-btn);
+  -webkit-transform: translateX(-65px);
+  -ms-transform: translateX(-65px);
+  transform: translateX(-65px);
   transition: all 0.4s ease-in-out;
 }
 
@@ -554,13 +554,13 @@ defs + g {
 }
 
 .switch input:checked + .slider_switch:before {
-  background-color: #fff;
+  background-color: var(--switch-btn-circle);
 }
 
 .switch input:checked + .slider_switch:before {
-  -webkit-transform: translateX(62px);
-  -ms-transform: translateX(62px);
-  transform: translateX(62px);
+  -webkit-transform: translateX(65px);
+  -ms-transform: translateX(65px);
+  transform: translateX(65px);
 }
 
 /* Rounded sliders */
@@ -606,7 +606,7 @@ defs + g {
   margin-left: 10px;
   margin-right: 10px;
   width: calc(100% - 20px);
-  background-color: #000000;
+  background-color: var(--btn-first-color);
   border: none;
   font-weight: bold;
   color: white;
@@ -617,7 +617,7 @@ defs + g {
 }
 
 .apply_button:hover {
-  background-color: #414141;
+  background-color: var(--btn-first-hover-color);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
