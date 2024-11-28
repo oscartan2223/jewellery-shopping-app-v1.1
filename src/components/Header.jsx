@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import '../assets/css/Header.css';
-import { FaUser, FaShoppingCart, FaBars, FaSearch } from 'react-icons/fa';
+import { FaUser, FaShoppingCart, FaBars, FaSearch, FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../authContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -113,6 +113,11 @@ const Header = ({ action }) => {
                         <div className={`${!isPortrait ? 'header-btn header-cart-btn' : 'header-dropdown-btn'}`} onClick={() => { handleAction('cart') }}>
                             <button>
                                 <FaShoppingCart className="header-icon-size" /><label className="header-cart-num">{cartItem}</label>
+                            </button>
+                        </div>
+                        <div className={`${!isPortrait ? 'header-btn header-whatsapp-btn' : 'header-dropdown-btn'}`} onClick={() => { window.location.href = 'https://wa.me/60195481017'; }}>
+                            <button>
+                                <FaWhatsapp className="header-icon-size" />
                             </button>
                         </div>
                     </div>

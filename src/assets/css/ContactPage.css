@@ -17,14 +17,14 @@
 }
 
 .feedback_title {
-    color: #333;
+    color: var(--font-primary-heading);
     font-size: 40px;
 }
 
 .feedback_button {
     background-color: var(--btn-first-color);
     border: none;
-    color: white;
+    color: var(--font-btn-first-color);
     padding: 10px 15px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

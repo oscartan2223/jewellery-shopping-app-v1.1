@@ -210,7 +210,7 @@
 }
 
 .sidebar-search-result:hover {
-    color: rgb(53, 107, 255);
+    color: var(--font-primary-body-hover);
 }
 
 .sidebar-cart-list {

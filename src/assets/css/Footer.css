@@ -31,7 +31,7 @@
 }
 
 .footer-menu>p:hover {
-    color: rgb(99, 99, 99);
+    color: var(--font-primary-body-hover);
 }
 
 .footer-block {

@@ -33,7 +33,7 @@
 .register_button {
     background-color: var(--btn-first-color);
     border: none;
-    color: white;
+    color: var(--font-btn-first-color);
     margin-top: 1.5rem;
     margin-bottom: 6.5rem;
     padding: 10px 15px;
@@ -74,7 +74,7 @@
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    color: white;
+    color: var(--font-btn-first-color);
 }
 
 .register-request-button:hover {

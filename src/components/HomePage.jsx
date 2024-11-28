@@ -432,7 +432,7 @@ const HomePage = ({ showAlert }) => {
               <div className="ratio ratio-1x1 w-100">
                 <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
               </div>
-              <p className="all-center underline fw-bold cursor-pointer user-select-none font-custom">{category.heading}</p>
+              <p className="all-center underline fw-bold cursor-pointer select-none font-custom">{category.heading}</p>
             </div>
           ))}
         </div>

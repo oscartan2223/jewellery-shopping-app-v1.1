@@ -14,7 +14,7 @@
 }
 
 .login-text>a {
-    color: #000000 !important;
+    color: var(--font-primary-body) !important;
 }
 
 .password-input {
@@ -41,7 +41,7 @@
 }
 
 .login-forgot>a {
-    color: #000000 !important;
+    color: var(--font-primary-body) !important;
 }
 
 .login-return {
@@ -51,13 +51,13 @@
 }
 
 .login-return>a {
-    color: #000000 !important;
+    color: var(--font-primary-body) !important;
 }
 
 .login_button {
     background-color: var(--btn-first-color);
     border: none;
-    color: white;
+    color: var(--font-btn-first-color);
     margin-bottom: 1.5rem;
     padding: 10px 15px;
     border-radius: 5px;

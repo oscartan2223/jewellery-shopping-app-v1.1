@@ -17,6 +17,7 @@ import ForgotPasswordPage from './components/ForgotPasswordPage';
 import ProfilePage from './components/ProfilePage';
 import ItemPage from './components/ItemPage';
 import CartPage from './components/CartPage';
+import LiveChat from './LiveChat';
 
 const App = () => {
   return (
@@ -34,7 +35,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/cart'];
+  const noHeaderSidebarFooterPaths = ['/payment'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');

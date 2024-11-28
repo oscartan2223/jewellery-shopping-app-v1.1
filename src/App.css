@@ -1,6 +1,9 @@
 @import '~bootstrap';
 
+
+/* Theme Settings */
 :root {
+    /* Background Color*/
     --bg-first-color: rgb(253, 249, 242);
     --bg-second-color: rgb(0, 0, 0);
     --btn-first-color: rgb(0, 0, 0);
@@ -21,6 +24,24 @@
     --switch-btn-circle: rgb(233, 233, 233);
     --slider-fill-bg: rgb(124, 124, 124);
     --slider-unfill-bg: rgb(206, 212, 218);
+
+    /* Color */
+    --font-primary-heading: rgb(0, 0, 0);
+    --font-primary-body: rgb(0, 0, 0);
+    --font-primary-body-hover: rgb(99, 99, 99);
+    --font-btn-first-color: rgb(255, 255, 255);
+    --font-btn-first-hover-color: rgb(56, 56, 56);
+    --font-btn-second-color: rgb(0, 0, 0);
+    --font-btn-second-hover-color: rgb(201, 201, 201);
+    --font-accordion-open-color: rgb(255, 255, 255);
+    --font-accordion-body-color: rgb(85, 85, 85);
+    --font-ads-color: rgb(255, 255, 100);
+    --font-shop-details: rgb(255, 200, 47);
+    --font-shop-details-hover: rgb(255, 222, 130);
+
+    /* Fonts */
+    --primary-font: Verdana, Geneva, Tahoma, sans-serif;
+    --secondary-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .z-first {
@@ -31,7 +52,7 @@
     display: none !important;
 }
 
-.user-select-none {
+.select-none {
     user-select: none;
 }
 
@@ -51,11 +72,11 @@
 }
 
 .font-custom {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--primary-font);
 }
 
 .font-custom-2 {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family: var(--secondary-font);
 }
 
 html, body {

@@ -49,7 +49,7 @@
     right: 15px;
     background-color: var(--btn-first-color);
     border: none;
-    color: white;
+    color: var(--font-btn-first-color);
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
@@ -204,7 +204,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .item-filter-button>label:hover {
-    color: rgb(80, 80, 80);
+    color: var(--font-primary-body-hover);
 }
 
 .item-box-container {
@@ -226,7 +226,7 @@ input[type="checkbox"]:checked::before {
 .item-info-btn {
     background-color: var(--btn-first-color);
     border: none;
-    color: white;
+    color: var(--font-btn-first-color);
     margin-bottom: 1.5rem;
     padding: 5px 7px;
     border-radius: 5px;

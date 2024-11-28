@@ -13,7 +13,7 @@
 .profile-update-button {
     background-color: var(--btn-first-color);
     border: none;
-    color: white;
+    color: var(--font-btn-first-color);
     margin-bottom: 1.5rem;
     padding: 10px 15px;
     border-radius: 5px;
@@ -30,7 +30,7 @@
 .profile-back-button {
     background-color: var(--btn-second-color);
     border: none;
-    color: rgb(0, 0, 0);
+    color: var(--font-btn-second-color);
     margin-bottom: 1.5rem;
     padding: 10px 15px;
     border-radius: 5px;
@@ -40,7 +40,7 @@
 
 .profile-back-button:hover {
     background-color: var(--btn-second-hover-color);
-    color: rgb(201, 201, 201);
+    color: var(--font-btn-second-hover-color);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }

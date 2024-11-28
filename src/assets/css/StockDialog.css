@@ -70,7 +70,7 @@
 
 .back-btn {
     margin-right: 15px;
-    color: rgb(0, 0, 0);
+    color: var(--font-primary-body);
     font-weight: bold;
     font-size: 30px;
     line-height: 100%;
@@ -79,7 +79,7 @@
 }
 
 .back-btn:hover {
-    color: rgb(77, 77, 77);
+    color: var(--font-primary-body-hover);
 }
 
 .item-list-heading {
@@ -92,7 +92,7 @@
 
 .close-btn {
     margin-left: 15px;
-    color: rgb(0, 0, 0);
+    color: var(--font-primary-body);
     font-weight: bold;
     font-size: 35px;
     line-height: 100%;
@@ -101,7 +101,7 @@
 }
 
 .close-btn:hover {
-    color: rgb(77, 77, 77);
+    color: var(--font-primary-body-hover);
 }
 
 .dialog-body-content {

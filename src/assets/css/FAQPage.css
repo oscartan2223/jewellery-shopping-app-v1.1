@@ -19,7 +19,7 @@
     margin-bottom: 30px;
     font-size: 40px;
     text-align: center;
-    color: #333;
+    color: var(--font-primary-heading);
     text-transform: uppercase;
 }
 
@@ -32,7 +32,7 @@
 
 .accordion-button {
     background-color: var(--accordion-color);
-    color: rgb(0, 0, 0);
+    color: var(--font-primary-body);
     font-weight: bold;
     padding: 1.25rem;
     border: none;
@@ -48,13 +48,13 @@
 
 .accordion-button:not(.collapsed) {
     background-color: var(--accordion-open-color);
-    color: white;
+    color: var(--font-accordion-open-color);
 }
 
 .accordion-body {
     padding: 1.5rem;
     font-size: 1.1rem;
-    color: #555;
+    color: var(--font-accordion-body-color);
     background-color: var(--accordion-content-color);
     border-top: 1px solid #e0e0e0;
     font-family: 'Arial', sans-serif;
@@ -64,7 +64,7 @@
 }
 
 .accordion-body strong {
-    color: #007bff;
+    color: var(--font-accordion-body-color);
     font-weight: bold;
 }
 

@@ -50,7 +50,7 @@
 
 .header-search-btn {
     position: absolute;
-    right: 94px;
+    right: 136px;
 }
 
 .header-search-btn-portrait {
@@ -64,7 +64,7 @@
 }
 
 .header-menu-list {
-    width: calc(100% - 42px - 198px - 20px);
+    width: calc(100% - 42px - 198px - 20px - 42px);
     height: 100%;
     display: flex;
     align-items: center;
@@ -107,7 +107,6 @@
     font-weight: bold;
     padding-left: 5px;
     padding-right: 5px;
-    color: rgb(31, 31, 31);
     cursor: pointer;
 }
 
@@ -117,7 +116,7 @@
 }
 
 .header-menu-content:hover {
-    color: rgb(95, 95, 95);
+    color: var(--font-primary-body-hover);
 }
 
 .header-menu-icon-list {
@@ -129,10 +128,15 @@
 
 .header-user-btn {
     position: absolute;
-    right: 52px;
+    right: 94px;
 }
 
 .header-cart-btn {
+    position: absolute;
+    right: 47px;
+}
+
+.header-whatsapp-btn {
     position: absolute;
     right: 10px;
 }
@@ -143,13 +147,13 @@
 }
 
 .header-btn>button {
-    color: rgb(0, 0, 0);
+    color: var(--font-primary-body);
     display: flex;
 }
 
 .header-btn>button:hover,
 .header-dropdown-btn>button:hover{
-    color: rgb(95, 95, 95);
+    color: var(--font-primary-body-hover);
 }
 
 .header-icon-size {

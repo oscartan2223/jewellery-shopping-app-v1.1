@@ -219,7 +219,7 @@ const ItemPage = () => {
             {dialog &&
                 <StockDialog stocks={stockItem.current} onClose={() => {setDialog(!dialog)}} />
             }
-            <h1 className="w-100 mb-4 text-center font-custom fs-1 user-select-none">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
+            <h1 className="w-100 mb-4 text-center font-custom fs-1 select-none">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
             <div className="search-pattern">
                 <input className="form-control" type="text" placeholder="Search"
                     value={itemQuery} onChange={filterItem} onKeyDown={handleKeyDown} />

@@ -22,7 +22,7 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  color: yellow;
+  color: var(--font-ads-color);
   bottom: 0;
   text-wrap: nowrap;
   animation: walkAcross 30s linear infinite;
@@ -89,13 +89,13 @@
   font-weight: bold;
   font-size: 14px;
   background-color: var(--btn-first-color);
-  color: white;
+  color: var(--font-btn-first-color);
   border-radius: 5px;
 }
 
 .home-filter-btn.openFilter {
   background-color: var(--btn-first-hover-color);
-  color: rgb(191, 191, 191);
+  color: var(--font-primary-body-hover);
 }
 
 .home-filter-container {
@@ -563,7 +563,6 @@ defs + g {
   transform: translateX(65px);
 }
 
-/* Rounded sliders */
 .slider_switch.round {
   border-radius: 100px;
 }
@@ -572,7 +571,6 @@ defs + g {
   border-radius: 50%;
 }
 
-/* Correct positioning for NO label */
 .absolute-no {
   position: absolute;
   left: 0;
@@ -609,7 +607,7 @@ defs + g {
   background-color: var(--btn-first-color);
   border: none;
   font-weight: bold;
-  color: white;
+  color: var(--font-btn-first-color);
   padding: 10px 15px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
