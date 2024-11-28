@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useStock } from '../stockContext';
-import { FaFilter, FaTimes } from 'react-icons/fa';
 import '../assets/css/ItemPage.css';
 import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
 import StockDialog from "./StockDialog.jsx";
+import { FaSearch, FaPlus, FaMinus } from 'react-icons/fa';
 
 const ItemPage = () => {
     const location = useLocation();
@@ -35,6 +35,12 @@ const ItemPage = () => {
     const [currentMaxItemWeight, setCurrentMaxItemWeight] = useState(99999);
     const [dialog, setDialog] = useState(false);
     const stockItem = useRef();
+
+    const [filterClick, setFilterClick] = useState(false);
+    const [certChecked, setCertChecked] = useState(false);
+    const [boxChecked, setBoxChecked] = useState(false);
+    const [checkboxTypeCollapse, setCheckboxTypeCollapse] = useState(false);
+    const [checkboxAdvancedCollapse, setCheckboxAdvancedCollapse] = useState(true);
 
     const filterItem = useCallback((event, minItemPrice = currentMinItemPrice, maxItemPrice = currentMaxItemPrice,
         minItemWeight = currentMinItemMeasurement, maxItemWeight = currentMaxItemMeasurement,
@@ -205,7 +211,7 @@ const ItemPage = () => {
         setCurrentMinItemWeight(minItemWeight);
         setCurrentMaxItemWeight(maxItemWeight);
         filterItem({ target: { value: itemQuery } }, minItemPrice, maxItemPrice, minItemMeasurement, maxItemMeasurement, minItemWeight, maxItemWeight);
-        setFilterBox(!filterBox);
+        setFilterClick(!filterClick);
     };
 
     const toggleCheckbox = (id) => {
@@ -217,101 +223,97 @@ const ItemPage = () => {
     return (
         <div className="item-container">
             {dialog &&
-                <StockDialog stocks={stockItem.current} onClose={() => {setDialog(!dialog)}} />
+                <StockDialog stocks={stockItem.current} onClose={() => { setDialog(!dialog) }} />
             }
-            <h1 className="w-100 mb-4 text-center font-custom fs-1 select-none">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
-            <div className="search-pattern">
-                <input className="form-control" type="text" placeholder="Search"
-                    value={itemQuery} onChange={filterItem} onKeyDown={handleKeyDown} />
-            </div>
-            <div className="w-100 item-filter-container">
-                <div className="item-filter">
-                    <span className="item-filter-button" onClick={() => { if (data) { setFilterBox(!filterBox); setInitLoad(false); } }}>
-                        <FaFilter className="item-filter-icon" />
-                        <label>Show Filters</label>
-                    </span>
-                    <div className={`item-filter-box ${filterBox ? 'item-filter-box-show' : !initLoad ? 'item-filter-box-hide' : 'item-filter-box-hidden'}`}>
-                        <button className="item-filter-btn" onClick={handleApplyFilter}>Apply</button>
-                        <div className="item-filter-content-box">
-                            <div className="item-filter-title font-custom fw-bold mb-4">
-                                FILTERS
-                                <button className="item-filter-close-btn" onClick={() => { setFilterBox(!filterBox) }}>
-                                    <FaTimes />
-                                </button>
-                            </div>
-                            <div className="item-filter-content-container hide-scroll-container">
-                                <div className="mb-3">
-                                    <button className="w-100 font-custom-2 fw-bold text-start p-0">
-                                        Types
-                                    </button>
-                                    <div className={`d-flex flex-column`}>
-                                        {typeList.current && typeList.current.length > 0 ? (
-                                            typeList.current.map((type, index) => (
-                                                <span className="item-filter-text w-100 font-custom-2" key={index} onClick={() => handleCheckboxChange(index)}>
-                                                    <input className="item-filter-checkbox" type="checkbox"
-                                                        checked={checkedStates[index]} readOnly />
-                                                    {capitalizeFirstLetter(type)}
-                                                </span>
-                                            ))
-                                        ) : (
-                                            <span className="w-100 font-custom-2">No type available</span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <button className="w-100 font-custom-2 fw-bold text-start p-0">
-                                        Advanced
-                                    </button>
-                                    <div className={`d-flex flex-column`}>
-                                        <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('boxCheck') }}>
-                                            <input className="item-filter-checkbox" type="checkbox" id="boxCheck" onClick={(e) => e.stopPropagation()} />
-                                            With box only
+            <h1 className="mb-4 text-center font-custom select-none">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
+            <div className="home-search-container">
+                <div className="home-search-input-container">
+                    <input
+                        className="form-control home-search-input"
+                        type="text"
+                        placeholder="Search"
+                        aria-label="Search"
+                        value={itemQuery}
+                        onChange={filterItem}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <FaSearch className="home-search-icon" />
+                    <button className={`home-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { setFilterClick(!filterClick) }}>Filter</button>
+                </div>
+                <div className={`item-filter-container ${filterClick ? 'open' : ''}`}>
+                    <div className="item-filter-content w-100 hide-scroll-container">
+                        <div className="mb-4">
+                            <button className="item-filter-heading font-custom-2" onClick={() => setCheckboxTypeCollapse(!checkboxTypeCollapse)}>
+                                Types
+                                {checkboxTypeCollapse ? <FaPlus className="item-filter-checkbox-icon"/> : <FaMinus className="item-filter-checkbox-icon"/>}
+                            </button>
+                            <div className={`item-filter-group-checkbox ${!checkboxTypeCollapse && filterClick ? 'open' : ''}`}>
+                                {typeList.current && typeList.current.length > 0 ? (
+                                    typeList.current.map((type, index) => (
+                                        <span className="item-filter-text w-100 font-custom-2" key={index} onClick={() => handleCheckboxChange(index)}>
+                                            <input className="item-filter-checkbox" type="checkbox"
+                                                checked={checkedStates[index]} readOnly />
+                                            {capitalizeFirstLetter(type)}
                                         </span>
-                                        <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('certCheck') }}>
-                                            <input className="item-filter-checkbox" type="checkbox" id="certCheck" onClick={(e) => e.stopPropagation()} />
-                                            Certificate only
-                                        </span>
-                                    </div>
-                                </div>
-                                {filterBox &&
-                                    <div className="mt-5 d-flex flex-column w-100">
-                                        <div className="item-slider-container">
-                                            <label className="item-adjust-label font-custom-2">Price</label>
-                                            <MultiRangeSlider
-                                                min={0}
-                                                max={99999}
-                                                initialMinValue={currentMinItemPrice}
-                                                initialMaxValue={currentMaxItemPrice}
-                                                onChange={({ min, max }) => updateItemPrice(min, max)}
-                                            />
-                                        </div>
-                                        <div className="item-slider-container">
-                                            <label className="item-adjust-label font-custom-2">Measurement</label>
-                                            <MultiRangeSlider
-                                                min={0}
-                                                max={99999}
-                                                initialMinValue={currentMinItemMeasurement}
-                                                initialMaxValue={currentMaxItemMeasurement}
-                                                onChange={({ min, max }) => updateItemMeasurement(min, max)}
-                                            />
-                                        </div>
-                                        <div className="item-slider-container">
-                                            <label className="item-adjust-label font-custom-2">Weight</label>
-                                            <MultiRangeSlider
-                                                min={0}
-                                                max={99999}
-                                                initialMinValue={currentMinItemWeight}
-                                                initialMaxValue={currentMaxItemWeight}
-                                                onChange={({ min, max }) => updateItemWeight(min, max)}
-                                            />
-                                        </div>
-                                    </div>
-                                }
+                                    ))
+                                ) : (
+                                    <span className="w-100 font-custom-2">No type available</span>
+                                )}
                             </div>
                         </div>
+
+                        <div className="mb-4">
+                            <button className="item-filter-heading font-custom-2" onClick={() => setCheckboxAdvancedCollapse(!checkboxAdvancedCollapse)}>
+                                Advanced
+                                {checkboxAdvancedCollapse ? <FaPlus className="item-filter-checkbox-icon"/> : <FaMinus className="item-filter-checkbox-icon"/>}
+                            </button>
+                            <div className={`item-filter-group-checkbox ${!checkboxAdvancedCollapse && filterClick ? 'open' : ''}`}>
+                                <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('boxCheck') }}>
+                                    <input className="item-filter-checkbox" type="checkbox" id="boxCheck" onClick={(e) => e.stopPropagation()} />
+                                    With box only
+                                </span>
+                                <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('certCheck') }}>
+                                    <input className="item-filter-checkbox" type="checkbox" id="certCheck" onClick={(e) => e.stopPropagation()} />
+                                    Certificate only
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="item-slider-container">
+                            <label className="item-adjust-label font-custom-2">Price</label>
+                            <MultiRangeSlider
+                                min={0}
+                                max={99999}
+                                initialMinValue={currentMinItemPrice}
+                                initialMaxValue={currentMaxItemPrice}
+                                onChange={({ min, max }) => updateItemPrice(min, max)}
+                            />
+                        </div>
+                        <div className="item-slider-container">
+                            <label className="item-adjust-label font-custom-2">Measurement</label>
+                            <MultiRangeSlider
+                                min={0}
+                                max={99999}
+                                initialMinValue={currentMinItemMeasurement}
+                                initialMaxValue={currentMaxItemMeasurement}
+                                onChange={({ min, max }) => updateItemMeasurement(min, max)}
+                            />
+                        </div>
+                        <div className="item-slider-container">
+                            <label className="item-adjust-label font-custom-2">Weight</label>
+                            <MultiRangeSlider
+                                min={0}
+                                max={99999}
+                                initialMinValue={currentMinItemWeight}
+                                initialMaxValue={currentMaxItemWeight}
+                                onChange={({ min, max }) => updateItemWeight(min, max)}
+                            />
+                        </div>
                     </div>
-                    <div className={`item-filter-box-overlay ${filterBox ? 'item-filter-box-overlay-show' : ''}`} onClick={() => { setFilterBox(!filterBox) }}>
+                    <div className="w-100 mt-3">
+                        <button className="apply_button" onClick={handleApplyFilter}>
+                            Apply Filter
+                        </button>
                     </div>
                 </div>
             </div>
@@ -323,7 +325,7 @@ const ItemPage = () => {
                         filteredItems.item.map((item, index) =>
                             item.stock && item.stock.length > 0 && (
                                 <div key={index} className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 col-xxxl-2"
-                                    onClick={() => {stockItem.current = item; setDialog(!dialog);}}>
+                                    onClick={() => { stockItem.current = item; setDialog(!dialog); }}>
                                     <div className="item-box-image">
                                         <img src={item.imageUrl} alt={item.heading} className="item-image mb-4" />
                                     </div>
@@ -348,4 +350,4 @@ const ItemPage = () => {
     );
 };
 
-export default ItemPage;//1 poh kong stock ui
+export default ItemPage;

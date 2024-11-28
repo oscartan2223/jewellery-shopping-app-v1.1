@@ -598,6 +598,7 @@ defs + g {
   font-weight: bold;
   margin-left: 10px;
   margin-right: 20px;
+  text-align: center;
 }
 
 .apply_button {
