@@ -193,6 +193,20 @@ const ItemPage = () => {
         }
     };
 
+    const updateLocationState = () => {
+        // New data to update the state
+        const newStateData = { someKey: 'newValue' };
+
+        // Update the location state without causing a page reload
+        navigate(location.pathname, {
+            replace: true,    // Replace current entry in history stack (no page reload)
+            state: newStateData, // Set new state data
+        });
+
+        // You can continue with other function logic
+        console.log('State has been updated, and function continues running.');
+    };
+
     useEffect(() => {
         if (data && data.categoryId && stocks.current) {
             const SearchList = [];
