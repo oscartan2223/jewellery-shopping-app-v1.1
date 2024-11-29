@@ -34,6 +34,10 @@
     color: var(--font-primary-body-hover);
 }
 
+.footer-icon {
+    margin-bottom: 20px;
+}
+
 .footer-block {
     display: flex;
     align-items: center;

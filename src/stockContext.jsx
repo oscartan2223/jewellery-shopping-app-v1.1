@@ -42,7 +42,9 @@ export const StockProvider = ({ children }) => {
                           heading: "POH KONG 916/22K Yellow Gold Butterfly Minimalist Mini Ring",//Patterns
                           type: "gold",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy1.png?v=1729152828&width=180",
-                          price: 190,// Means that RM670/g
+                          price: 190,// Means that RM670/g0
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15672D",
                           stock: [
                             {
                               stock_id: 1,
@@ -204,6 +206,8 @@ export const StockProvider = ({ children }) => {
                           type: "silver",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali2401cmyk.png?v=1729153204&width=180",
                           price: 200,
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -269,6 +273,8 @@ export const StockProvider = ({ children }) => {
                           type: "bronze",
                           imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
                           price: 670,// Means that RM670/g
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -326,6 +332,8 @@ export const StockProvider = ({ children }) => {
                           type: "gold",
                           imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
                           price: 200,
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -396,6 +404,8 @@ export const StockProvider = ({ children }) => {
                           type: "silver",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy.png?v=1729152276&width=180",
                           price: 190,// Means that RM670/g
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -453,6 +463,8 @@ export const StockProvider = ({ children }) => {
                           type: "gold",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240201CMYK.png?v=1729153259&width=180",
                           price: 200,
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -518,6 +530,8 @@ export const StockProvider = ({ children }) => {
                           type: "silver",
                           imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
                           price: 670,// Means that RM670/g
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -575,6 +589,8 @@ export const StockProvider = ({ children }) => {
                           type: "gold",
                           imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
                           price: 200,
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -645,6 +661,8 @@ export const StockProvider = ({ children }) => {
                           type: "silver",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240303copy.png?v=1729153314&width=180",
                           price: 190,// Means that RM670/g
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -702,6 +720,8 @@ export const StockProvider = ({ children }) => {
                           type: "gold",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240403copy2.png?v=1729153117&width=180",
                           price: 200,
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -767,6 +787,8 @@ export const StockProvider = ({ children }) => {
                           type: "silver",
                           imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
                           price: 670,// Means that RM670/g
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,
@@ -824,6 +846,8 @@ export const StockProvider = ({ children }) => {
                           type: "gold",
                           imageUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/Untitled-1.jpg",
                           price: 200,
+                          brandName: "Brand ABC",
+                          brandCode: "HFR15673D",
                           stock: [
                             {
                               stock_id: 1,

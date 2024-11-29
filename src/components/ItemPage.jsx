@@ -12,10 +12,11 @@ const ItemPage = () => {
     const { stocks } = useStock();
     const currentItemList = useRef(null);
     const [filteredItems, setFilteredItems] = useState(null);
-    const [filterBox, setFilterBox] = useState(false);
-    // const [typeList, setTypeList] = useState();
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const searchList = useRef();
+    const [filterSearchList, setFilterSearchList] = useState([]);
+    const [timeoutId, setTimeoutId] = useState(null);
     const typeList = useRef();
-    const [initLoad, setInitLoad] = useState(true);
     const [checkedStates, setCheckedStates] = useState([]);
     const checkedRef = useRef([])
     const [itemQuery, setItemQuery] = useState("");
@@ -37,8 +38,6 @@ const ItemPage = () => {
     const stockItem = useRef();
 
     const [filterClick, setFilterClick] = useState(false);
-    const [certChecked, setCertChecked] = useState(false);
-    const [boxChecked, setBoxChecked] = useState(false);
     const [checkboxTypeCollapse, setCheckboxTypeCollapse] = useState(false);
     const [checkboxAdvancedCollapse, setCheckboxAdvancedCollapse] = useState(true);
 
@@ -47,11 +46,19 @@ const ItemPage = () => {
         minItemMeasurement = currentMinItemMeasurement, maxItemMeasurement = currentMaxItemWeight) => {
         if (event.key === 'Enter') {
             event.target.blur();
+        } else {
+            if (!currentItemList.current)  return;
         }
 
         const query = event.target.value;
         setItemQuery(query);
         const lowerCaseQuery = query.toLowerCase();
+
+        const filteredSearch = searchList.current.filter(item =>
+            item.heading.toLowerCase().includes(lowerCaseQuery)
+        );
+        setFilterSearchList(filteredSearch);
+
         if (currentItemList.current && currentItemList.current.item) {
             const filteredWithStock = currentItemList.current.item.map(item => {
                 let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.current.indexOf(item.type)] === true;
@@ -78,14 +85,6 @@ const ItemPage = () => {
             setFilteredItems({ /*...content, */item: filteredWithStock });
         }
     }, [minItemPrice, maxItemPrice, minItemWeight, maxItemWeight, minItemMeasurement, maxItemMeasurement]);
-
-    useEffect(() => {
-        if (filterBox) {
-            document.documentElement.style.overflow = 'hidden';
-        } else {
-            document.documentElement.style.overflow = 'auto';
-        }
-    }, [filterBox]);
 
     useEffect(() => {
         if (stocks && stocks.current && data && data.categoryId) {
@@ -172,6 +171,22 @@ const ItemPage = () => {
         setMaxItemWeight(max);
     };
 
+    const handleDropdownSelect = (heading) => {
+        setItemQuery(heading);
+        setFilterSearchList(searchList.current);
+    };
+
+    const handleInputBlur = () => {
+        const id = setTimeout(() => {
+            setIsSearchOpen(false);
+        }, 200);
+        setTimeoutId(id);
+    };
+
+    const handleInputFocus = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+    };
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             event.target.blur();
@@ -180,6 +195,7 @@ const ItemPage = () => {
 
     useEffect(() => {
         if (data && data.categoryId && stocks.current) {
+            const SearchList = [];
             const stock_list = stocks.current.forEach(eachCategoryItem => {
                 const stock_item = eachCategoryItem.items.forEach(eachItemStock => {
                     if (eachItemStock.id === data.categoryId) {
@@ -188,9 +204,18 @@ const ItemPage = () => {
 
                         setCheckedStates(Array(["All", ...type_list].length).fill(true));
                         checkedRef.current = Array(["All", ...type_list].length).fill(true);
+
+                        eachItemStock.item.forEach(item => {
+                            SearchList.push({
+                                heading: item.heading,
+                                type: item.type,
+                            });
+                        });
                     }
                 });
             });
+            searchList.current = SearchList;
+            setFilterSearchList(SearchList)
         }
     }, []);
 
@@ -231,21 +256,38 @@ const ItemPage = () => {
                     <input
                         className="form-control home-search-input"
                         type="text"
-                        placeholder="Search"
+                        placeholder="Search Pattern"
                         aria-label="Search"
                         value={itemQuery}
                         onChange={filterItem}
                         onKeyDown={handleKeyDown}
+                        onClick={() => setIsSearchOpen(true)}
+                        onBlur={handleInputBlur}
+                        onFocus={handleInputFocus}
                     />
-                    <FaSearch className="home-search-icon" />
-                    <button className={`home-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { setFilterClick(!filterClick) }}>Filter</button>
+                    <FaSearch className="item-search-icon" />
+                    <button className={`item-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { if (currentItemList.current) {setFilterClick(!filterClick)} }}>Filter</button>
+                    {isSearchOpen && filterSearchList.length > 0 && (
+                        <ul className="item-search-menu" id="search-menu">
+                            {filterSearchList.map((item, index) => (
+                                <li key={index} onClick={() => {
+                                    handleDropdownSelect(item.heading);
+                                    filterItem({ target: { value: item.heading } });
+                                }}>
+                                    <span className="search-menu-item">{item.heading}</span>
+                                </li>
+                            ))}
+
+                        </ul>
+                    )}
                 </div>
+
                 <div className={`item-filter-container ${filterClick ? 'open' : ''}`}>
                     <div className="item-filter-content w-100 hide-scroll-container">
                         <div className="mb-4">
                             <button className="item-filter-heading font-custom-2" onClick={() => setCheckboxTypeCollapse(!checkboxTypeCollapse)}>
                                 Types
-                                {checkboxTypeCollapse ? <FaPlus className="item-filter-checkbox-icon"/> : <FaMinus className="item-filter-checkbox-icon"/>}
+                                {checkboxTypeCollapse ? <FaPlus className="item-filter-checkbox-icon" /> : <FaMinus className="item-filter-checkbox-icon" />}
                             </button>
                             <div className={`item-filter-group-checkbox ${!checkboxTypeCollapse && filterClick ? 'open' : ''}`}>
                                 {typeList.current && typeList.current.length > 0 ? (
@@ -265,7 +307,7 @@ const ItemPage = () => {
                         <div className="mb-4">
                             <button className="item-filter-heading font-custom-2" onClick={() => setCheckboxAdvancedCollapse(!checkboxAdvancedCollapse)}>
                                 Advanced
-                                {checkboxAdvancedCollapse ? <FaPlus className="item-filter-checkbox-icon"/> : <FaMinus className="item-filter-checkbox-icon"/>}
+                                {checkboxAdvancedCollapse ? <FaPlus className="item-filter-checkbox-icon" /> : <FaMinus className="item-filter-checkbox-icon" />}
                             </button>
                             <div className={`item-filter-group-checkbox ${!checkboxAdvancedCollapse && filterClick ? 'open' : ''}`}>
                                 <span className="item-filter-text w-100 font-custom-2" onClick={() => { toggleCheckbox('boxCheck') }}>
@@ -335,7 +377,7 @@ const ItemPage = () => {
                                     <p className="text-center item-content">{GetMinMax("measurement", item.stock)}</p>
                                     <p className="text-center item-content">{GetMinMax("width", item.stock)}</p>
                                     <p className="text-center item-content">Gold Type: {item.type}</p>
-                                    <p className="text-center item-content">Brand Code: HFR15673D</p>
+                                    <p className="text-center item-content">Brand Code: {item.brandCode}</p>
                                     <button className="text-center item-info-btn">More info</button>
                                 </div>
                             ))

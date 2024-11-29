@@ -172,7 +172,7 @@ const ContactPage = ({ showAlert }) => {
                     disabled={isSubmitted}>
                     <strong>Send Message</strong>
                 </button>
-                <label className="all-center fw-bold fs-3 text-decoration-underline" onClick={() => {handleNavigate('/location');}}>Find Us&nbsp; <FaArrowRight className="h-100 fs-6"/></label>
+                <label className="all-center fw-bold fs-3 text-decoration-underline cursor-pointer" title="Navigate to Find Us Page" onClick={() => {handleNavigate('/location');}}>Find Us&nbsp; <FaArrowRight className="h-100 fs-6"/></label>
             </div>
         </div>
     );

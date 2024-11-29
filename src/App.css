@@ -5,7 +5,7 @@
 :root {
     /* Background Color*/
     --bg-first-color: rgb(253, 249, 242);
-    --bg-second-color: rgb(0, 0, 0);
+    --bg-first-hover-color: rgb(209, 205, 197);
     --btn-first-color: rgb(0, 0, 0);
     --btn-first-hover-color: rgb(56, 56, 56);
     --btn-second-color: rgb(255, 255, 255);

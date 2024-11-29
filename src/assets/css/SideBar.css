@@ -99,6 +99,7 @@
     font-family:'Courier New', Courier, monospace;
     font-weight: bolder;
     transition: transform 0.2s ease;
+    background-color: transparent;
 }
 
 .sidebar-search-icon-btn {
