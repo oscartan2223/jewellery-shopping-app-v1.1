@@ -66,6 +66,10 @@ const StockDialog = ({ stocks = undefined, onSelect, onClose }) => {
         }, []);
     };
 
+    const handleStockSelect = (selectedStock) => {
+        naviCart([stocks.heading, selectedStock])
+    };
+
     const groupedStocks = stocks ? groupStocksById(stocks.stock) : [];
 
     return (
@@ -119,7 +123,7 @@ const StockDialog = ({ stocks = undefined, onSelect, onClose }) => {
                     <div className="dialog-list-container hide-scroll-container">
                         {dialogStocks.map((stock, index) => (
                             <div className="dialog-list" key={index}>
-                                <div /*onClick={() => onSelect(stock)}*/>
+                                <div onClick={() => handleStockSelect(stock)}>
                                     <div className="list-image-container">
                                         <img className="stock-image item" src={stock.imageUrl[0]?.original} alt={`Stock ${stock.stockCode}`} />
                                     </div>
