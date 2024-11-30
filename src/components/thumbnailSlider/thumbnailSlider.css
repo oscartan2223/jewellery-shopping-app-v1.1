@@ -1,0 +1,20 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+
+.image-gallery-play-button {
+    display: none !important;
+}
+
+.image-gallery-fullscreen-button {
+    display: none !important;
+}
+
+.image-gallery-thumbnail-image{
+    max-height: 45px !important;
+}
+
+.image-gallery-image {
+    /* height: 350px !important; */
+    min-width: 100% !important;
+    object-fit: unset !important;
+}

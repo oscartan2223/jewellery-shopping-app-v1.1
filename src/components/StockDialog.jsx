@@ -21,7 +21,7 @@ const StockDialog = ({ stocks = undefined, onSelect, onClose }) => {
             const stockToSet = stockCode ? similarStocks.find(item => item.stockCode === stockCode) : similarStocks[0];
 
             if (stockToSet) {
-                naviCart(stockToSet);
+                naviCart([stocks.heading, stockToSet]);
             }
         }
     };
