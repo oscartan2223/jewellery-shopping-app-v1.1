@@ -219,15 +219,6 @@ defs>linearGradient {
   background-color: var(--bg-secondary-catagorybox);
 }
 
-.browseCategoriesListContainer {
-  padding-left: 50px;
-  padding-right: 50px;
-  position: relative;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-}
-
 .browseLeft {
   position: absolute;
   left: 20px;

@@ -118,7 +118,7 @@ const AppContent = () => {
             <Route path="/forgot" element={<ForgotPasswordPage showAlert={showAlert} />} />
             <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             <Route path="/item" element={<ItemPage showAlert={showAlert} />} />
-            <Route path="/cart" element={<CartPage />} />
+            <Route path="/cart" element={<CartPage showAlert={showAlert} />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             

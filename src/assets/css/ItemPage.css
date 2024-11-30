@@ -5,6 +5,46 @@
     width: 100vw;
 }
 
+.item-category-heading {
+    position: relative;
+    margin-bottom: 24px;
+    text-align: center;
+    user-select: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.item-category-heading.open {
+    background-color: var(--bg-first-hover-color);
+}
+
+.item-category-container {
+    position: absolute;
+    background-color: var(--bg-first-color);
+    z-index: 2000;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    max-height: 200px;
+}
+
+.item-category-container label {
+    font-size: 17px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    width: 100%;
+    text-align: start;
+}
+
+.item-category-container label:hover {
+    background-color: var(--bg-primary-catagorybox);
+    color: var(--font-primary-body-hover);
+}
+
 .item-filter-container>.item-filter-content>.item-slider-container>.slider__left-value>.slider__left-input,
 .item-filter-container>.item-filter-content>.item-slider-container>.slider__right-value>.slider__right-input {
     background: transparent;

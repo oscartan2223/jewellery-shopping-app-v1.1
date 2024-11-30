@@ -1,24 +1,29 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useStock } from '../stockContext';
 import '../assets/css/ItemPage.css';
 import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
 import StockDialog from "./StockDialog.jsx";
-import { FaSearch, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaCaretUp, FaCaretDown, FaSearch, FaPlus, FaMinus } from 'react-icons/fa';
 
 const ItemPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const data = location.state;
     const { stocks } = useStock();
     const currentItemList = useRef(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [categoryList, setCategoryList] = useState();
     const searchList = useRef();
     const [filterSearchList, setFilterSearchList] = useState([]);
     const [timeoutId, setTimeoutId] = useState(null);
     const typeList = useRef();
     const [checkedStates, setCheckedStates] = useState([]);
-    const checkedRef = useRef([])
+    const checkedRef = useRef([]);
+    const branchList = useRef();
+    const [checkedBranchStates, setCheckedBranchStates] = useState([]);
+    const checkedBranchRef = useRef([])
     const [itemQuery, setItemQuery] = useState("");
 
     const [minItemPrice, setMinItemPrice] = useState(0);
@@ -38,7 +43,9 @@ const ItemPage = () => {
     const stockItem = useRef();
 
     const [filterClick, setFilterClick] = useState(false);
+    const [categoryCollapse, setCategoryCollapse] = useState(true);
     const [checkboxTypeCollapse, setCheckboxTypeCollapse] = useState(false);
+    const [checkboxBranchCollapse, setCheckboxBranchCollapse] = useState(true);
     const [checkboxAdvancedCollapse, setCheckboxAdvancedCollapse] = useState(true);
 
     const filterItem = useCallback((event, minItemPrice = currentMinItemPrice, maxItemPrice = currentMaxItemPrice,
@@ -47,7 +54,7 @@ const ItemPage = () => {
         if (event.key === 'Enter') {
             event.target.blur();
         } else {
-            if (!currentItemList.current)  return;
+            if (!currentItemList.current) return;
         }
 
         const query = event.target.value;
@@ -62,6 +69,7 @@ const ItemPage = () => {
         if (currentItemList.current && currentItemList.current.item) {
             const filteredWithStock = currentItemList.current.item.map(item => {
                 let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.current.indexOf(item.type)] === true;
+                let matchedBranch = checkedBranchRef.current[0] === true || checkedBranchRef.current[branchList.current.indexOf(item.branchName)] === true;
                 let itemSearchQuery = item.heading.toLowerCase().includes(lowerCaseQuery);
                 const stock = item.stock.filter(eachStock => {
                     const inPriceRange = eachStock.actual_price >= minItemPrice && eachStock.actual_price <= maxItemPrice;
@@ -77,12 +85,13 @@ const ItemPage = () => {
                         certCheck &&
                         boxCheck &&
                         matchedType &&
+                        matchedBranch &&
                         (itemSearchQuery || stockSearchQuery);
                 });
 
                 return { ...item, stock };
             });
-            setFilteredItems({ /*...content, */item: filteredWithStock });
+            setFilteredItems({ item: filteredWithStock });
         }
     }, [minItemPrice, maxItemPrice, minItemWeight, maxItemWeight, minItemMeasurement, maxItemMeasurement]);
 
@@ -119,6 +128,21 @@ const ItemPage = () => {
 
         setCheckedStates(newCheckedStates);
         checkedRef.current = newCheckedStates;
+    };
+
+    const handleBranchCheckboxChange = (index) => {
+        const newCheckedStates = [...checkedBranchStates];
+        newCheckedStates[index] = !newCheckedStates[index];
+
+        if (index === 0) {
+            const selectAll = newCheckedStates[0];
+            newCheckedStates.fill(selectAll);
+        } else {
+            newCheckedStates[0] = newCheckedStates.slice(1).every(Boolean);
+        }
+
+        setCheckedBranchStates(newCheckedStates);
+        checkedBranchRef.current = newCheckedStates;
     };
 
     const GetMinMax = (type, data) => {
@@ -193,31 +217,33 @@ const ItemPage = () => {
         }
     };
 
-    const updateLocationState = () => {
-        // New data to update the state
-        const newStateData = { someKey: 'newValue' };
+    const updateCategoryState = (index) => {
+        const newStateData = { categoryId: categoryList[index].id };
 
-        // Update the location state without causing a page reload
         navigate(location.pathname, {
-            replace: true,    // Replace current entry in history stack (no page reload)
-            state: newStateData, // Set new state data
+            replace: true,
+            state: newStateData,
         });
-
-        // You can continue with other function logic
-        console.log('State has been updated, and function continues running.');
+        window.location.reload();
     };
 
     useEffect(() => {
         if (data && data.categoryId && stocks.current) {
             const SearchList = [];
-            const stock_list = stocks.current.forEach(eachCategoryItem => {
-                const stock_item = eachCategoryItem.items.forEach(eachItemStock => {
+            stocks.current.forEach(eachCategoryItem => {
+                eachCategoryItem.items.forEach(eachItemStock => {
                     if (eachItemStock.id === data.categoryId) {
                         const type_list = [...new Set(eachItemStock.item.map(item => item.type))];
                         typeList.current = ["All", ...type_list];
 
                         setCheckedStates(Array(["All", ...type_list].length).fill(true));
                         checkedRef.current = Array(["All", ...type_list].length).fill(true);
+
+                        const branch_list = [...new Set(eachItemStock.item.map(item => item.branchName))];
+                        branchList.current = ["All", ...branch_list];
+
+                        setCheckedBranchStates(Array(["All", ...branch_list].length).fill(true));
+                        checkedBranchRef.current = Array(["All", ...branch_list].length).fill(true);
 
                         eachItemStock.item.forEach(item => {
                             SearchList.push({
@@ -230,6 +256,21 @@ const ItemPage = () => {
             });
             searchList.current = SearchList;
             setFilterSearchList(SearchList)
+
+            const category_list = [];
+            stocks.current.forEach(eachCategoryItem => {
+                eachCategoryItem.items.forEach(eachItemStock => {
+                    if (eachItemStock.id === data.categoryId) {
+                        eachCategoryItem.items.forEach(item => {
+                            category_list.push({
+                                name: item.heading,
+                                id: item.id
+                            });
+                        });
+                    }
+                });
+            });
+            setCategoryList(category_list);
         }
     }, []);
 
@@ -260,11 +301,22 @@ const ItemPage = () => {
 
 
     return (
-        <div className="item-container">
+        <div className="item-container" onClick={() => setCategoryCollapse(true)}>
             {dialog &&
                 <StockDialog stocks={stockItem.current} onClose={() => { setDialog(!dialog) }} />
             }
-            <h1 className="mb-4 text-center font-custom select-none">{currentItemList.current ? currentItemList.current.heading : 'Unknown'}</h1>
+            <h1 className={`font-custom item-category-heading ${categoryCollapse ? '' : 'open'}`} onClick={(e) => {e.stopPropagation(); setCategoryCollapse(!categoryCollapse);}}>
+                {currentItemList.current ? currentItemList.current.heading : 'Unknown'}
+                {categoryCollapse ? <FaCaretDown /> : <FaCaretUp />}
+
+                {categoryList && !categoryCollapse &&
+                    <div className="item-category-container hide-scroll-container">
+                        {categoryList.map((eachCategory, index) => (
+                            <label className="cursor-pointer select-none" key={index} onClick={() => { updateCategoryState(index) }}>{eachCategory.name}</label>
+                        ))}
+                    </div>
+                }
+            </h1>
             <div className="home-search-container">
                 <div className="home-search-input-container">
                     <input
@@ -280,9 +332,9 @@ const ItemPage = () => {
                         onFocus={handleInputFocus}
                     />
                     <FaSearch className="item-search-icon" />
-                    <button className={`item-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { if (currentItemList.current) {setFilterClick(!filterClick)} }}>Filter</button>
+                    <button className={`item-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { if (currentItemList.current) { setFilterClick(!filterClick) } }}>Filter</button>
                     {isSearchOpen && filterSearchList.length > 0 && (
-                        <ul className="item-search-menu" id="search-menu">
+                        <ul className="item-search-menu hide-scroll-container" id="search-menu">
                             {filterSearchList.map((item, index) => (
                                 <li key={index} onClick={() => {
                                     handleDropdownSelect(item.heading);
@@ -310,6 +362,26 @@ const ItemPage = () => {
                                             <input className="item-filter-checkbox" type="checkbox"
                                                 checked={checkedStates[index]} readOnly />
                                             {capitalizeFirstLetter(type)}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <span className="w-100 font-custom-2">No type available</span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="mb-4">
+                            <button className="item-filter-heading font-custom-2" onClick={() => setCheckboxBranchCollapse(!checkboxBranchCollapse)}>
+                                Branch Name
+                                {checkboxBranchCollapse ? <FaPlus className="item-filter-checkbox-icon" /> : <FaMinus className="item-filter-checkbox-icon" />}
+                            </button>
+                            <div className={`item-filter-group-checkbox ${!checkboxBranchCollapse && filterClick ? 'open' : ''}`}>
+                                {branchList.current && branchList.current.length > 0 ? (
+                                    branchList.current.map((branch, index) => (
+                                        <span className="item-filter-text w-100 font-custom-2" key={index} onClick={() => handleBranchCheckboxChange(index)}>
+                                            <input className="item-filter-checkbox" type="checkbox"
+                                                checked={checkedBranchStates[index]} readOnly />
+                                            {capitalizeFirstLetter(branch)}
                                         </span>
                                     ))
                                 ) : (
@@ -391,7 +463,7 @@ const ItemPage = () => {
                                     <p className="text-center item-content">{GetMinMax("measurement", item.stock)}</p>
                                     <p className="text-center item-content">{GetMinMax("width", item.stock)}</p>
                                     <p className="text-center item-content">Gold Type: {item.type}</p>
-                                    <p className="text-center item-content">Brand Code: {item.brandCode}</p>
+                                    <p className="text-center item-content">Branch Code: {item.branchCode}</p>
                                     <button className="text-center item-info-btn">More info</button>
                                 </div>
                             ))

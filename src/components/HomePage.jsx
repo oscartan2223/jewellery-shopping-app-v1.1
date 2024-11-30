@@ -384,10 +384,9 @@ const HomePage = ({ showAlert }) => {
       {filteredData !== undefined && selectedBrowseCategoriesItem !== '' &&
         filteredData.map((categories, index) =>
           <section className={`browseCategories overflow-hidden ${index % 2 === 0 ? "" : "second"}`} key={index}>
-            <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
+            <div className="shopCatagoriesTitle col-md-12 all-center mb-5">
               <h1 className="mb-0 font-custom">{categories.category}</h1>
             </div>
-            <div className="browseCategoriesListContainer mb-5" />
             <div className="browseCategoriesBoxesContainer">
               <div className="browseCategoriesBoxes row flex-nowrap overflow-auto hide-scroll-container" data-id={`item-box-${index}`}>
                 {categories.items.map(item => (
