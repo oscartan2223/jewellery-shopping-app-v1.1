@@ -155,7 +155,7 @@ const RegisterPage = ({ showAlert }) => {
     return (
         <div className="w-100 all-center">
             <div className="register_form d-flex flex-column">
-                <h1 className="register-title text-center font-custom mb-5 position-relative">
+                <h1 className="register-title text-center font-custom mb-5 position-relative select-none">
                     Register
                     <Tooltip title="Back to Login" arrow placement="top">
                         <FaArrowLeft className="back-login-arrow position-absolute top-0 bottom-0 start-0" onClick={() => { navigate('/login'); }} />

@@ -140,13 +140,13 @@ const ForgotPasswordPage = ({ showAlert }) => {
             <div className="forgot-form">
                 {resetPhase === 1 &&
                     <div className="all-center flex-column">
-                        <h1 className="w-100 forgot-title text-center font-custom mb-5 position-relative">
+                        <h1 className="w-100 forgot-title text-center font-custom mb-5 position-relative select-none">
                             Enter Your Email
                             <Tooltip title="Back to Login" arrow placement="top">
                                 <FaArrowLeft className="back-login-arrow position-absolute top-0 bottom-0 start-0" onClick={() => { navigate('/login'); }} />
                             </Tooltip>
                         </h1>
-                        <p className="mb-4">Please enter your email at below. You will be receive an email for 6-digit verfication code.</p>
+                        <p className="mb-4 select-none">Please enter your email at below. You will be receive an email for 6-digit verfication code.</p>
                         <input
                             className="feedback_input form-control mb-4"
                             type="text"

@@ -10,11 +10,14 @@ import { FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Rating } from '@smastrom/react-rating';
 import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
+import Notifications from './notifications/notifications.jsx';
 
 
 const HomePage = ({ showAlert }) => {
   const navigate = useNavigate();
   const { stocks } = useStock();
+
+  const [onLoadNotification, setOnLoadNotification] = useState(false);
   const [shopCategories, setShopCategories] = useState([]);
   const [browseCategoriesItem, setBrowseCategoriesItem] = useState([]);
   const [selectedBrowseCategoriesItem, setSelectedBrowseCategoriesItem] = useState([]);
@@ -70,6 +73,14 @@ const HomePage = ({ showAlert }) => {
   ]);
 
   useEffect(() => {
+    onLoadNotification ? document.documentElement.style.overflow = 'hidden' : document.documentElement.style.overflow = '';
+
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [onLoadNotification]);
+
+  useEffect(() => {
     const carouselElement = document.getElementById('myCarousel');
     new Carousel(carouselElement, {
       interval: 3000,
@@ -89,6 +100,7 @@ const HomePage = ({ showAlert }) => {
 
       setBrowseCategoriesItem(stocks.current);
       setFilteredData(stocks.current);
+      setOnLoadNotification(true);
     }
   }, [stocks]);
 
@@ -283,196 +295,201 @@ const HomePage = ({ showAlert }) => {
   }
 
   return (
-    <div className="hide-scroll-container">
-      <div className="content-site">
-        <div id="myCarousel" className="carousel slide mb-6" data-bs-ride="carousel">
-          <div className="carousel-inner">
-            {adsData.map((ad, index) => (
-              <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
-                <img
-                  src={ad.imgUrl}
-                  className="d-block w-100"
-                  alt={`Advertisement ${index + 1}`}
-                  onClick={() => { handleOpenTarget(ad.details) }}
-                />
-              </div>
-            ))}
-          </div>
-          <button className="carousel-control-prev carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            <span className="carousel-control-prev-icon carousel-nav-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Left</span>
-          </button>
-          <button className="carousel-control-next carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            <span className="carousel-control-next-icon carousel-nav-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Right</span>
-          </button>
-        </div>
-      </div>
-
-      <div className='animation-ads-container'>
-        <div className="animation-container">
-          <div className="ads-content fomt-custom-2">{adsText}</div>
-        </div>
-      </div>
-
-      <div className="home-search-container">
-        <div className="home-search-input-container">
-          <input
-            className="form-control home-search-input"
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-            value={query}
-            onChange={filterData}
-            onKeyDown={handleKeyDown}
-          />
-          <FaSearch className="home-search-icon" />
-          <button className={`home-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { setFilterClick(!filterClick) }}>Filter</button>
-        </div>
-        <div className={`home-filter-container ${filterClick ? 'open' : ''}`}>
-          <div className="item-slider-container">
-            <label className="item-adjust-label font-custom-2">Price</label>
-            <MultiRangeSlider
-              min={0}
-              max={99999}
-              initialMinValue={currentMinPrice}
-              initialMaxValue={currentMaxPrice}
-              onChange={({ min, max }) => updatePrice(min, max)}
-            />
-          </div>
-          <div className="item-slider-container">
-            <label className="item-adjust-label font-custom-2">Measurement</label>
-            <MultiRangeSlider
-              min={0}
-              max={99999}
-              initialMinValue={currentMinMeasurement}
-              initialMaxValue={currentMaxMeasurement}
-              onChange={({ min, max }) => updateMeasurement(min, max)}
-            />
-          </div>
-          <div className="item-slider-container">
-            <label className="item-adjust-label font-custom-2">Weight</label>
-            <MultiRangeSlider
-              min={0}
-              max={99999}
-              initialMinValue={currentMinWeight}
-              initialMaxValue={currentMaxWeight}
-              onChange={({ min, max }) => updateWeight(min, max)}
-            />
-          </div>
-          <div className="item-cert-container">
-            <label className="item-switch-label">Is Certificate Only</label>
-            <label className={`switch ${!filterClick ? 'hide' : ''}`}>
-              <input type="checkbox" checked={certChecked} id='certCheck' readOnly />
-              <span className="slider_switch round" onClick={() => { setCertChecked(!certChecked) }} />
-              <span className="absolute-no" onClick={() => { setCertChecked(!certChecked) }}>{certChecked ? '' : 'No'}</span>
-            </label>
-          </div>
-          <div className="item-cert-container">
-            <label className="item-switch-label">With Box Only</label>
-            <label className={`switch ${!filterClick ? 'hide' : ''}`}>
-              <input type="checkbox" checked={boxChecked} id='boxCheck' readOnly />
-              <span className="slider_switch round" onClick={() => { setBoxChecked(!boxChecked) }} />
-              <span className="absolute-no" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
-            </label>
-          </div>
-          <button className="apply_button" onClick={applyFilter}>
-            Apply Filter
-          </button>
-        </div>
-      </div>
-      {filteredData !== undefined && selectedBrowseCategoriesItem !== '' &&
-        filteredData.map((categories, index) =>
-          <section className={`browseCategories overflow-hidden ${index % 2 === 0 ? "" : "second"}`} key={index}>
-            <div className="shopCatagoriesTitle col-md-12 all-center mb-5">
-              <h1 className="mb-0 font-custom">{categories.category}</h1>
-            </div>
-            <div className="browseCategoriesBoxesContainer">
-              <div className="browseCategoriesBoxes row flex-nowrap overflow-auto hide-scroll-container" data-id={`item-box-${index}`}>
-                {categories.items.map(item => (
-                  <div className="browseCategoriesBox col-sm-6 col-md-4 col-lg-3 col-xl-2 flex-column d-flex" key={item.id}
-                    onClick={() => {
-                      naviItem({
-                        categoryId: item.id, otherData: filteredData.filter(eachCategory => {
-                          return eachCategory.items.find(eachItem => eachItem.id === item.id);
-                        })
-                      })
-                    }}>
-                    <div className="ratio ratio-1x1">
-                      <img src={item.imageUrl} alt={item.heading} className="img-fluid" />
-                    </div>
-                    <p className="text-center font-custom pl-4 pr-4">{item.heading}</p>
-
-                  </div>
-                ))}
-                <div className="boxScrollButtonContainer">
-                  <div className="boxScrollButton">
-                    <button className="browseBoxLeft" onClick={() => scrollLeft(`item-box-${index}`)}>
-                      <FaArrowLeft />
-                    </button>
-                    <button className="browseBoxRight" onClick={() => scrollRight(`item-box-${index}`)}>
-                      <FaArrowRight />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )
+    <>
+      {onLoadNotification &&
+        <Notifications onClose={() => setOnLoadNotification(!onLoadNotification)} />
       }
-
-      <section className="shopCategories overflow-hidden">
-        <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
-          <h1 className="mb-4 font-custom">Shop by Category</h1>
-        </div>
-        <div className="shopCategoriesItem row hide-scroll-container">
-          {shopCategories.map(category => (
-            <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { naviItem({ categoryId: category.id, otherData: category }) }}>
-              <div className="ratio ratio-1x1 w-100">
-                <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
-              </div>
-              <p className="all-center underline fw-bold cursor-pointer select-none font-custom">{category.heading}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {rating && rating.star &&
-        <section className="home-rate">
-          <div className="home-rate-container">
-
-            <div className="home-rate-rating">
-              <h1 className="home-rate-ave">{rating.star}</h1>
-              <p className="home-rate-num">{`(${rating.number} reviews)`}</p>
-              <Rating className="rating-class read"
-                style={{ height: 30 }}
-                readOnly
-                orientation="vertical"
-                value={rating.star}
-              />
-            </div>
-
-            <div className="home-rate-sum">
-              {ratingLevels.map((level) => (
-                <div key={level.label} className="home-rate-sum-container">
-                  <label className="home-rate-star-label">{level.label}</label>
-                  <span className="home-rate-outer-bar">
-                    <span
-                      className="home-rate-inner-bar"
-                      style={{ width: `${(level.count / rating.number) * 100}%` }}
-                      title={`${level.count}`}
-                    >
-                      <span className="tooltip">{level.count}</span>
-                    </span>
-                  </span>
+      <div className="hide-scroll-container">
+        <div className="content-site">
+          <div id="myCarousel" className="carousel slide mb-6" data-bs-ride="carousel">
+            <div className="carousel-inner">
+              {adsData.map((ad, index) => (
+                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+                  <img
+                    src={ad.imgUrl}
+                    className="d-block w-100"
+                    alt={`Advertisement ${index + 1}`}
+                    onClick={() => { handleOpenTarget(ad.details) }}
+                  />
                 </div>
               ))}
             </div>
+            <button className="carousel-control-prev carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+              <span className="carousel-control-prev-icon carousel-nav-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Left</span>
+            </button>
+            <button className="carousel-control-next carousel-nav-btn" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+              <span className="carousel-control-next-icon carousel-nav-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Right</span>
+            </button>
+          </div>
+        </div>
 
+        <div className='animation-ads-container'>
+          <div className="animation-container">
+            <div className="ads-content fomt-custom-2">{adsText}</div>
+          </div>
+        </div>
+
+        <div className="home-search-container">
+          <div className="home-search-input-container">
+            <input
+              className="form-control home-search-input"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+              value={query}
+              onChange={filterData}
+              onKeyDown={handleKeyDown}
+            />
+            <FaSearch className="home-search-icon" />
+            <button className={`home-filter-btn ${filterClick ? 'openFilter' : ''}`} onClick={() => { setFilterClick(!filterClick) }}>Filter</button>
+          </div>
+          <div className={`home-filter-container ${filterClick ? 'open' : ''}`}>
+            <div className="item-slider-container">
+              <label className="item-adjust-label font-custom-2">Price</label>
+              <MultiRangeSlider
+                min={0}
+                max={99999}
+                initialMinValue={currentMinPrice}
+                initialMaxValue={currentMaxPrice}
+                onChange={({ min, max }) => updatePrice(min, max)}
+              />
+            </div>
+            <div className="item-slider-container">
+              <label className="item-adjust-label font-custom-2">Measurement</label>
+              <MultiRangeSlider
+                min={0}
+                max={99999}
+                initialMinValue={currentMinMeasurement}
+                initialMaxValue={currentMaxMeasurement}
+                onChange={({ min, max }) => updateMeasurement(min, max)}
+              />
+            </div>
+            <div className="item-slider-container">
+              <label className="item-adjust-label font-custom-2">Weight</label>
+              <MultiRangeSlider
+                min={0}
+                max={99999}
+                initialMinValue={currentMinWeight}
+                initialMaxValue={currentMaxWeight}
+                onChange={({ min, max }) => updateWeight(min, max)}
+              />
+            </div>
+            <div className="item-cert-container">
+              <label className="item-switch-label">Is Certificate Only</label>
+              <label className={`switch ${!filterClick ? 'hide' : ''}`}>
+                <input type="checkbox" checked={certChecked} id='certCheck' readOnly />
+                <span className="slider_switch round" onClick={() => { setCertChecked(!certChecked) }} />
+                <span className="absolute-no" onClick={() => { setCertChecked(!certChecked) }}>{certChecked ? '' : 'No'}</span>
+              </label>
+            </div>
+            <div className="item-cert-container">
+              <label className="item-switch-label">With Box Only</label>
+              <label className={`switch ${!filterClick ? 'hide' : ''}`}>
+                <input type="checkbox" checked={boxChecked} id='boxCheck' readOnly />
+                <span className="slider_switch round" onClick={() => { setBoxChecked(!boxChecked) }} />
+                <span className="absolute-no" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
+              </label>
+            </div>
+            <button className="apply_button" onClick={applyFilter}>
+              Apply Filter
+            </button>
+          </div>
+        </div>
+        {filteredData !== undefined && selectedBrowseCategoriesItem !== '' &&
+          filteredData.map((categories, index) =>
+            <section className={`browseCategories overflow-hidden ${index % 2 === 0 ? "" : "second"}`} key={index}>
+              <div className="shopCatagoriesTitle col-md-12 all-center mb-5">
+                <h1 className="mb-0 font-custom select-none">{categories.category}</h1>
+              </div>
+              <div className="browseCategoriesBoxesContainer">
+                <div className="browseCategoriesBoxes row flex-nowrap overflow-auto hide-scroll-container" data-id={`item-box-${index}`}>
+                  {categories.items.map(item => (
+                    <div className="browseCategoriesBox col-sm-6 col-md-4 col-lg-3 col-xl-2 flex-column d-flex" key={item.id}
+                      onClick={() => {
+                        naviItem({
+                          categoryId: item.id, otherData: filteredData.filter(eachCategory => {
+                            return eachCategory.items.find(eachItem => eachItem.id === item.id);
+                          })
+                        })
+                      }}>
+                      <div className="ratio ratio-1x1">
+                        <img src={item.imageUrl} alt={item.heading} className="img-fluid" />
+                      </div>
+                      <p className="text-center font-custom pl-4 pr-4">{item.heading}</p>
+
+                    </div>
+                  ))}
+                  <div className="boxScrollButtonContainer">
+                    <div className="boxScrollButton">
+                      <button className="browseBoxLeft" onClick={() => scrollLeft(`item-box-${index}`)}>
+                        <FaArrowLeft />
+                      </button>
+                      <button className="browseBoxRight" onClick={() => scrollRight(`item-box-${index}`)}>
+                        <FaArrowRight />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+        <section className="shopCategories overflow-hidden">
+          <div className="shopCatagoriesTitle col-md-12 all-center mb-4">
+            <h1 className="mb-4 font-custom select-none">Shop by Category</h1>
+          </div>
+          <div className="shopCategoriesItem row hide-scroll-container">
+            {shopCategories.map(category => (
+              <div key={category.id} className="shopCategoriesBoxes col-md-4 all-center flex-column" onClick={() => { naviItem({ categoryId: category.id, otherData: category }) }}>
+                <div className="ratio ratio-1x1 w-100">
+                  <img src={category.imageUrl} alt={category.heading} className="img-fluid" />
+                </div>
+                <p className="all-center underline fw-bold cursor-pointer select-none font-custom">{category.heading}</p>
+              </div>
+            ))}
           </div>
         </section>
-      }
-    </div>
+
+        {rating && rating.star &&
+          <section className="home-rate">
+            <div className="home-rate-container">
+
+              <div className="home-rate-rating">
+                <h1 className="home-rate-ave">{rating.star}</h1>
+                <p className="home-rate-num">{`(${rating.number} reviews)`}</p>
+                <Rating className="rating-class read"
+                  style={{ height: 30 }}
+                  readOnly
+                  orientation="vertical"
+                  value={rating.star}
+                />
+              </div>
+
+              <div className="home-rate-sum">
+                {ratingLevels.map((level) => (
+                  <div key={level.label} className="home-rate-sum-container">
+                    <label className="home-rate-star-label">{level.label}</label>
+                    <span className="home-rate-outer-bar">
+                      <span
+                        className="home-rate-inner-bar"
+                        style={{ width: `${(level.count / rating.number) * 100}%` }}
+                        title={`${level.count}`}
+                      >
+                        <span className="tooltip">{level.count}</span>
+                      </span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </section>
+        }
+      </div>
+    </>
   );
 };
 

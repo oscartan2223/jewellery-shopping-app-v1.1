@@ -97,7 +97,7 @@ const Header = ({ action }) => {
                     {headerList.map((item, index) => (
                         <span
                             key={index}
-                            className={`header-menu-content ${showMenu ? 'header-menu-content-spacing' : ''}`}
+                            className={`header-menu-content select-none ${showMenu ? 'header-menu-content-spacing' : ''}`}
                             id={`menuItem-${index}`}
                             onClick={() => navigateCall(item.param)}
                         >

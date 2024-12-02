@@ -75,8 +75,8 @@ const LoginPage = ({ showAlert }) => {
   return (
     <div className="w-100 all-center">
       <div className="login_form d-flex flex-column">
-        <h1 className="login-title text-center font-custom mb-4">Customer Login</h1>
-        <p className="login-text text-center font-custom">Don't have an account? <a href="/register">Register</a></p>
+        <h1 className="login-title text-center font-custom mb-4 select-none">Customer Login</h1>
+        <p className="login-text text-center font-custom select-none">Don't have an account? <a href="/register">Register</a></p>
         <input
           className="feedback_input form-control mb-3"
           type="text"
@@ -100,14 +100,14 @@ const LoginPage = ({ showAlert }) => {
             {viewPassword ? <FaEye /> : <FaEyeSlash />}
           </div>
         </div>
-        <p className="login-text login-forgot text-center"><a href='/forgot'>Forgot your password?</a></p>
+        <p className="login-text login-forgot text-center select-none"><a href='/forgot'>Forgot your password?</a></p>
         <button
           className="login_button btn-secondary w-100"
           type="button"
           onClick={handleLogin}>
           <strong>Sign In</strong>
         </button>
-        <p className="login-text login-return"><a href='/'>Return to Store</a></p>
+        <p className="login-text login-return select-none"><a href='/'>Return to Store</a></p>
       </div>
     </div>
   );

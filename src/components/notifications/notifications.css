@@ -1,0 +1,67 @@
+.notification-overlay-container {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.9);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    z-index: 99999999999999999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.notification-container {
+    min-width: 300px;
+    width: 80%;
+    max-width: 500px;
+    max-height: 80%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    animation: SlideDown 1s 1 forwards;
+}
+@keyframes SlideDown {
+    0% {
+        transform: translateY(-100vh);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.notification-heading-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 8px 15px;
+    height: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.notification-heading {
+    font-size: 20px;
+}
+
+.notification-close {
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.notification-content-container {
+    padding: 8px 15px;
+    height: 300px;
+    max-height: calc(80vh - 48px);
+}
+
+.notification-content {
+    font-size: 12px;
+    user-select: none;
+    height: 100%;
+}

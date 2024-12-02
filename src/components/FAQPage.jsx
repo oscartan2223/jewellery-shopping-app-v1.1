@@ -3,8 +3,6 @@ import '../assets/css/FAQPage.css';
 
 const FAQPage = () => {
     const [faqData, setFaqData] = useState([]);
-    const [faqGuide, setFaqGuide] = useState(false);
-    const [faqLink, setFaqLink] = useState("");
 
     useEffect(() => {
         const fetchedData = [
@@ -13,8 +11,6 @@ const FAQPage = () => {
             { heading: "How to request a refund?", content: "The refund policy allows users to request a refund start from next century." },
         ];
         setFaqData(fetchedData);
-        setFaqLink("https://admin.kedaiemasion.my/assets/public/img/faq/Measurement.pdf");
-        setFaqGuide(true);
     }, []);
 
     return (
@@ -22,9 +18,10 @@ const FAQPage = () => {
             <div className="faq-content-site">
                 <div className="faq-container">
                 <div className="container-marketing">
-                    <h1 className="faq-heading">FAQ - Frequently Asked Questions</h1>
+                    <h1 className="faq-heading select-none">FAQ - Frequently Asked Questions</h1>
                     <div className="accordion w-100" id="basicAccordion">
-                        {faqData.map((faq, index) => (
+                        {faqData && 
+                         faqData.map((faq, index) => (
                             <div className="accordion-item" key={index}>
                                 <h2 className="accordion-header" id={`heading${index}`}>
                                     <button
@@ -45,7 +42,7 @@ const FAQPage = () => {
                                     data-bs-parent="#basicAccordion"
                                 >
                                     <div className="accordion-body">
-                                    <p dangerouslySetInnerHTML={{ __html: faq.content }} />
+                                    <p className="select-none" dangerouslySetInnerHTML={{ __html: faq.content }} />
                                     </div>
                                 </div>
                             </div>
