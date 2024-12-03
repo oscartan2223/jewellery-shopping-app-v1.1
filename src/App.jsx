@@ -17,7 +17,8 @@ import ForgotPasswordPage from './components/ForgotPasswordPage';
 import ProfilePage from './components/ProfilePage';
 import ItemPage from './components/ItemPage';
 import CartPage from './components/CartPage';
-import LiveChat from './LiveChat';
+import LiveChat from './components/livechat/LiveChat';
+import 'boxicons/css/boxicons.min.css';
 
 const App = () => {
   return (
@@ -45,6 +46,8 @@ const AppContent = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const [searchInput, setSearchInput] = useState('');
+
+  const [openChat, setOpenChat] = useState(false);
 
   const containerStyle = {
     minWidth: '100vw',
@@ -133,6 +136,12 @@ const AppContent = () => {
              */}
           </Routes>
         </div>
+        <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
+          <i class='bx bx-chat' />
+        </button>
+        {/* {openChat &&
+          <LiveChat onClose={() => setOpenChat(false)} />
+        } */}
         {shouldRenderHeaderSidebarFooter && <Footer id="footer"/>}
       </main>
     </div>

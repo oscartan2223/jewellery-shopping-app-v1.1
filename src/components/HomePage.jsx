@@ -377,7 +377,7 @@ const HomePage = ({ showAlert }) => {
               />
             </div>
             <div className="item-cert-container">
-              <label className="item-switch-label">Is Certificate Only</label>
+              <label className="item-switch-label select-none">Is Certificate Only</label>
               <label className={`switch ${!filterClick ? 'hide' : ''}`}>
                 <input type="checkbox" checked={certChecked} id='certCheck' readOnly />
                 <span className="slider_switch round" onClick={() => { setCertChecked(!certChecked) }} />
@@ -385,11 +385,11 @@ const HomePage = ({ showAlert }) => {
               </label>
             </div>
             <div className="item-cert-container">
-              <label className="item-switch-label">With Box Only</label>
-              <label className={`switch ${!filterClick ? 'hide' : ''}`}>
+              <label className="item-switch-label select-none">With Box Only</label>
+              <label className={`switch select-none ${!filterClick ? 'hide' : ''}`}>
                 <input type="checkbox" checked={boxChecked} id='boxCheck' readOnly />
-                <span className="slider_switch round" onClick={() => { setBoxChecked(!boxChecked) }} />
-                <span className="absolute-no" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
+                <span className="slider_switch round select-none" onClick={() => { setBoxChecked(!boxChecked) }} />
+                <span className="absolute-no select-none" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
               </label>
             </div>
             <button className="apply_button" onClick={applyFilter}>

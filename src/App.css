@@ -24,6 +24,7 @@
     --switch-btn-circle: rgb(233, 233, 233);
     --slider-fill-bg: rgb(124, 124, 124);
     --slider-unfill-bg: rgb(206, 212, 218);
+    --comment-btn-color: rgb(255, 183, 49);
 
     /* Color */
     --font-primary-heading: rgb(0, 0, 0);
@@ -42,6 +43,13 @@
     /* Fonts */
     --primary-font: Verdana, Geneva, Tahoma, sans-serif;
     --secondary-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+html,
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .z-first {
@@ -65,6 +73,20 @@
     background-color: var(--bg-first-color);
 }
 
+.comment-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--comment-btn-color);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    font-size: 25px;
+    border-radius: 45px;
+}
+
 @media (min-width: 700px) {
     .content-container {
         min-height: calc(100vh - 300px - 56px);
@@ -79,7 +101,8 @@
     font-family: var(--secondary-font);
 }
 
-html, body {
+html,
+body {
     overflow: auto;
 }
 
@@ -87,7 +110,8 @@ html, body {
     min-height: calc(100vh - 66px) !important;
 }
 
-html::-webkit-scrollbar, body::-webkit-scrollbar {
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
     display: none;
 }
 
@@ -101,6 +125,7 @@ body {
     min-height: 100vh;
     -ms-overflow-style: none;
 }
+
 button {
     background: transparent;
     border: none;
@@ -154,6 +179,7 @@ button {
         width: 0;
         left: 50%;
     }
+
     100% {
         width: 100%;
         left: 0;
