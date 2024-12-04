@@ -1,5 +1,6 @@
 .close-animation {
-    animation: SlideOut 1s 1 forwards;
+    animation: SlideOut 1.2s 1 forwards;
+    background-color: var(--comment-bg-color);
 }
 
 @keyframes SlideOut {
@@ -41,11 +42,11 @@
 }
 
 .chat-fragment-1 {
-    background-color: var(--btn-second-color);
+    background-color: var(--comment-bg-color);
     position: fixed;
     animation: SlideDownRight 1s 1 forwards;
-    right: 180px;
-    bottom: 250px;
+    right: 170px;
+    bottom: 240px;
     width: 160px;
     height: 230px;
 }
@@ -62,16 +63,16 @@
 
     100% {
         opacity: 1;
-        transform: translateX(10px) translateY(10px);
+        transform: translateX(0) translateY(0);
     }
 }
 
 .chat-fragment-2 {
-    background-color: var(--btn-second-color);
+    background-color: var(--comment-bg-color);
     position: fixed;
     animation: SlideDownLeft 1s 1 forwards;
-    right: 40px;
-    bottom: 250px;
+    right: 30px;
+    bottom: 240px;
     width: 150px;
     height: 230px;
 }
@@ -88,16 +89,16 @@
 
     100% {
         opacity: 1;
-        transform: translateX(10px) translateY(10px);
+        transform: translateX(0) translateY(0);
     }
 }
 
 .chat-fragment-3 {
-    background-color: var(--btn-second-color);
+    background-color: var(--comment-bg-color);
     position: fixed;
     animation: SlideUpLeft 1s 1 forwards;
-    right: 180px;
-    bottom: 40px;
+    right: 170px;
+    bottom: 30px;
     width: 160px;
     height: 220px;
 }
@@ -114,16 +115,16 @@
 
     100% {
         opacity: 1;
-        transform: translateX(10px) translateY(10px);
+        transform: translateX(0) translateY(0);
     }
 }
 
 .chat-fragment-4 {
-    background-color: var(--btn-second-color);
+    background-color: var(--comment-bg-color);
     position: fixed;
     animation: SlideUpRight 1s 1 forwards;
-    right: 40px;
-    bottom: 40px;
+    right: 30px;
+    bottom: 30px;
     width: 150px;
     height: 220px;
 }
@@ -140,7 +141,7 @@
 
     100% {
         opacity: 1;
-        transform: translateX(10px) translateY(10px);
+        transform: translateX(0) translateY(0);
     }
 }
 
@@ -177,7 +178,7 @@
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
-    max-width: 70%;
+    max-width: 90%;
 }
 
 .message.sent {
@@ -196,11 +197,11 @@
 }
 
 .message-content audio {
-    width: 100%;
-    max-width: 94%;
+    width: 94%;
     margin-right: 3%;
     margin-left: 3%;
-    height: auto;
+    height: 50px;
+    user-select: none;
 }
 
 .message-time {

@@ -6,7 +6,7 @@ import { Carousel } from 'bootstrap';
 import { useStock } from '../stockContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { FaArrowLeft, FaArrowRight, FaSearch } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Rating } from '@smastrom/react-rating';
 import MultiRangeSlider from './multiRangeSlider/MultiRangeSlider.js';
@@ -25,6 +25,7 @@ const HomePage = ({ showAlert }) => {
   const [filteredData, setFilteredData] = useState();
 
   const [filterClick, setFilterClick] = useState(false);
+  const [switchCollapse, setSwitchCollapse] = useState(true);
   const [certChecked, setCertChecked] = useState(false);
   const [boxChecked, setBoxChecked] = useState(false);
 
@@ -61,6 +62,17 @@ const HomePage = ({ showAlert }) => {
     { label: 4, count: rating.four },
     { label: 5, count: rating.five }
   ];
+
+  const [commentType, setCommentType] = useState([
+    { id: 1, type: "cheap" },
+    { id: 2, type: "expensive" },
+    { id: 3, type: "service" },
+    { id: 4, type: "quality" },
+    { id: 5, type: "worth" },
+    { id: 6, type: "design" },
+  ]);
+  const [currentSelectedComment, setCurrentSelectedComment] = useState();
+  const [currentCommentList, setCurrentCommentList] = useState();
 
   const [adsData, setAdsData] = useState([
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: { target: 'item', data: '' } },
@@ -100,7 +112,7 @@ const HomePage = ({ showAlert }) => {
 
       setBrowseCategoriesItem(stocks.current);
       setFilteredData(stocks.current);
-      setOnLoadNotification(true);
+      setOnLoadNotification(false);
     }
   }, [stocks]);
 
@@ -287,6 +299,39 @@ const HomePage = ({ showAlert }) => {
     setFilterClick(!filterClick);
   };
 
+  const scrollCommentLeft = () => {
+    const listElement = document.getElementById("comment-type-list");
+    if (listElement) {
+      listElement.scrollBy({ left: -20, behavior: 'smooth' });
+    }
+  };
+
+  const scrollCommentRight = () => {
+    const listElement = document.getElementById("comment-type-list");
+    if (listElement) {
+      listElement.scrollBy({ left: 20, behavior: 'smooth' });
+    }
+  };
+
+  const handleCommentType = (id) => {
+    if (currentSelectedComment !== id) {
+      setCurrentSelectedComment(id);
+      if (id === 1) {
+        setCurrentCommentList([
+          { rating: 4, name: "Justin Bieber", comment: "The gold price is cheaper compare to well-known jewellery retailers." },
+          { rating: 5, name: "Ed Sheeran", comment: "These products cheap and valuable." },
+          { rating: 3, name: "Billie Eilish", comment: "Acceptable quality and come with cheap prices." },
+          { rating: 1, name: "Alan Walker", comment: "Not cheap at all!" },
+        ])
+      } else {
+        setCurrentCommentList([]);
+      }
+    } else {
+      setCurrentSelectedComment(null);
+      setCurrentCommentList([]);
+    }
+  };
+
   const naviItem = (data) => {
     setTimeout(() => {
       navigate('/item', { state: data });
@@ -376,21 +421,26 @@ const HomePage = ({ showAlert }) => {
                 onChange={({ min, max }) => updateWeight(min, max)}
               />
             </div>
-            <div className="item-cert-container">
-              <label className="item-switch-label select-none">Is Certificate Only</label>
-              <label className={`switch ${!filterClick ? 'hide' : ''}`}>
-                <input type="checkbox" checked={certChecked} id='certCheck' readOnly />
-                <span className="slider_switch round" onClick={() => { setCertChecked(!certChecked) }} />
-                <span className="absolute-no" onClick={() => { setCertChecked(!certChecked) }}>{certChecked ? '' : 'No'}</span>
-              </label>
-            </div>
-            <div className="item-cert-container">
-              <label className="item-switch-label select-none">With Box Only</label>
-              <label className={`switch select-none ${!filterClick ? 'hide' : ''}`}>
-                <input type="checkbox" checked={boxChecked} id='boxCheck' readOnly />
-                <span className="slider_switch round select-none" onClick={() => { setBoxChecked(!boxChecked) }} />
-                <span className="absolute-no select-none" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
-              </label>
+            <pre className="w-100 all-center fw-bold mb-4 font-custom" onClick={() => setSwitchCollapse(!switchCollapse)}>
+              Advanced  {switchCollapse ? <FaPlus /> : <FaMinus />}
+            </pre>
+            <div className={switchCollapse ? 'hide' : ''}>
+              <div className="item-cert-container">
+                <label className="item-switch-label select-none">Is Certificate Only</label>
+                <label className={`switch ${!filterClick ? 'hide' : ''}`}>
+                  <input type="checkbox" checked={certChecked} id='certCheck' readOnly />
+                  <span className="slider_switch round" onClick={() => { setCertChecked(!certChecked) }} />
+                  <span className="absolute-no" onClick={() => { setCertChecked(!certChecked) }}>{certChecked ? '' : 'No'}</span>
+                </label>
+              </div>
+              <div className="item-cert-container">
+                <label className="item-switch-label select-none">With Box Only</label>
+                <label className={`switch select-none ${!filterClick ? 'hide' : ''}`}>
+                  <input type="checkbox" checked={boxChecked} id='boxCheck' readOnly />
+                  <span className="slider_switch round select-none" onClick={() => { setBoxChecked(!boxChecked) }} />
+                  <span className="absolute-no select-none" onClick={() => { setBoxChecked(!boxChecked) }}>{boxChecked ? '' : 'No'}</span>
+                </label>
+              </div>
             </div>
             <button className="apply_button" onClick={applyFilter}>
               Apply Filter
@@ -485,6 +535,39 @@ const HomePage = ({ showAlert }) => {
                 ))}
               </div>
 
+            </div>
+
+            {/* <div className="home-rate-comment-type-container">
+              <div className="home-rate-comment-type">
+                <FontAwesomeIcon className="home-comment-left-icon" icon={faCaretLeft} onClick={scrollCommentLeft} />
+
+                <div className="home-comment-middle-type hide-scroll-container" id="comment-type-list">
+                  {commentType &&
+                    commentType.map((eachType, index) => (
+                      <button key={index} className={`home-comment-type-btn font-custom-2 ${eachType.id === currentSelectedComment ? 'selected' : ''}`} onClick={() => { handleCommentType(eachType.id) }}>
+                        {eachType.type}
+                      </button>
+                    ))}
+                </div>
+
+                <FontAwesomeIcon className="home-comment-right-icon" icon={faCaretRight} onClick={scrollCommentRight} />
+              </div>
+            </div> */}
+
+            <div className="home-rate-comment-container hide-scroll-container">
+              {currentCommentList &&
+                currentCommentList.map((eachComment, index) => (
+                  <div key={index} className="home-rate-comment-box">
+                    <label className="home-rate-comment-user font-custom">{eachComment.name}</label>
+                    <Rating className="rating-class comment"
+                      style={{ height: 35 }}
+                      readOnly
+                      orientation="vertical"
+                      value={eachComment.rating}
+                    />
+                    <p className="font-custom-2">{eachComment.comment}</p>
+                  </div>
+                ))}
             </div>
           </section>
         }

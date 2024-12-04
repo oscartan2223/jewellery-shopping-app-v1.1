@@ -17,6 +17,7 @@ import ForgotPasswordPage from './components/ForgotPasswordPage';
 import ProfilePage from './components/ProfilePage';
 import ItemPage from './components/ItemPage';
 import CartPage from './components/CartPage';
+import PromotionPage from './components/PromotionPage';
 import LiveChat from './components/livechat/LiveChat';
 import 'boxicons/css/boxicons.min.css';
 
@@ -122,11 +123,12 @@ const AppContent = () => {
             <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             <Route path="/item" element={<ItemPage showAlert={showAlert} />} />
             <Route path="/cart" element={<CartPage showAlert={showAlert} />} />
+            <Route path="/promotion" element={<PromotionPage />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             
 
-            <Route path="/promotion" element={<PromotionPage />} />
+            
             <Route path="/installment" element={<InstallmentPage/>} /> 
             <Route path="/order" element={<OrderPage/>} />
             <Route path="/profile" element={<ProfilePage />} />
@@ -136,12 +138,12 @@ const AppContent = () => {
              */}
           </Routes>
         </div>
-        <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
+        {/* <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
           <i class='bx bx-chat' />
-        </button>
-        {/* {openChat &&
+        </button> */}
+        {openChat &&
           <LiveChat onClose={() => setOpenChat(false)} />
-        } */}
+        }
         {shouldRenderHeaderSidebarFooter && <Footer id="footer"/>}
       </main>
     </div>

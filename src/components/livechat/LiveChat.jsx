@@ -10,6 +10,7 @@ const LiveChat = ({ onClose }) => {
   const [messageText, setMessageText] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [audioClick, setAudioClick] = useState(false);
+  const [closeChat, setCloseChat] = useState(false);
 
   // Send a message
   const sendMessage = () => {
@@ -34,14 +35,9 @@ const LiveChat = ({ onClose }) => {
 
   useEffect(() => {
     const exampleMessage = [
-      { currentRole: true, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: false, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: true, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: false, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: true, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: true, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: false, text: "It works", datetime: "23/12/2020 14:59pm" },
-      { currentRole: true, text: "It works", datetime: "23/12/2020 14:59pm" },
+      { currentRole: true, text: "Testing", datetime: "23/12/2020 14:59pm" },
+      { currentRole: false, text: "Works", datetime: "23/12/2020 14:59pm" },
+      { currentRole: true, text: "Products?", datetime: "23/12/2020 14:59pm" },
       { currentRole: false, image: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg", datetime: "23/12/2020 15:00pm" },
       { currentRole: false, audio: "/sample.mp3", datetime: "24/12/2020 9:00am" },
     ];
@@ -63,19 +59,29 @@ const LiveChat = ({ onClose }) => {
   };
 
   const handleAudioRecord = () => {
-    // This could be implemented using Web Audio API or a library like RecordRTC
-    alert('Audio recording feature is not implemented yet!');
+
+  };
+
+  const handleClose = () => {
+    setTimeout(() => {
+      onClose();
+    }, 1200);
+    setCloseChat(!closeChat);
   };
 
   return (
-    <div className="chat-room">
-      <div className="chat-fragment-1" />
-      <div className="chat-fragment-2" />
-      <div className="chat-fragment-3" />
-      <div className="chat-fragment-4" />
+    <div className={`chat-room ${closeChat ? 'close-animation' : ''}`}>
+      {!closeChat &&
+        <>
+          <div className="chat-fragment-1" />
+          <div className="chat-fragment-2" />
+          <div className="chat-fragment-3" />
+          <div className="chat-fragment-4" />
+        </>
+      }
       <div className="chat-heading">
         <label>Chat</label>
-        <FaArrowDown className="chat-collapse" onClick={onClose} />
+        <FaArrowDown className="chat-collapse" onClick={handleClose} />
       </div>
       <div className="message-container hide-scroll-container">
         {/* Render the chat messages */}

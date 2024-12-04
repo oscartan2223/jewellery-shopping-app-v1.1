@@ -13,6 +13,7 @@ const Header = ({ action }) => {
 
     const [headerList, setheaderList] = useState([
         { name: "Home", param: "home" },
+        { name: "Promotion", param: "promotion"},
         { name: "Contact", param: "contact" }
     ]);
     
@@ -41,8 +42,10 @@ const Header = ({ action }) => {
             } else {
                 handleNavigate('/login');
             }
-        } else if (type === "contact"){
+        } else if (type === "contact") {
             handleNavigate('/contact');
+        } else if (type === "promotion") {
+            handleNavigate('/promotion');
         }
     }
 
