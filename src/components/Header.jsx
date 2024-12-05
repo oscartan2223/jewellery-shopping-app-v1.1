@@ -13,7 +13,7 @@ const Header = ({ action }) => {
 
     const [headerList, setheaderList] = useState([
         { name: "Home", param: "home" },
-        { name: "Promotion", param: "promotion"},
+        // { name: "Promotion", param: "promotion"},
         { name: "Contact", param: "contact" }
     ]);
     

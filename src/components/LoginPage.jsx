@@ -3,11 +3,14 @@ import '../assets/css/LoginPage.css';
 import { useAuth } from '../authContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../cartContext';
 
 const LoginPage = ({ showAlert }) => {
   const navigate = useNavigate();
+  const { cartList } = useCart();
   const { isLoggedIn, login } = useAuth();
   const [viewPassword, setViewPassword] = useState(false);
+  const [cartSelect, setCartSelect] = useState(false);
   const [loginData, setLoginData] = useState({
     phone: "",
     password: ""
@@ -59,12 +62,18 @@ const LoginPage = ({ showAlert }) => {
       };
 
       if (json_response.status) {
-        const userInfo = { phone: phoneInput.value, password: passwordInput.value, email: json_response.email, username: json_response.username, ic: json_response.ic, race: json_response.race };
-        login(userInfo);
-        showAlert('success', `Login Successful. Welcome back, ${json_response.username}!`, 2);
-        setTimeout(() => {
-          navigate('/');
-        }, 100);
+        //post api add the cartlist into database
+        let cartAddStatus = true; // post api status
+        if (cartAddStatus) {
+          const userInfo = { phone: phoneInput.value, password: passwordInput.value, email: json_response.email, username: json_response.username, ic: json_response.ic, race: json_response.race };
+          login(userInfo);
+          showAlert('success', `Login Successful. Welcome back, ${json_response.username}!`, 2);
+          setTimeout(() => {
+            navigate('/');
+          }, 100);
+        } else {
+          setCartSelect(true);
+        }
 
       } else {
         showAlert('error', 'Incorrect Phone Number or Password!');
@@ -84,7 +93,7 @@ const LoginPage = ({ showAlert }) => {
           placeholder="Phone"
           value={loginData.phone}
           onChange={handleChange}
-          onKeyDown={(e) => {if(e.key === "Enter") {document.getElementById('login_password').focus();}}}
+          onKeyDown={(e) => { if (e.key === "Enter") { document.getElementById('login_password').focus(); } }}
         />
         <div className="password-input">
           <input
@@ -94,7 +103,7 @@ const LoginPage = ({ showAlert }) => {
             placeholder="Password"
             value={loginData.password}
             onChange={handleChange}
-            onKeyDown={(e) => {if(e.key === "Enter") {handleLogin();}}}
+            onKeyDown={(e) => { if (e.key === "Enter") { handleLogin(); } }}
           />
           <div className="password-view" onClick={() => { setViewPassword(!viewPassword) }}>
             {viewPassword ? <FaEye /> : <FaEyeSlash />}

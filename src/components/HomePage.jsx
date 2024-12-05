@@ -112,7 +112,7 @@ const HomePage = ({ showAlert }) => {
 
       setBrowseCategoriesItem(stocks.current);
       setFilteredData(stocks.current);
-      setOnLoadNotification(false);
+      setOnLoadNotification(true);
     }
   }, [stocks]);
 
@@ -537,7 +537,7 @@ const HomePage = ({ showAlert }) => {
 
             </div>
 
-            {/* <div className="home-rate-comment-type-container">
+            <div className="home-rate-comment-type-container">
               <div className="home-rate-comment-type">
                 <FontAwesomeIcon className="home-comment-left-icon" icon={faCaretLeft} onClick={scrollCommentLeft} />
 
@@ -552,7 +552,7 @@ const HomePage = ({ showAlert }) => {
 
                 <FontAwesomeIcon className="home-comment-right-icon" icon={faCaretRight} onClick={scrollCommentRight} />
               </div>
-            </div> */}
+            </div>
 
             <div className="home-rate-comment-container hide-scroll-container">
               {currentCommentList &&

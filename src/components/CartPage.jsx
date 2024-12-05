@@ -3,13 +3,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import '../assets/css/CartPage.css';
 import ThumbnailSlider from './thumbnailSlider/thumbnailSlider.jsx';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from "../cartContext.jsx";
 
 const CartPage = ({ showAlert }) => {
+    const { addCart } = useCart();
     const navigate = useNavigate();
     const populateData = useLocation().state;
 
-    const handleAddToCart = (heading, stock) => {
-        console.log("Success", heading, stock);
+    const handleAddToCart = async (headingValue, stock) => {
+        stock["heading"] = headingValue;
+        const status = await addCart(stock);
+        if (status === "success") {
+            showAlert('success', 'Item has added into cart!');
+        } else if (status === "item exist") {
+            showAlert('error', 'Item already existed in cart!');
+        } else if (status === "length exceed") {
+            showAlert('warning', 'Cart item cannot more than 5!');
+        }
     };
 
     const handleBack = () => {

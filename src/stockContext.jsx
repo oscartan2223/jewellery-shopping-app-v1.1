@@ -39,7 +39,7 @@ export const StockProvider = ({ children }) => {
                       item: [
                         {
                           id: "A1",
-                          heading: "POH KONG 916/22K Yellow Gold Butterfly Minimalist Mini Ring",//Patterns
+                          heading: "ION 916/22K Yellow Gold Butterfly Minimalist Mini Ring",//Patterns
                           type: "gold",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy1.png?v=1729152828&width=180",
                           price: 190,// Means that RM670/g0
@@ -657,7 +657,7 @@ export const StockProvider = ({ children }) => {
                       item: [
                         {
                           id: "C1",
-                          heading: "POH KONG 999/24K Yellow Gold Flowery Lucky Cat Charm",//Patterns
+                          heading: "ION 999/24K Yellow Gold Flowery Lucky Cat Charm",//Patterns
                           type: "silver",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240303copy.png?v=1729153314&width=180",
                           price: 190,// Means that RM670/g
@@ -716,7 +716,7 @@ export const StockProvider = ({ children }) => {
                         },
                         {
                           id: "C2",
-                          heading: "POH KONG 999/24K Yellow Gold Miniature Gold Bar Pendant",
+                          heading: "ION 999/24K Yellow Gold Miniature Gold Bar Pendant",
                           type: "gold",
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240403copy2.png?v=1729153117&width=180",
                           price: 200,

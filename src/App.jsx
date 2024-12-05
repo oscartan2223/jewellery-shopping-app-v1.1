@@ -7,6 +7,7 @@ import SideBar from './components/SideBar';
 import AlertMessage from './components/alertMessage/alertMessage';
 import { AuthProvider, useAuth } from './authContext';
 import { StockProvider } from './stockContext';
+import { CartProvider } from './cartContext';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
@@ -24,11 +25,13 @@ import 'boxicons/css/boxicons.min.css';
 const App = () => {
   return (
     <StockProvider>
-      <AuthProvider>
-        <Router>
-          <AppContent />
-        </Router>
-      </AuthProvider>
+      <CartProvider>
+        <AuthProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </AuthProvider>
+      </CartProvider>
     </StockProvider>
   );
 };
@@ -62,10 +65,10 @@ const AppContent = () => {
   };
 
   useEffect(() => {
-      window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-      });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }, [location]);
 
   // Function to show the alert message
@@ -123,7 +126,7 @@ const AppContent = () => {
             <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             <Route path="/item" element={<ItemPage showAlert={showAlert} />} />
             <Route path="/cart" element={<CartPage showAlert={showAlert} />} />
-            <Route path="/promotion" element={<PromotionPage />} />
+            <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
             
@@ -144,7 +147,7 @@ const AppContent = () => {
         {openChat &&
           <LiveChat onClose={() => setOpenChat(false)} />
         }
-        {shouldRenderHeaderSidebarFooter && <Footer id="footer"/>}
+        {shouldRenderHeaderSidebarFooter && <Footer id="footer" />}
       </main>
     </div>
   );

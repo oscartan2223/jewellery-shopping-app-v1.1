@@ -305,9 +305,9 @@ const ItemPage = () => {
             {dialog &&
                 <StockDialog stocks={stockItem.current} onClose={() => { setDialog(!dialog) }} />
             }
-            <h1 className={`font-custom item-category-heading ${categoryCollapse ? '' : 'open'}`} onClick={(e) => {e.stopPropagation(); setCategoryCollapse(!categoryCollapse);}}>
+            <h1 className={`font-custom item-category-heading ${categoryList && categoryList.length > 1 && !categoryCollapse ? 'open' : ''}`} onClick={(e) => {e.stopPropagation(); setCategoryCollapse(!categoryCollapse);}}>
                 {currentItemList.current ? currentItemList.current.heading : 'Unknown'}
-                {categoryCollapse ? <FaCaretDown /> : <FaCaretUp />}
+                {categoryList && categoryList.length > 1 ? categoryCollapse ? <FaCaretDown /> : <FaCaretUp /> : ''}
 
                 {categoryList && !categoryCollapse &&
                     <div className="item-category-container hide-scroll-container">
