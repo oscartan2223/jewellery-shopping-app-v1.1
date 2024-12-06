@@ -46,7 +46,7 @@ const AppContent = () => {
   const [handleOpen, setHandleOpen] = useState('');
 
   // State to manage alert message
-  const [alert, setAlert] = useState({ type: '', content: '', duration: 3 });
+  const [alert, setAlert] = useState({ type: '', content: '', duration: 2 });
   const [isVisible, setIsVisible] = useState(false);
 
   const [searchInput, setSearchInput] = useState('');
@@ -73,14 +73,14 @@ const AppContent = () => {
 
   // Function to show the alert message
   const showAlert = (type, content, duration) => {
-    setAlert({ type, content, duration: duration || 3 });
+    setAlert({ type, content, duration: duration || 1.2 });
     setIsVisible(true);
   };
 
   // Function to handle alert close
   const handleCloseAlert = () => {
     setIsVisible(false);
-    setAlert({ type: '', content: '', duration: 3 });
+    setAlert({ type: '', content: '', duration: 1.2 });
   };
 
   const handleAction = (type) => {
@@ -125,7 +125,7 @@ const AppContent = () => {
             <Route path="/forgot" element={<ForgotPasswordPage showAlert={showAlert} />} />
             <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             <Route path="/item" element={<ItemPage showAlert={showAlert} />} />
-            <Route path="/cart" element={<CartPage showAlert={showAlert} />} />
+            <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => {setHandleOpen('cart')}} />} />
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
             <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />

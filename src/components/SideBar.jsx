@@ -5,10 +5,12 @@ import { FaSearch, FaTimes, FaTrash } from 'react-icons/fa';
 import { useAuth } from '../authContext';
 import { useStock } from '../stockContext'
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../cartContext';
 
-const SideBar = ({ value = "", onClose, SearchInput, searchInputValue='' }) => {
+const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '' }) => {
     const navigate = useNavigate();
     const { isLoggedIn } = useAuth();
+    const { cartDisplayList } = useCart();
     const { stocks, loading, error } = useStock();
     const [closeAmination, setCloseAnimation] = useState(false);
     const [searchInput, setSearchInput] = useState('');
@@ -21,7 +23,18 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue='' }) => {
         setPopularCategories(fetchedData);
     }, []);
 
+    useEffect(() => {
+        if (value && value === "cart") {
+            document.documentElement.style.overflow = 'hidden'
+        }
+
+        return () => {
+            document.documentElement.style.overflow = '';
+          };
+    }, [value]);
+
     const handleClose = () => {
+        document.documentElement.style.overflow = '';
         setCloseAnimation(!closeAmination);
         setTimeout(() => {
             onClose();
@@ -41,7 +54,7 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue='' }) => {
                     <div className={`sidebar-search-list ${closeAmination ? "close" : ""}`} onClick={(event) => event.stopPropagation()}>
                         <div className="sidebar-search-list-content">
                             <div className="sidebar-search-input-container">
-                                <input className="sidebar-search-input" placeholder="Search" value={searchInput} onKeyDown={handleSearch} onChange={(event) => {setSearchInput(event.target.value.trim()); SearchInput(event.target.value.trim())}} />
+                                <input className="sidebar-search-input" placeholder="Search" value={searchInput} onKeyDown={handleSearch} onChange={(event) => { setSearchInput(event.target.value.trim()); SearchInput(event.target.value.trim()) }} />
                                 <FaSearch className="sidebar-search-icon-btn" />
                                 <button className="sidebar-search-clear-btn" onClick={() => { setSearchInput('') }}><FaTrash className="sidebar-search-clear-icon" title="Clear All" /></button>
                                 <FaTimes className="sidebar-search-close-btn" onClick={handleClose} />
@@ -65,9 +78,18 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue='' }) => {
                 {value === "cart" &&
                     <div className={`sidebar-cart-list ${closeAmination ? "close" : ""}`} onClick={(event) => event.stopPropagation()}>
                         <div className="sidebar-cart-list-content">
-                            <button className="sidebar-cart-close-btn" onClick={handleClose}>
-                                <FaTimes className="sidebar-close-icon" />
-                            </button>
+                            <div className="sidebar-cart-heading">
+                                <h4 className="sidebar-cart-header font-custom">Cart List</h4>
+                                <FaTimes className="sidebar-close-icon" onClick={handleClose} />
+                            </div>
+                            <div className="hide-scroll-container sidebar-cart-boxes">
+                                {cartDisplayList &&
+                                    cartDisplayList.map((eachCartItem, index) => (
+                                        <div className="sidebar-cart-box" key={index}>
+                                            {/* {JSON.stringify(eachCartItem)} */}
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
                 }

@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
     const addCart = async (cartItem) => {
         if (cartList.current.length < 5) {
 
-            if (!cartList.current.includes(cartItem)) {
+            if (!cartList.current.some(item => item.stockCode === cartItem.stockCode)) {
                 cartList.current.push(cartItem);
                 setCartDisplayList([...cartList.current]);
             } else {

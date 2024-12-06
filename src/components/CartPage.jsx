@@ -5,16 +5,18 @@ import ThumbnailSlider from './thumbnailSlider/thumbnailSlider.jsx';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from "../cartContext.jsx";
 
-const CartPage = ({ showAlert }) => {
+const CartPage = ({ showAlert, openCart }) => {
     const { addCart } = useCart();
     const navigate = useNavigate();
     const populateData = useLocation().state;
+    const [showNavigate, setShowNavigate] = useState(false);
 
     const handleAddToCart = async (headingValue, stock) => {
         stock["heading"] = headingValue;
         const status = await addCart(stock);
         if (status === "success") {
             showAlert('success', 'Item has added into cart!');
+            setShowNavigate(true);
         } else if (status === "item exist") {
             showAlert('error', 'Item already existed in cart!');
         } else if (status === "length exceed") {
@@ -30,9 +32,32 @@ const CartPage = ({ showAlert }) => {
     };
 
     return (
-        <div className="">
+        <div>
             {populateData ? (
                 <div className="stock-select-content">
+                    {showNavigate &&
+                        <div className="cart-navigate-overlay">
+                            <div className="cart-navigate-container">
+                                <div className="cart-navigate-heading-container">
+                                    <h4 className="cart-navigate-heading font-custom fw-bold">Product Added to Cart</h4>
+                                </div>
+                                <button
+                                    className="cart-navcheckout-button btn-secondary mb-2"
+                                    type="button"
+                                    onClick={() => {setShowNavigate(!showNavigate); openCart();}}>
+                                    <strong>Go To Checkout</strong>
+                                </button>
+
+                                <button
+                                    className="cart-shopback-button btn-secondary mb-3"
+                                    type="button"
+                                    onClick={() => {setShowNavigate(!showNavigate); handleBack(); }}>
+                                    <strong>Continue to Shop</strong>
+                                </button>
+                            </div>
+                        </div>
+                    }
+
                     <div className={`stock-content selected-stock-ui`}>
                         <div className="selected-stock-image-container">
                             <ThumbnailSlider images={populateData[1].imageUrl} />
