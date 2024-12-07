@@ -41,6 +41,7 @@ const ItemPage = () => {
     const [currentMaxItemWeight, setCurrentMaxItemWeight] = useState(99999);
     const [dialog, setDialog] = useState(false);
     const stockItem = useRef();
+    const stockType = useRef();
 
     const [filterClick, setFilterClick] = useState(false);
     const [categoryCollapse, setCategoryCollapse] = useState(true);
@@ -303,7 +304,7 @@ const ItemPage = () => {
     return (
         <div className="item-container" onClick={() => setCategoryCollapse(true)}>
             {dialog &&
-                <StockDialog stocks={stockItem.current} onClose={() => { setDialog(!dialog) }} />
+                <StockDialog stocks={stockItem.current} type={stockType.current} onClose={() => { setDialog(!dialog) }} />
             }
             <h1 className={`font-custom item-category-heading ${categoryList && categoryList.length > 1 && !categoryCollapse ? 'open' : ''}`} onClick={(e) => {e.stopPropagation(); setCategoryCollapse(!categoryCollapse);}}>
                 {currentItemList.current ? currentItemList.current.heading : 'Unknown'}
@@ -453,7 +454,7 @@ const ItemPage = () => {
                         filteredItems.item.map((item, index) =>
                             item.stock && item.stock.length > 0 && (
                                 <div key={index} className="item-box-container col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 col-xxxl-2"
-                                    onClick={() => { stockItem.current = item; setDialog(!dialog); }}>
+                                    onClick={() => { stockItem.current = item; stockType.current = item.type; setDialog(!dialog); }}>
                                     <div className="item-box-image">
                                         <img src={item.imageUrl} alt={item.heading} className="item-image mb-4" />
                                     </div>

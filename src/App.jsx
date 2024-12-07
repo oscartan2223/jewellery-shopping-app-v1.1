@@ -109,7 +109,7 @@ const AppContent = () => {
         <div className='hide-scroll-container'>
           <Header action={handleAction} />
           {handleOpen !== '' &&
-            <SideBar value={handleOpen} onClose={closeSideBar} SearchInput={handleSearchInput} searchInputValue={searchInput} />
+            <SideBar value={handleOpen} onClose={closeSideBar} SearchInput={handleSearchInput} searchInputValue={searchInput}  showAlert={showAlert} />
           }
         </div>
       }

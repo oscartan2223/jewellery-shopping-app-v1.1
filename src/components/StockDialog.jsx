@@ -5,7 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-const StockDialog = ({ stocks = undefined, onSelect, onClose }) => {
+const StockDialog = ({ stocks = undefined, type = undefined, onClose }) => {
     const navigate = useNavigate();
     const [stockFurther, setStockFurther] = useState(false);
     const [dialogStocks, setDialogStocks] = useState([]);
@@ -21,7 +21,7 @@ const StockDialog = ({ stocks = undefined, onSelect, onClose }) => {
             const stockToSet = stockCode ? similarStocks.find(item => item.stockCode === stockCode) : similarStocks[0];
 
             if (stockToSet) {
-                naviCart([stocks.heading, stockToSet]);
+                naviCart([stocks.heading, type, stockToSet]);
             }
         }
     };
@@ -67,7 +67,7 @@ const StockDialog = ({ stocks = undefined, onSelect, onClose }) => {
     };
 
     const handleStockSelect = (selectedStock) => {
-        naviCart([stocks.heading, selectedStock])
+        naviCart([stocks.heading, type, selectedStock])
     };
 
     const groupedStocks = stocks ? groupStocksById(stocks.stock) : [];

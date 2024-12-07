@@ -139,6 +139,11 @@
         display: flex;
         flex-direction: column;
     }
+
+    .row-cols-2 > * {
+        width: 80% !important;
+        min-width: 250px;
+    }
 }
 
 @media (min-width: 200px) and (max-width: 928px) {

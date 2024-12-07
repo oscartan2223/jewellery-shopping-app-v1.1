@@ -3,17 +3,18 @@ import '../assets/css/Header.css';
 import { FaUser, FaShoppingCart, FaBars, FaSearch, FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../authContext';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../cartContext';
 
 const Header = ({ action }) => {
     const navigate = useNavigate();
     const { isLoggedIn } = useAuth();
     const [isPortrait, setIsPortrait] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
-    const [cartItem, setCartItem] = useState(0);
+    const { cartDisplayList } = useCart();
 
     const [headerList, setheaderList] = useState([
         { name: "Home", param: "home" },
-        // { name: "Promotion", param: "promotion"},
+        { name: "Promotion", param: "promotion"},
         { name: "Contact", param: "contact" }
     ]);
     
@@ -115,7 +116,7 @@ const Header = ({ action }) => {
                         </div>
                         <div className={`${!isPortrait ? 'header-btn header-cart-btn' : 'header-dropdown-btn'}`} onClick={() => { handleAction('cart') }}>
                             <button>
-                                <FaShoppingCart className="header-icon-size" /><label className="header-cart-num">{cartItem}</label>
+                                <FaShoppingCart className="header-icon-size" /><label className="header-cart-num">{cartDisplayList.length || 0}</label>
                             </button>
                         </div>
                         <div className={`${!isPortrait ? 'header-btn header-whatsapp-btn' : 'header-dropdown-btn'}`} onClick={() => { window.location.href = 'https://wa.me/60195481017'; }}>

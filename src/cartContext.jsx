@@ -1,45 +1,59 @@
-import React, { createContext, useContext, useRef, useState } from "react";
-
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-    const cartList = useRef([]);
-    const [cartDisplayList, setCartDisplayList] = useState([]);
+  // Initialize cartList from sessionStorage, or an empty array if not available
+  const initialCartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
+  
+  const [cartDisplayList, setCartDisplayList] = useState(initialCartList);
 
-    const addCart = async (cartItem) => {
-        if (cartList.current.length < 5) {
+  useEffect(() => {
+    sessionStorage.setItem("cartList", JSON.stringify(cartDisplayList));
+  }, [cartDisplayList]);
 
-            if (!cartList.current.some(item => item.stockCode === cartItem.stockCode)) {
-                cartList.current.push(cartItem);
-                setCartDisplayList([...cartList.current]);
-            } else {
-                return "item exist";
-            }
-
-        } else {
-            return "length exceed";
-        }
-        console.log("After add: ", cartList.current);
-        return "success";
+  const addCart = (cartItem) => {
+    if (cartDisplayList.length < 5) {
+      if (!cartDisplayList.some(item => item.stockCode === cartItem.stockCode)) {
+        const updatedCartList = [...cartDisplayList, cartItem];
+        setCartDisplayList(updatedCartList);
+      } else {
+        return "item exist";
+      }
+    } else {
+      return "length exceed";
     }
 
-    const removeCart = async (cartItem) => {
-        const removeIndex = cartList.current.findIndex(item => item === cartItem);
-        if (removeIndex !== -1) {
-            cartList.current.splice(removeIndex, 1);
-            setCartDisplayList([...cartList.current]);
+    console.log("After add:", cartDisplayList);
+    return "success";
+  };
+
+  const removeCart = async (cartItem) => {
+    const cartListFromStorage = JSON.parse(sessionStorage.getItem("cartList"));
+
+    if (cartListFromStorage) {
+        const updatedCartList = cartListFromStorage.filter(item => item.stockCode !== cartItem.stockCode);
+        if (updatedCartList.length !== cartListFromStorage.length) {
+            setCartDisplayList(updatedCartList);
+            sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
+            console.log("After delete:", updatedCartList);
+            return true;
         }
-        console.log("After delete: ", cartList.current);
     }
 
-    return (
-        <CartContext.Provider value={{ cartList, cartDisplayList, addCart, removeCart }}>
-            {children}
-        </CartContext.Provider>
-    );
+    return false;
+};
+
+
+  const cartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
+
+  return (
+    <CartContext.Provider value={{ cartList, cartDisplayList, addCart, removeCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export const useCart = () => {
-    return useContext(CartContext);
+  return useContext(CartContext);
 };

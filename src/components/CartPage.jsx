@@ -13,6 +13,7 @@ const CartPage = ({ showAlert, openCart }) => {
 
     const handleAddToCart = async (headingValue, stock) => {
         stock["heading"] = headingValue;
+        stock["type"] = populateData[1];
         const status = await addCart(stock);
         if (status === "success") {
             showAlert('success', 'Item has added into cart!');
@@ -60,22 +61,22 @@ const CartPage = ({ showAlert, openCart }) => {
 
                     <div className={`stock-content selected-stock-ui`}>
                         <div className="selected-stock-image-container">
-                            <ThumbnailSlider images={populateData[1].imageUrl} />
+                            <ThumbnailSlider images={populateData[2].imageUrl} />
                         </div>
                         <div className="selected-stock-content-container">
                             <div className="selected-item-stock-title">
-                                <label className="selected-title">{populateData[0]}&nbsp;{populateData[1].stockCode}</label>
+                                <label className="selected-title">{populateData[0]}&nbsp;{populateData[2].stockCode}</label>
                             </div>
                             <div className="">
-                                <p className="stock-item-price text-danger">Price: RM {populateData[1].actual_price}.00</p>
+                                <p className="stock-item-price text-danger">Price: RM {populateData[2].actual_price}.00</p>
                             </div>
                             <div className="selected-stock-content">
-                                <p className="selected-stock-item-text">Weight: {populateData[1].count > 1 ? `${populateData[1].minWeight} g ~ ${populateData[1].maxWeight} g` : `${populateData[1].weight} g`}</p>
-                                <p className="selected-stock-item-text">Measurement: {populateData[1].count > 1 ? `${populateData[1].minMeasurement} mm ~ ${populateData[1].maxMeasurement} mm` : `${populateData[1].measurement} mm`}</p>
-                                <p className="selected-stock-item-text">Width: {populateData[1].count > 1 ? `${populateData[1].minSize} mm ~ ${populateData[1].maxSize} mm` : `${populateData[1].size} mm`}</p>
-                                <p className="selected-stock-item-text">Product Code: {populateData[1].stockCode}</p>
+                                <p className="selected-stock-item-text">Weight: {populateData[2].count > 1 ? `${populateData[2].minWeight} g ~ ${populateData[2].maxWeight} g` : `${populateData[2].weight} g`}</p>
+                                <p className="selected-stock-item-text">Measurement: {populateData[2].count > 1 ? `${populateData[2].minMeasurement} mm ~ ${populateData[2].maxMeasurement} mm` : `${populateData[2].measurement} mm`}</p>
+                                <p className="selected-stock-item-text">Width: {populateData[2].count > 1 ? `${populateData[2].minSize} mm ~ ${populateData[2].maxSize} mm` : `${populateData[2].size} mm`}</p>
+                                <p className="selected-stock-item-text">Product Code: {populateData[2].stockCode}</p>
                                 <hr className="featurette-divider selected-stock" />
-                                <button className="stock-item-cart-btn" onClick={() => handleAddToCart(populateData[0], populateData[1])}>
+                                <button className="stock-item-cart-btn" onClick={() => handleAddToCart(populateData[0], populateData[2])}>
                                     <i className="stock-item-cart-icon"><FaShoppingCart /></i>Add to Cart
                                 </button>
                                 <button className="stock-item-back-btn" onClick={handleBack}>Back</button>
