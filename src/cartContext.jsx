@@ -5,7 +5,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   // Initialize cartList from sessionStorage, or an empty array if not available
   const initialCartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
-  
+
   const [cartDisplayList, setCartDisplayList] = useState(initialCartList);
 
   useEffect(() => {
@@ -32,23 +32,39 @@ export const CartProvider = ({ children }) => {
     const cartListFromStorage = JSON.parse(sessionStorage.getItem("cartList"));
 
     if (cartListFromStorage) {
-        const updatedCartList = cartListFromStorage.filter(item => item.stockCode !== cartItem.stockCode);
-        if (updatedCartList.length !== cartListFromStorage.length) {
-            setCartDisplayList(updatedCartList);
-            sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
-            console.log("After delete:", updatedCartList);
-            return true;
-        }
+      const updatedCartList = cartListFromStorage.filter(item => item.stockCode !== cartItem.stockCode);
+      if (updatedCartList.length !== cartListFromStorage.length) {
+        setCartDisplayList(updatedCartList);
+        sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
+        console.log("After delete:", updatedCartList);
+        return true;
+      }
     }
 
     return false;
-};
+  };
 
+  const addRemark = async (stockCode, remarkType, remarkContent) => {
+    const cartListFromStorage = JSON.parse(sessionStorage.getItem("cartList"));
+
+    if (cartListFromStorage) {
+      const updatedCartList = cartListFromStorage.map(item => {
+        if (item.stockCode === stockCode) {
+          item[remarkType] = remarkContent;
+        }
+        return item;
+      });
+
+      setCartDisplayList(updatedCartList);
+      sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
+      console.log("After remark:", updatedCartList);
+    };
+  };
 
   const cartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
 
   return (
-    <CartContext.Provider value={{ cartList, cartDisplayList, addCart, removeCart }}>
+    <CartContext.Provider value={{ cartList, cartDisplayList, addCart, removeCart, addRemark }}>
       {children}
     </CartContext.Provider>
   );

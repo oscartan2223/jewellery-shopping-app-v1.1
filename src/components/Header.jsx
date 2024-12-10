@@ -114,7 +114,7 @@ const Header = ({ action }) => {
                                 <FaUser className="header-icon-size" />
                             </button>
                         </div>
-                        <div className={`${!isPortrait ? 'header-btn header-cart-btn' : 'header-dropdown-btn'}`} onClick={() => { handleAction('cart') }}>
+                        <div className={`${!isPortrait ? 'header-btn header-cart-btn' : 'header-dropdown-btn'}`} onClick={() => { handleAction('cart'); }}>
                             <button>
                                 <FaShoppingCart className="header-icon-size" /><label className="header-cart-num">{cartDisplayList.length || 0}</label>
                             </button>

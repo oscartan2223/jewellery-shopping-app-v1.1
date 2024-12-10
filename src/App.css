@@ -69,6 +69,14 @@ body {
     cursor: pointer;
 }
 
+.fs-7 {
+    font-size: 14px;
+}
+
+.fs-8 {
+    font-size: 12px;
+}
+
 .content-container {
     min-height: calc(100vh - 600px - 56px);
     background-color: var(--bg-first-color);

@@ -18,10 +18,11 @@
     width: 80%;
     max-width: 500px;
     max-height: 80%;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-first-color);
     border-radius: 5px;
     animation: SlideDown 1s 1 forwards;
 }
+
 @keyframes SlideDown {
     0% {
         transform: translateY(-100vh);
