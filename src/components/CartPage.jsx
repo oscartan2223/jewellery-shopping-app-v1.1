@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import '../assets/css/CartPage.css';
 import ThumbnailSlider from './thumbnailSlider/thumbnailSlider.jsx';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useCart } from "../cartContext.jsx";
+import { useWish } from "../wishContext.jsx";
 
 const CartPage = ({ showAlert, openCart }) => {
-    const { addCart } = useCart();
+    const { addWish } = useWish();
+    const { addCart, getCart } = useCart();
     const navigate = useNavigate();
     const populateData = useLocation().state;
     const [showNavigate, setShowNavigate] = useState(false);
@@ -22,6 +24,21 @@ const CartPage = ({ showAlert, openCart }) => {
             showAlert('error', 'Item already existed in cart!');
         } else if (status === "length exceed") {
             showAlert('warning', 'Cart item cannot more than 5!');
+        }
+    };
+
+    const handleAddToWish = async (headingValue, stock) => {
+        stock["heading"] = headingValue;
+        stock["type"] = populateData[1];
+        if (getCart(stock)){
+            const status = await addWish(stock);
+            if (status === "success") {
+                showAlert('success', 'Item has added into wishlist!');
+            } else if (status === "item exist") {
+                showAlert('error', 'Item already existed in wishlist!');
+            }
+        } else {
+            showAlert('warning', 'Wishlist can only add item that are not already in the Cart!');
         }
     };
 
@@ -78,6 +95,9 @@ const CartPage = ({ showAlert, openCart }) => {
                                 <hr className="featurette-divider selected-stock" />
                                 <button className="stock-item-cart-btn" onClick={() => handleAddToCart(populateData[0], populateData[2])}>
                                     <i className="stock-item-cart-icon"><FaShoppingCart /></i>Add to Cart
+                                </button>
+                                <button className="stock-item-wish-btn" onClick={() => handleAddToWish(populateData[0], populateData[2])}>
+                                    <i className="stock-item-cart-icon"><FaHeart /></i>Add to Wishlist
                                 </button>
                                 <button className="stock-item-back-btn" onClick={handleBack}>Back</button>
                             </div>

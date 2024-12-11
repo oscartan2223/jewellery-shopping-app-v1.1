@@ -159,6 +159,33 @@
     transform: translateY(1px);
 }
 
+.stock-item-wish-btn {
+    width: 100%;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--btn-third-color);
+    border: none;
+    color: var(--font-btn-first-color);
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.stock-item-wish-btn:hover {
+    background-color: var(--btn-third-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.stock-item-wish-btn:active {
+    transform: translateY(1px);
+}
+
 .stock-item-cart-icon {
     margin-right: 6px;
     display: flex;
@@ -175,6 +202,7 @@
     border: none;
     color: var(--font-btn-second-color);
     font-weight: bold;
+    margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

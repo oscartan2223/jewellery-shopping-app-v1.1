@@ -1,3 +1,22 @@
+.promotion-select-dialog-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.promotion-select-dialog {
+    width: 300px;
+    background-color: var(--bg-first-color);
+    padding: 15px 20px;
+    border-radius: 5px;
+}
 
 .promotion-container {
     position: relative;

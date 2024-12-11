@@ -50,7 +50,11 @@
 
 .header-search-btn {
     position: absolute;
-    right: 136px;
+    right: 175px;
+}
+
+.header-search-btn.notallow {
+    right: 136px !important;
 }
 
 .header-search-btn-portrait {
@@ -64,7 +68,7 @@
 }
 
 .header-menu-list {
-    width: calc(100% - 42px - 198px - 20px - 42px);
+    width: calc(100% - 42px - 198px - 20px - 42px - 39px);
     height: 100%;
     display: flex;
     align-items: center;
@@ -77,25 +81,14 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 100%;
     position: fixed;
     left: 0;
     right: 0;
     top: 56px;
     z-index: 8999999;
+    width: 100%;
     background-color: var(--header-dropdown-bg-color);
     padding-top: 8px;
-    animation: SlideDown 1s 1 forwards;
-}
-
-@keyframes SlideDown {
-    0% {
-        opacity: 0
-    }
-    
-    100% {
-        opacity: 1;
-    }
 }
 
 .header-menu-dropdown>span {
@@ -127,6 +120,15 @@
 }
 
 .header-user-btn {
+    position: absolute;
+    right: 136px;
+}
+
+.header-user-btn.notallow {
+    right: 94px !important;
+}
+
+.header-wishlist-btn {
     position: absolute;
     right: 94px;
 }

@@ -75,7 +75,7 @@ const HomePage = ({ showAlert }) => {
   const [currentCommentList, setCurrentCommentList] = useState();
 
   const [adsData, setAdsData] = useState([
-    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: { target: 'item', data: '' } },
+    { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(7).png", details: null },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(11).png", details: { target: 'contact' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(10).png", details: { target: 'faq' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(13).png", details: { link: 'https://wa.me/60195481017' } },

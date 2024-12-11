@@ -1,0 +1,121 @@
+.wishlist-boxes-container {
+    margin: 0px 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.wishlist-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 16px;
+    position: relative;
+}
+
+.wishlist-box-container::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    right: 5px;
+    bottom: 8px;
+    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.wishlist-image-container {
+    width: 100%;
+    aspect-ratio: 1.3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wishlist-image {
+    width: 90%;
+    height: 95%;
+}
+
+.wishlist-item-content-container {
+    padding: 10px 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.wishlist-item-heading {
+    font-weight: bold;
+    font-size: 27px;
+    margin-bottom: 40px;
+}
+
+.wishlist-item-price-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wishlist-item-current-price {
+    font-size: 30px;
+    margin-right: 15px;
+}
+
+.wishlist-item-before-price {
+    font-size: 28px;
+}
+
+.wishlist-item-btn-container {
+    padding: 10px 15px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    min-height: 70px;
+}
+
+.wishlist-item-cart-btn {
+    background-color: var(--btn-first-color);
+    border: none;
+    color: var(--font-btn-first-color);
+    min-height: 100%;
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    flex: 1;
+}
+
+.wishlist-item-cart-btn:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.wishlist-item-cart-btn:active {
+    transform: translateY(1px);
+}
+
+.wishlist-item-remove-btn {
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 10px;
+}
+
+.wishlist-item-remove-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: rgb(255, 0, 0);
+}
+
+.wishlist-item-remove-icon {
+    font-size: 30px;
+}

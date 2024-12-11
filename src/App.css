@@ -10,6 +10,8 @@
     --btn-first-hover-color: rgb(56, 56, 56);
     --btn-second-color: rgb(255, 255, 255);
     --btn-second-hover-color: rgb(94, 94, 94);
+    --btn-third-color: rgb(61, 61, 61);
+    --btn-third-hover-color: rgb(143, 143, 143);
     --accordion-color: rgb(247, 247, 247);
     --accordion-open-color: rgb(0, 123, 255);
     --accordion-content-color: rgb(249, 249, 249);
@@ -79,6 +81,12 @@ body {
 
 .content-container {
     min-height: calc(100vh - 600px - 56px);
+    background-color: var(--bg-first-color);
+}
+
+.nofooter-content-container {
+    height: calc(100vh - 56px);
+    max-height: auto;
     background-color: var(--bg-first-color);
 }
 
@@ -265,5 +273,19 @@ u {
     .col-xs-12 {
         flex: 0 0 auto !important;
         width: 100% !important;
+    }
+}
+
+@media (min-width: 950px) and (max-width: 1199px){
+    .col-md-3-replace {
+        width: 33.3333333333333333333% !important;
+        flex: 0 0 auto;
+    }
+}
+
+@media (min-width: 1400px) {
+    .col-xxl-2-4 {
+        flex: 0 0 auto;
+        width: 20%;
     }
 }

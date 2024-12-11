@@ -8,6 +8,7 @@ import AlertMessage from './components/alertMessage/alertMessage';
 import { AuthProvider, useAuth } from './authContext';
 import { StockProvider } from './stockContext';
 import { CartProvider } from './cartContext';
+import { WishProvider } from './wishContext';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
@@ -21,17 +22,20 @@ import CartPage from './components/CartPage';
 import PromotionPage from './components/PromotionPage';
 import LiveChat from './components/livechat/LiveChat';
 import 'boxicons/css/boxicons.min.css';
+import WishListPage from './components/WishListPage';
 
 const App = () => {
   return (
     <StockProvider>
-      <CartProvider>
-        <AuthProvider>
-          <Router>
-            <AppContent />
-          </Router>
-        </AuthProvider>
-      </CartProvider>
+      <WishProvider>
+        <CartProvider>
+          <AuthProvider>
+            <Router>
+              <AppContent />
+            </Router>
+          </AuthProvider>
+        </CartProvider>
+      </WishProvider>
     </StockProvider>
   );
 };
@@ -40,7 +44,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/payment'];
+  const noHeaderSidebarFooterPaths = ['/profile'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -105,16 +109,14 @@ const AppContent = () => {
           onClose={handleCloseAlert}
         />
       )}
-      {shouldRenderHeaderSidebarFooter &&
-        <div className='hide-scroll-container'>
-          <Header action={handleAction} />
-          {handleOpen !== '' &&
-            <SideBar value={handleOpen} onClose={closeSideBar} SearchInput={handleSearchInput} searchInputValue={searchInput}  showAlert={showAlert} />
-          }
-        </div>
-      }
+      <div className='hide-scroll-container'>
+        <Header action={handleAction} />
+        {handleOpen !== '' &&
+          <SideBar value={handleOpen} onClose={closeSideBar} SearchInput={handleSearchInput} searchInputValue={searchInput} showAlert={showAlert} />
+        }
+      </div>
       <main className="hide-scroll-container" style={shouldRenderHeaderSidebarFooter ? containerStyle : {}}>
-        <div className="hide-scroll-container content-container" style={shouldRenderHeaderSidebarFooter ? contentStyle : {}}>
+        <div className={`hide-scroll-container ${shouldRenderHeaderSidebarFooter ? "content-container" : "nofooter-content-container"}`} style={shouldRenderHeaderSidebarFooter ? contentStyle : {}}>
           <Routes>
             <Route path="/" element={<HomePage showAlert={showAlert} />} />
             <Route path="/login" element={<LoginPage showAlert={showAlert} />} />
@@ -125,19 +127,13 @@ const AppContent = () => {
             <Route path="/forgot" element={<ForgotPasswordPage showAlert={showAlert} />} />
             <Route path="/profile" element={<ProfilePage showAlert={showAlert} />} />
             <Route path="/item" element={<ItemPage showAlert={showAlert} />} />
-            <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => {setHandleOpen('cart')}} />} />
+            <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => { setHandleOpen('cart') }} />} />
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
-            {/* <Route path="/" element={<LoginPage showAlert={showAlert} />} />
-            <Route path="/home" element={<HomePage showAlert={showAlert} setSidebarData={setSidebarData} />} />
-            
-
-            
+            <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
+            {/* 
             <Route path="/installment" element={<InstallmentPage/>} /> 
             <Route path="/order" element={<OrderPage/>} />
-            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/password" element={<ResetPasswordPage />} />
-            
-            
              */}
           </Routes>
         </div>

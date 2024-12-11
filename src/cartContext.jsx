@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useWish } from "./wishContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   // Initialize cartList from sessionStorage, or an empty array if not available
   const initialCartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
-
+  const { removeWish } = useWish();
   const [cartDisplayList, setCartDisplayList] = useState(initialCartList);
 
   useEffect(() => {
@@ -17,6 +18,11 @@ export const CartProvider = ({ children }) => {
       if (!cartDisplayList.some(item => item.stockCode === cartItem.stockCode)) {
         const updatedCartList = [...cartDisplayList, cartItem];
         setCartDisplayList(updatedCartList);
+
+        const wishListFromStorage = JSON.parse(sessionStorage.getItem("wishList"));
+        if (wishListFromStorage && wishListFromStorage.some(item => item.stockCode === cartItem.stockCode)){
+          removeWish(cartItem);
+        }
       } else {
         return "item exist";
       }
@@ -27,6 +33,9 @@ export const CartProvider = ({ children }) => {
     console.log("After add:", cartDisplayList);
     return "success";
   };
+
+  const getCart = (cartItem) => !cartDisplayList.some(item => item.stockCode === cartItem.stockCode); // true is non-exist, false is exist
+
 
   const removeCart = async (cartItem) => {
     const cartListFromStorage = JSON.parse(sessionStorage.getItem("cartList"));
@@ -64,7 +73,7 @@ export const CartProvider = ({ children }) => {
   const cartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
 
   return (
-    <CartContext.Provider value={{ cartList, cartDisplayList, addCart, removeCart, addRemark }}>
+    <CartContext.Provider value={{ cartList, cartDisplayList, addCart, getCart, removeCart, addRemark }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import '../assets/css/Header.css';
-import { FaUser, FaShoppingCart, FaBars, FaSearch, FaWhatsapp } from 'react-icons/fa';
+import { FaUser, FaShoppingCart, FaBars, FaSearch, FaWhatsapp, FaHeart } from 'react-icons/fa';
 import { useAuth } from '../authContext';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../cartContext';
@@ -11,20 +11,13 @@ const Header = ({ action }) => {
     const [isPortrait, setIsPortrait] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const { cartDisplayList } = useCart();
+    const [allowWishlist, setAllowWishlist] = useState(true);
 
     const [headerList, setheaderList] = useState([
         { name: "Home", param: "home" },
-        { name: "Promotion", param: "promotion"},
+        { name: "Promotion", param: "promotion" },
         { name: "Contact", param: "contact" }
     ]);
-    
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            //fetch from db get shopping cart index
-            setCartItem(1);
-        }
-    }, [isLoggedIn]);
 
     const handleNavigate = (target) => {
         setTimeout(() => {
@@ -43,6 +36,8 @@ const Header = ({ action }) => {
             } else {
                 handleNavigate('/login');
             }
+        } else if (type === "wishlist") {
+            handleNavigate('/wishlist');
         } else if (type === "contact") {
             handleNavigate('/contact');
         } else if (type === "promotion") {
@@ -51,6 +46,7 @@ const Header = ({ action }) => {
     }
 
     const handleAction = (type) => {
+        setShowMenu(false);
         if (action) {
             action(type);
         }
@@ -96,7 +92,6 @@ const Header = ({ action }) => {
                     <img src="https://kedaiemasion.my/assets/png-ion.png" alt="logo" width="100px" height="40px" />
                 </button>
 
-
                 <div className={showMenu ? 'header-menu-dropdown' : 'hide'} id="headerMenuList">
                     {headerList.map((item, index) => (
                         <span
@@ -109,11 +104,18 @@ const Header = ({ action }) => {
                         </span>
                     ))}
                     <div className="header-menu-icon-list">
-                        <div className={`${!isPortrait ? 'header-btn header-user-btn' : 'header-dropdown-btn'}`} onClick={() => { navigateCall('user') }}>
+                        <div className={`${!isPortrait ? 'header-btn header-user-btn' : 'header-dropdown-btn'} ${!allowWishlist ? 'notallow' : ''}`} onClick={() => { navigateCall('user') }}>
                             <button>
                                 <FaUser className="header-icon-size" />
                             </button>
                         </div>
+                        {allowWishlist &&
+                            <div className={`${!isPortrait ? 'header-btn header-wishlist-btn' : 'header-dropdown-btn'}`} onClick={() => { navigateCall('wishlist') }}>
+                                <button>
+                                    <FaHeart className="header-icon-size" />
+                                </button>
+                            </div>
+                        }
                         <div className={`${!isPortrait ? 'header-btn header-cart-btn' : 'header-dropdown-btn'}`} onClick={() => { handleAction('cart'); }}>
                             <button>
                                 <FaShoppingCart className="header-icon-size" /><label className="header-cart-num">{cartDisplayList.length || 0}</label>
@@ -126,7 +128,7 @@ const Header = ({ action }) => {
                         </div>
                     </div>
                 </div>
-                <div className={`header-btn ${!isPortrait ? 'header-search-btn' : 'header-search-btn-portrait'}`} onClick={() => { handleAction('search') }}>
+                <div className={`header-btn ${!isPortrait ? 'header-search-btn' : 'header-search-btn-portrait'} ${!allowWishlist ? 'notallow' : ''}`} onClick={() => { handleAction('search') }}>
                     <button>
                         <FaSearch className="header-icon-size" />
                     </button>

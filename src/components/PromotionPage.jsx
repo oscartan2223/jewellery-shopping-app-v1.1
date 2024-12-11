@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../assets/css/PromotionPage.css';
 import { useCart } from "../cartContext";
+import { useWish } from "../wishContext";
 
 const PromotionPage = ({ showAlert }) => {
-    const { addCart } = useCart();
+    const { addCart, getCart } = useCart();
+    const { addWish } = useWish();
     const [promotionStock, setPromotionStock] = useState();
     const [showDetails, setShowDetails] = useState({});
+    const [showSelectDialog, setShowSelectDialog] = useState(false);
+    const selectedItem = useRef();
 
     useEffect(() => {
         setPromotionStock([
@@ -116,10 +120,11 @@ const PromotionPage = ({ showAlert }) => {
         }));
     };
 
-    const handleAddToCart = async (stock) => {
-        const status = await addCart(stock);
+    const handleAddToCart = async () => {
+        const status = await addCart(selectedItem.current);
         if (status === "success") {
             showAlert('success', 'Item has added into cart!');
+            setShowSelectDialog(!showSelectDialog);
         } else if (status === "item exist") {
             showAlert('error', 'Item already existed in cart!');
         } else if (status === "length exceed") {
@@ -127,55 +132,87 @@ const PromotionPage = ({ showAlert }) => {
         }
     };
 
+    const handleAddToWish = async () => {
+        if (getCart(selectedItem.current)){
+            const status = await addWish(selectedItem.current);
+            if (status === "success") {
+                showAlert('success', 'Item has added into wishlist!');
+                setShowSelectDialog(!showSelectDialog);
+            } else if (status === "item exist") {
+                showAlert('error', 'Item already existed in wishlist!');
+            }
+        } else {
+            showAlert('warning', 'Wishlist can only add item that are not already in the Cart!');
+        }
+    };
+
+    const handleAddItem = (item) => {
+        selectedItem.current = item;
+        setShowSelectDialog(!showSelectDialog);
+    }
+
     return (
         <div className="py-5 promotion-content-container">
-        <div className="container px-4 px-lg-5 mt-5">
-            <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {promotionStock && promotionStock.map((item, index) => (
-                    <div className="col mb-5 promotion-container" key={`${item.stock_id}-${index}`}>
-                        {showDetails[item.stockCode] && (
-                            <div className="promotion-info-container">
-                                <div className="promotion-info">
-                                    <div className="promotion-info-heading">
-                                        <h2 className="text-center font-custom-2">{`${item.heading} [${item.stockCode}]`}</h2>
-                                    </div>
-                                    <div className="promotion-info-type">
-                                        <h3 className="font-custom-2">Type: { /^[a-zA-Z]/.test(item.type) ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : item.type }</h3>
-                                    </div>
-                                    <div className="promotion-info-content">
-                                        <p className="font-custom-2">Measurement: {item.measurement}</p>
-                                        <p className="font-custom-2">Weight: {item.weight}</p>
-                                        <p className="font-custom-2">Size: {item.size}</p>
-                                    </div>
-                                    <div className="promotion-details" style={{ width: '80%' }}>
-                                        <span onClick={() => toggleDetails(item.stockCode)}>Collapse Details</span>
+            {showSelectDialog &&
+                <div className="promotion-select-dialog-overlay" onClick={() => {setShowSelectDialog(false);}}>
+                    <div className="promotion-select-dialog" onClick={(e) => {e.stopPropagation();}}>
+                        <h4 className="w-100 text-center fw-bold mb-3">Where to add?</h4>
+                        <button className="stock-item-cart-btn" onClick={() => handleAddToCart()}>
+                            Add to Cart
+                        </button>
+                        <button className="stock-item-wish-btn" onClick={() => handleAddToWish()}>
+                            Add to Wishlist
+                        </button>
+                    </div>
+                </div>
+            }
+            <div className="container px-4 px-lg-5 mt-5">
+                <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {promotionStock && promotionStock.map((item, index) => (
+                        <div className="col mb-5 promotion-container" key={`${item.stock_id}-${index}`}>
+                            {showDetails[item.stockCode] && (
+                                <div className="promotion-info-container">
+                                    <div className="promotion-info">
+                                        <div className="promotion-info-heading">
+                                            <h2 className="text-center font-custom-2">{`${item.heading} [${item.stockCode}]`}</h2>
+                                        </div>
+                                        <div className="promotion-info-type">
+                                            <h3 className="font-custom-2">Type: {/^[a-zA-Z]/.test(item.type) ? item.type.charAt(0).toUpperCase() + item.type.slice(1) : item.type}</h3>
+                                        </div>
+                                        <div className="promotion-info-content">
+                                            <p className="font-custom-2">Measurement: {item.measurement}</p>
+                                            <p className="font-custom-2">Weight: {item.weight}</p>
+                                            <p className="font-custom-2">Size: {item.size}</p>
+                                        </div>
+                                        <div className="promotion-details" style={{ width: '80%' }}>
+                                            <span onClick={() => toggleDetails(item.stockCode)}>Collapse Details</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
-                        <div className="card h-100">
-                            <img className="card-img-top" src={item.imageUrl[0].original} alt={item.heading} />
-                            <div className="card-body p-4">
-                                <div className={`text-center auto-promotion-align`}>
-                                    <h5 className="fw-bolder">{item.heading}</h5>
-                                    <span className="text-muted text-decoration-line-through blinking-text">RM{item.actual_price.toFixed(2)}&nbsp;</span>
-                                    <span className="size-changing">RM{item.promotion_price.toFixed(2)}</span>
+                            )}
+                            <div className="card h-100">
+                                <img className="card-img-top" src={item.imageUrl[0].original} alt={item.heading} />
+                                <div className="card-body p-4">
+                                    <div className={`text-center auto-promotion-align`}>
+                                        <h5 className="fw-bolder">{item.heading}</h5>
+                                        <span className="text-muted text-decoration-line-through blinking-text">RM{item.actual_price.toFixed(2)}&nbsp;</span>
+                                        <span className="size-changing">RM{item.promotion_price.toFixed(2)}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="card-footer p-5 pt-0 pr-0 pl-0 border-top-0 bg-transparent">
-                                <div className="text-center">
-                                    <button className="btn btn-outline-dark mt-auto fw-bolder" onClick={() => handleAddToCart(item)}>Add to Cart</button>
+                                <div className="card-footer p-5 pt-0 pr-0 pl-0 border-top-0 bg-transparent">
+                                    <div className="text-center">
+                                        <button className="btn btn-outline-dark mt-auto fw-bolder" onClick={() => handleAddItem(item)}>Add Item</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="promotion-details">
-                                <span onClick={() => toggleDetails(item.stockCode)}>View Details</span>
+                                <div className="promotion-details">
+                                    <span onClick={() => toggleDetails(item.stockCode)}>View Details</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
-    </div>
     );
 };
 
