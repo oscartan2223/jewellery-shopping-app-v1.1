@@ -54,10 +54,22 @@ const CartPage = ({ showAlert, openCart }) => {
             {populateData ? (
                 <div className="stock-select-content">
                     {showNavigate &&
-                        <div className="cart-navigate-overlay">
+                        <div className="cart-navigate-overlay hide-scroll-container">
                             <div className="cart-navigate-container">
                                 <div className="cart-navigate-heading-container">
                                     <h4 className="cart-navigate-heading font-custom fw-bold">Product Added to Cart</h4>
+                                </div>
+                                <div className="cart-stock-dialog-container">
+                                    <div className="cart-stock-dialog-content">
+                                        <img className="cart-stock-dialog-image" src={populateData[2].imageUrl[0].original} />
+                                        <div className="cart-stock-dialog-text-container">
+                                            <p className="fs-7 font-custom mb-2">{populateData[0]}</p>
+                                            <em className="fs-8 font-custom font-italic">Measurement: {populateData[2].measurement}</em>
+                                            <em className="fs-8 font-custom font-italic">Weight: {populateData[2].weight}g</em>
+                                            <em className="fs-8 font-custom font-italic">Gold Type: {populateData[1]}</em>
+                                            <label className="fs-6 font-custom">RM {populateData[2].actual_price}</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button
                                     className="cart-navcheckout-button btn-secondary mb-2"
@@ -85,13 +97,16 @@ const CartPage = ({ showAlert, openCart }) => {
                                 <label className="selected-title">{populateData[0]}&nbsp;{populateData[2].stockCode}</label>
                             </div>
                             <div className="">
-                                <p className="stock-item-price text-danger">Price: RM {populateData[2].actual_price}.00</p>
+                                <p className="stock-item-price text-danger">Price: RM {populateData[2].promotion_price ? populateData[2].promotion_price.toFixed(2) : populateData[2].actual_price.toFixed(2)} <del className="cart-before-discount-price blinking-text">{populateData[2].promotion_price ? `RM${populateData[2].actual_price.toFixed(2)}` : ''}</del></p>
                             </div>
                             <div className="selected-stock-content">
                                 <p className="selected-stock-item-text">Weight: {populateData[2].count > 1 ? `${populateData[2].minWeight} g ~ ${populateData[2].maxWeight} g` : `${populateData[2].weight} g`}</p>
                                 <p className="selected-stock-item-text">Measurement: {populateData[2].count > 1 ? `${populateData[2].minMeasurement} mm ~ ${populateData[2].maxMeasurement} mm` : `${populateData[2].measurement} mm`}</p>
                                 <p className="selected-stock-item-text">Width: {populateData[2].count > 1 ? `${populateData[2].minSize} mm ~ ${populateData[2].maxSize} mm` : `${populateData[2].size} mm`}</p>
                                 <p className="selected-stock-item-text">Product Code: {populateData[2].stockCode}</p>
+                                <p className="selected-stock-item-text">Gold Type: {populateData[1]}</p>
+                                <p className="selected-stock-item-text">Branch Code: {populateData[2].branchCode}</p>
+                                <p className="selected-stock-item-text">Branch Name: {populateData[2].branchName}</p>
                                 <hr className="featurette-divider selected-stock" />
                                 <button className="stock-item-cart-btn" onClick={() => handleAddToCart(populateData[0], populateData[2])}>
                                     <i className="stock-item-cart-icon"><FaShoppingCart /></i>Add to Cart

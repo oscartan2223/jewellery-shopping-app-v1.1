@@ -29,8 +29,6 @@ export const CartProvider = ({ children }) => {
     } else {
       return "length exceed";
     }
-
-    console.log("After add:", cartDisplayList);
     return "success";
   };
 
@@ -45,7 +43,6 @@ export const CartProvider = ({ children }) => {
       if (updatedCartList.length !== cartListFromStorage.length) {
         setCartDisplayList(updatedCartList);
         sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
-        console.log("After delete:", updatedCartList);
         return true;
       }
     }
@@ -66,7 +63,6 @@ export const CartProvider = ({ children }) => {
 
       setCartDisplayList(updatedCartList);
       sessionStorage.setItem("cartList", JSON.stringify(updatedCartList));
-      console.log("After remark:", updatedCartList);
     };
   };
 

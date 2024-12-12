@@ -67,7 +67,7 @@ const LoginPage = ({ showAlert }) => {
         if (cartAddStatus) {
           const userInfo = { phone: phoneInput.value, password: passwordInput.value, email: json_response.email, username: json_response.username, ic: json_response.ic, race: json_response.race };
           login(userInfo);
-          showAlert('success', `Login Successful. Welcome back, ${json_response.username}!`, 2);
+          showAlert('success', `Login Successful. Welcome back, ${json_response.username}!`, 4);
           setTimeout(() => {
             navigate('/');
           }, 100);

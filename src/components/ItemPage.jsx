@@ -70,7 +70,7 @@ const ItemPage = () => {
         if (currentItemList.current && currentItemList.current.item) {
             const filteredWithStock = currentItemList.current.item.map(item => {
                 let matchedType = checkedRef.current[0] === true || checkedRef.current[typeList.current.indexOf(item.type)] === true;
-                let matchedBranch = checkedBranchRef.current[0] === true || checkedBranchRef.current[branchList.current.indexOf(item.branchName)] === true;
+                // let matchedBranch = checkedBranchRef.current[0] === true || checkedBranchRef.current[branchList.current.indexOf(item.branchName)] === true;
                 let itemSearchQuery = item.heading.toLowerCase().includes(lowerCaseQuery);
                 const stock = item.stock.filter(eachStock => {
                     const inPriceRange = eachStock.actual_price >= minItemPrice && eachStock.actual_price <= maxItemPrice;
@@ -79,6 +79,7 @@ const ItemPage = () => {
                     const certCheck = document.getElementById('certCheck').checked ? eachStock.isCert === true : true;
                     const boxCheck = document.getElementById('boxCheck').checked ? eachStock.isBox === true : true;
                     const stockSearchQuery = eachStock.stockCode.toLowerCase().includes(lowerCaseQuery);
+                    const matchedBranch = checkedBranchRef.current[0] === true || checkedBranchRef.current[branchList.current.indexOf(eachStock.branchName)] === true;
 
                     return inPriceRange &&
                         inWeightRange &&
@@ -240,7 +241,9 @@ const ItemPage = () => {
                         setCheckedStates(Array(["All", ...type_list].length).fill(true));
                         checkedRef.current = Array(["All", ...type_list].length).fill(true);
 
-                        const branch_list = [...new Set(eachItemStock.item.map(item => item.branchName))];
+                        //modify here from get in item switch to stock
+                        const branch_list = [...new Set(eachItemStock.item.flatMap(item => item.stock.filter(eachStock => eachStock.branchName).map(eachStock => eachStock.branchName)))];
+                          
                         branchList.current = ["All", ...branch_list];
 
                         setCheckedBranchStates(Array(["All", ...branch_list].length).fill(true));
@@ -298,6 +301,10 @@ const ItemPage = () => {
     const toggleCheckbox = (id) => {
         const checkbox = document.getElementById(id);
         checkbox.checked = !checkbox.checked;
+    }
+
+    const getItemBranchDisplay = (item) => {
+        return `${item.stock[0].branchCode}, ...`;
     }
 
 
@@ -464,7 +471,7 @@ const ItemPage = () => {
                                     <p className="text-center item-content">{GetMinMax("measurement", item.stock)}</p>
                                     <p className="text-center item-content">{GetMinMax("width", item.stock)}</p>
                                     <p className="text-center item-content">Gold Type: {item.type}</p>
-                                    <p className="text-center item-content">Branch Code: {item.branchCode}</p>
+                                    <p className="text-center item-content">Branch Code: {getItemBranchDisplay(item)}</p>
                                     <button className="text-center item-info-btn">More info</button>
                                 </div>
                             ))

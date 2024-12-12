@@ -81,7 +81,7 @@ const HomePage = ({ showAlert }) => {
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(13).png", details: { link: 'https://wa.me/60195481017' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(8).png", details: { target: 'location' } },
     { imgUrl: "https://admin.kedaiemasion.my/assets/public/img/slide/COVER%20PHOTO%20WEBSITE%20(4).png", details: null },
-    { imgUrl: "https://www.pohkong.com.my/cdn/shop/files/Effective_1st_August_2024_we_require_your_personal_data_for_e-invoice_compliance_as_mandated_by_the_government._Please_provide_necessary_information_when_requested._1.png?v=1722579957&width=1080", details: null },
+    { imgUrl: "https://www.pohkong.com.my/cdn/shop/files/Effective_1st_August_2024_we_require_your_personal_data_for_e-invoice_compliance_as_mandated_by_the_government._Please_provide_necessary_information_when_requested._1.png?v=1722579957&width=1080", details: null }, //refer this size picture
   ]);
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const HomePage = ({ showAlert }) => {
 
       setBrowseCategoriesItem(stocks.current);
       setFilteredData(stocks.current);
-      setOnLoadNotification(true);
+      setOnLoadNotification(false); // true to enable, false to disable pop up notification when initial load in Home Page
     }
   }, [stocks]);
 

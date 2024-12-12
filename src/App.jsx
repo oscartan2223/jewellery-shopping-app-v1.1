@@ -23,6 +23,7 @@ import PromotionPage from './components/PromotionPage';
 import LiveChat from './components/livechat/LiveChat';
 import 'boxicons/css/boxicons.min.css';
 import WishListPage from './components/WishListPage';
+import InstallmentPage from './components/InstallmentPage';
 
 const App = () => {
   return (
@@ -56,6 +57,8 @@ const AppContent = () => {
   const [searchInput, setSearchInput] = useState('');
 
   const [openChat, setOpenChat] = useState(false);
+
+  const [openInstallment, setOpenInstallment] = useState(false);
 
   const containerStyle = {
     minWidth: '100vw',
@@ -109,12 +112,18 @@ const AppContent = () => {
           onClose={handleCloseAlert}
         />
       )}
+
+      {openInstallment &&
+        <InstallmentPage onClose={() => {setOpenInstallment(!openInstallment)}}/>
+      }
+
       <div className='hide-scroll-container'>
         <Header action={handleAction} />
         {handleOpen !== '' &&
           <SideBar value={handleOpen} onClose={closeSideBar} SearchInput={handleSearchInput} searchInputValue={searchInput} showAlert={showAlert} />
         }
       </div>
+
       <main className="hide-scroll-container" style={shouldRenderHeaderSidebarFooter ? containerStyle : {}}>
         <div className={`hide-scroll-container ${shouldRenderHeaderSidebarFooter ? "content-container" : "nofooter-content-container"}`} style={shouldRenderHeaderSidebarFooter ? contentStyle : {}}>
           <Routes>
@@ -130,8 +139,7 @@ const AppContent = () => {
             <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => { setHandleOpen('cart') }} />} />
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
-            {/* 
-            <Route path="/installment" element={<InstallmentPage/>} /> 
+            {/*
             <Route path="/order" element={<OrderPage/>} />
             <Route path="/password" element={<ResetPasswordPage />} />
              */}
@@ -143,7 +151,7 @@ const AppContent = () => {
         {openChat &&
           <LiveChat onClose={() => setOpenChat(false)} />
         }
-        {shouldRenderHeaderSidebarFooter && <Footer id="footer" />}
+        {shouldRenderHeaderSidebarFooter && <Footer id="footer" setOpenInstallment={setOpenInstallment} />}
       </main>
     </div>
   );

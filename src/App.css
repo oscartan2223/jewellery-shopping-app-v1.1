@@ -79,6 +79,10 @@ body {
     font-size: 12px;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
 .content-container {
     min-height: calc(100vh - 600px - 56px);
     background-color: var(--bg-first-color);

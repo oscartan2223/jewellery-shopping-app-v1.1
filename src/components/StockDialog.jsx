@@ -100,6 +100,8 @@ const StockDialog = ({ stocks = undefined, type = undefined, onClose }) => {
                                     <p className="dialog-body-text">Measurement: {stockItem.count > 1 ? `${stockItem.minMeasurement}cm ~ ${stockItem.maxMeasurement}cm` : `${stockItem.measurement}cm`}</p>
                                     <p className="dialog-body-text">Actual Price: {stockItem.count > 1 ? `RM ${stockItem.minPrice} ~ RM ${stockItem.maxPrice}` : `RM ${stockItem.actual_price}`}</p>
                                     <p className="dialog-body-text">Size: {stockItem.count > 1 ? `${stockItem.minSize}cm ~ ${stockItem.maxSize}cm` : `${stockItem.size}cm`}</p>
+                                    {type && <p className="dialog-body-text">Gold Type: {type}</p>}
+                                    <p className="dialog-body-text">Branch Code: {stockItem.count > 1 ? `${stockItem.branchCode}, ...` : `${stockItem.branchCode}`}</p>
                                 </div>
                             </div>
                         ))}
@@ -132,6 +134,8 @@ const StockDialog = ({ stocks = undefined, type = undefined, onClose }) => {
                                         <p className="list-item text-danger fw-bold">RM{stock.actual_price}</p>
                                         <p className="list-item fw-bold">{stock.weight}g</p>
                                         <p className="list-item fw-bold">{stock.measurement}mm</p>
+                                        {type && <p className="list-item fw-bold">{type}</p>}
+                                        <p className="list-item fw-bold">{stock.branchName}</p>
                                     </div>
                                 </div>
                             </div>

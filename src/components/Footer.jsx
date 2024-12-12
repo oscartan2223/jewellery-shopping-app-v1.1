@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import '../assets/css/Footer.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../authContext';
+import InstallmentPage from './InstallmentPage';
 
-const Footer = () => {
+const Footer = ({ setOpenInstallment }) => {
     const { isLoggedIn, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -56,8 +57,8 @@ const Footer = () => {
                     <h2 className="font-custom select-none">My Account</h2>
                     <p className="font-custom select-none" onClick={() => { handleNavigate('profile') }}>Profile</p>
                     {isLoggedIn && <p className="font-custom select-none" onClick={() => { logout(); navigate('/'); }}>Logout</p>}
-                    <p className="font-custom select-none" onClick={() => { handleNavigate('order') }}>My Order</p>
-                    <p className="font-custom select-none" onClick={() => { handleNavigate('installment') }}>Installment</p>
+                    {isLoggedIn && <p className="font-custom select-none" onClick={() => { handleNavigate('order') }}>My Order</p>}
+                    {isLoggedIn && <p className="font-custom select-none" onClick={() =>  setOpenInstallment(true) }>Installment</p>}
                 </div>
             </div>
             <div className="footer-social-container">

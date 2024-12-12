@@ -18,8 +18,6 @@ export const WishProvider = ({ children }) => {
         } else {
             return "item exist";
         }
-
-        console.log("After add:", wishDisplayList);
         return "success";
     };
 
@@ -31,7 +29,6 @@ export const WishProvider = ({ children }) => {
             if (updatedWishList.length !== wishListFromStorage.length) {
                 setWishDisplayList(updatedWishList);
                 sessionStorage.setItem("wishList", JSON.stringify(updatedWishList));
-                console.log("After delete:", updatedWishList);
                 return true;
             }
         }

@@ -95,7 +95,7 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
     }
 
     const handleRemark = (cartItem) => {
-        // setOpenRemark(!openRemark);
+        setOpenRemark(!openRemark);
         if (cartItem && cartItem.stockCode) {
             selectedCartStockCode.current = cartItem.stockCode;
             setRemarkChangeSize(cartItem.remarkChangeSize || false);
@@ -171,18 +171,18 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
                                     </div>
                                     <div className="sidebar-cart-remark-content hide-scroll-container">
                                         <div className="d-flex align-items-center mb-2" onClick={() => { setRemarkChangeSize(!remarkChangeSize); }} >
-                                            <input className="cart-remark-checkbox all-center" type="checkbox" checked={remarkChangeSize === true} />
+                                            <input className="cart-remark-checkbox all-center" type="checkbox" checked={remarkChangeSize === true}  readOnly />
                                             <span className="cart-remark-change-size">Change Size</span>
                                         </div>
                                         <div className="sidebar-cart-remark-addminus-container">
-                                            <span className="font-custom-2">Add/Minus: (Original Measurement : 1g)</span>
+                                        <span className="font-custom-2">Add/Minus: (Original Measurement : {cartDisplayList.find(item => item.stockCode === selectedCartStockCode.current)?.measurement}g)</span>
                                             <div className="mb-2">
                                                 <label className="sidebar-cart-remark-radio-container">
-                                                    <input type="radio" checked={remarkAddMinus === "add"} onClick={() => { remarkAddMinus !== "add" ? setRemarkAddMinus('add') : setRemarkAddMinus('') }} />
+                                                    <input type="radio" checked={remarkAddMinus === "add"} onClick={() => { remarkAddMinus !== "add" ? setRemarkAddMinus('add') : setRemarkAddMinus('') }} readOnly/>
                                                     Add
                                                 </label>
                                                 <label className="sidebar-cart-remark-radio-container">
-                                                    <input type="radio" checked={remarkAddMinus === "minus"} onClick={() => { remarkAddMinus !== "minus" ? setRemarkAddMinus('minus') : setRemarkAddMinus('') }} />
+                                                    <input type="radio" checked={remarkAddMinus === "minus"} onClick={() => { remarkAddMinus !== "minus" ? setRemarkAddMinus('minus') : setRemarkAddMinus('') }} readOnly/>
                                                     Minus
                                                 </label>
                                             </div>
@@ -198,34 +198,34 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
                                             <span className="font-custom-2">Return Options:</span>
                                             <div className="mb-2">
                                                 <label className="sidebar-cart-remark-radio-container">
-                                                    <input type="radio" checked={remarkReturnOption === "keep"} onClick={() => { remarkReturnOption !== "keep" ? setRemarkReturnOption('keep') : setRemarkReturnOption('') }} />
+                                                    <input type="radio" checked={remarkReturnOption === "keep"} onClick={() => { remarkReturnOption !== "keep" ? setRemarkReturnOption('keep') : setRemarkReturnOption('') }}  readOnly />
                                                     Keep Yourself
                                                 </label>
                                                 <label className="sidebar-cart-remark-radio-container">
-                                                    <input type="radio" checked={remarkReturnOption === "back"} onClick={() => { remarkReturnOption !== "back" ? setRemarkReturnOption('back') : setRemarkReturnOption('') }} />
+                                                    <input type="radio" checked={remarkReturnOption === "back"} onClick={() => { remarkReturnOption !== "back" ? setRemarkReturnOption('back') : setRemarkReturnOption('') }}  readOnly />
                                                     Sell back to shop
                                                 </label>
                                             </div>
                                         </div>
-                                        <strong className={`text-danger fs-8 mb-2 ${remarkReturnOption !== "back" ? 'hide' : ''}`}>
+                                        <strong className={`text-danger fs-8 mb-3 ${remarkReturnOption !== "back" || remarkAddMinus !== "minus" ? 'hide' : ''}`}>
                                             * Please fill in your bank detail as any extra amount will be refunded to your bank account.* The purchase price is RM 376 per gram.* There might be charges for the changes of size; if there are any charges, we will remind you after that.
                                         </strong>
                                         <input
-                                            className="feedback_input form-control mb-3"
+                                            className={`feedback_input form-control mb-3 ${remarkReturnOption !== "back" || remarkAddMinus !== "minus" ? 'hide' : ''}`}
                                             type="text"
                                             placeholder="Bank Account No"
                                             value={remarkBankAcc}
                                             onChange={(e) => {handleRemarkInputChange(e.target.value, "bank_acc");}}
                                         />
                                         <input
-                                            className="feedback_input form-control mb-3"
+                                            className={`feedback_input form-control mb-3 ${remarkReturnOption !== "back" || remarkAddMinus !== "minus" ? 'hide' : ''}`}
                                             type="text"
                                             placeholder="Account Name"
                                             value={remarkAccName}
                                             onChange={(e) => {handleRemarkInputChange(e.target.value, "acc_name");}}
                                         />
                                         <input
-                                            className="feedback_input form-control mb-3"
+                                            className={`feedback_input form-control mb-3 ${remarkReturnOption !== "back" || remarkAddMinus !== "minus" ? 'hide' : ''}`}
                                             type="text"
                                             placeholder="Bank Name"
                                             value={remarkBankName}
@@ -235,9 +235,9 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
                                         <textarea rows="4" cols="37" value={remarkContent} onChange={(e) => { setRemarkContent(e.target.value) }} />
                                     </div>
 
-                                    <div className="w-100 all-center">
+                                    {/* <div className="w-100 all-center">
                                         <button className="remark-save-button" onClick={() => { handleSaveRemark(); }}>Save</button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         }

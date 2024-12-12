@@ -19,14 +19,16 @@ const PromotionPage = ({ showAlert }) => {
                 stockCode: "XCX2847X",
                 isCert: true,
                 isBox: false,
+                branchName: "Branch BCD",
+                branchCode: "VVV15673D",
                 imageUrl: [
                     {
-                        original: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy1.png?v=1729152828&width=180",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
                     },
                     {
-                        original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
                     }
                 ],
                 weight: 3,
@@ -42,10 +44,20 @@ const PromotionPage = ({ showAlert }) => {
                 stockCode: "XCX2848X",
                 isCert: true,
                 isBox: false,
+                branchName: "Branch BCD",
+                branchCode: "VVV15673D",
                 imageUrl: [
                     {
-                        original: "https://www.pohkong.com.my/cdn/shop/files/Deepavali2401cmyk.png?v=1729153204&width=180",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                    },
+                    {
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                    },
+                    {
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
                     }
                 ],
                 weight: 26,
@@ -61,18 +73,20 @@ const PromotionPage = ({ showAlert }) => {
                 stockCode: "SRZ2846Z",
                 isCert: false,
                 isBox: true,
+                branchName: "Branch BCD",
+                branchCode: "VVV15673D",
                 imageUrl: [
                     {
-                        original: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240501copy.png?v=1729152276&width=180",
-                        thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
                     },
                     {
-                        original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
                     },
                     {
-                        original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
                     }
                 ],
                 weight: 5,
@@ -88,18 +102,44 @@ const PromotionPage = ({ showAlert }) => {
                 stockCode: "XCX2846X",
                 isCert: true,
                 isBox: true,
+                branchName: "Branch BCD",
+                branchCode: "VVV15673D",
                 imageUrl: [
                     {
-                        original: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240303copy.png?v=1729153314&width=180",
-                        thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
                     },
                     {
-                        original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
                     },
                     {
-                        original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
-                        thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                    },
+                    {
+                      original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                    },
+                    {
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                    },
+                    {
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                    },
+                    {
+                      original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                      thumbnail: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
+                    },
+                    {
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
+                    },
+                    {
+                      original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
+                      thumbnail: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
                     }
                 ],
                 weight: 17,
