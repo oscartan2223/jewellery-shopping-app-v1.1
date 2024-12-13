@@ -83,8 +83,18 @@ body {
     flex: 1;
 }
 
+th {
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    padding: 0 3px;
+}
+td {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 3px;
+    vertical-align: top;
+}
+
 .content-container {
-    min-height: calc(100vh - 600px - 56px);
+    min-height: calc(100vh - 650px - 56px);
     background-color: var(--bg-first-color);
 }
 

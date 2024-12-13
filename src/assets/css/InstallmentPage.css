@@ -8,23 +8,227 @@
     z-index: 9999999;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .installment-dialog-container {
-    width: 300px;
+    margin-top: 10vh;
+    min-width: 300px;
+    width: 80%;
+    max-width: 600px;
     height: 300px;
     background-color: var(--bg-primary-catagorybox);
+    animation: InstallmentSlideDown 1s 1 forwards;
+}
+
+@keyframes InstallmentSlideDown {
+    0% {
+        transform: translateY(-100vh);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .installment-dialog-header {
-
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .installment-dialog-heading {
-
+    margin: 0;
+    font-size: 18px;
 }
 
 .installment-dialog-close-btn {
-    
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.installment-dialog-content-container {
+    padding: 5px 10px;
+    max-height: calc(100% - 55px);
+    padding-bottom: 20px;
+}
+
+.installment-dialog-content-container span {
+    font-size: 12px;
+}
+
+.installment-dialog-content-container input {
+    margin-top: 5px;
+    height: 30px;
+    width: 200px;
+    font-size: 12px;
+}
+
+.installment-dialog-search-btn {
+    background-color: var(--btn-first-color);
+    color: var(--font-btn-first-color);
+    border-radius: 5px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+    width: 70px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.installment-dialog-search-btn:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.installment-dialog-search-btn:active {
+    transform: translateY(1px);
+}
+
+.installment-invoice-content {
+    width: 30%;
+}
+
+.installment-invoice-image {
+    width: 85%;
+    aspect-ratio: 1;
+}
+
+.installment-deposit-content {
+    width: 20%;
+    font-size: 12px;
+}
+
+.installment-view-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    background-color: var(--btn-first-color);
+    border: none;
+    color: var(--font-btn-first-color);
+    margin-bottom: 5px;
+    margin-right: 8px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.installment-view-btn:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.installment-view-btn:active {
+    transform: translateY(1px);
+}
+
+.installment-payment-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    background-color: var(--btn-third-color);
+    border: none;
+    color: var(--font-btn-first-color);
+    margin-bottom: 5px;
+    margin-right: 8px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.installment-payment-btn:hover {
+    background-color: var(--btn-third-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.installment-payment-btn:active {
+    transform: translateY(1px);
+}
+
+.stock-item-cart-icon {
+    margin-right: 6px;
+    display: flex;
+}
+
+.installment-paymentlog-btn {
+    padding: 3px 10px;
+    font-size: 11px;
+    background-color: var(--btn-second-color);
+    border: none;
+    color: var(--font-btn-second-color);
+    margin-bottom: 5px;
+    margin-right: 8px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.installment-paymentlog-btn:hover {
+    background-color: var(--btn-second-hover-color);
+    color: var(--font-btn-second-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.installment-dialog-view-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.installment-dialog-view-container {
+    margin-top: 10vh;
+    min-width: 300px;
+    width: 80%;
+    max-width: 600px;
+    background-color: var(--bg-primary-catagorybox);
+    animation: InstallmentSlideDown 1s 1 forwards;
+}
+
+.installment-dialog-view-content-container {
+    width: 100%;
+    padding: 15px 20px;
+    height: auto;
+}
+
+.installment-dialog-view-content {
+    width: 100%; 
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: var(--bg-primary-catagorybox);
+}
+
+.installment-dialog-view-box {
+    min-width: 500px;
+    min-height: 150px;
+    padding: 10px 15px;
+    display: flex;
+}
+
+.installment-view-dialog-image {
+    height: 150px;
+    aspect-ratio: 1;
+    margin-right: 20px;
+}
+
+.installment-dialog-view-details {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }

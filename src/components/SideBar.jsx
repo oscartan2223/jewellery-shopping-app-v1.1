@@ -232,12 +232,12 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
                                             onChange={(e) => {handleRemarkInputChange(e.target.value, "bank_name");}}
                                         />
                                         <span className="fs-8 fw-bold">Remarks:</span>
-                                        <textarea rows="4" cols="37" value={remarkContent} onChange={(e) => { setRemarkContent(e.target.value) }} />
+                                        <textarea value={remarkContent} onChange={(e) => { setRemarkContent(e.target.value) }} />
                                     </div>
 
-                                    {/* <div className="w-100 all-center">
+                                    <div className="w-100 all-center">
                                         <button className="remark-save-button" onClick={() => { handleSaveRemark(); }}>Save</button>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                         }

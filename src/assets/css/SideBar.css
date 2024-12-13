@@ -297,7 +297,7 @@
 .sidebar-cart-remark-container {
     min-width: 300px;
     width: 50%;
-    max-height: 80%;
+    max-height: 80vh;
     background-color: var(--bg-first-color);
     border-radius: 8px;
 }
@@ -385,6 +385,7 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     outline: none;
     font-size: 14px;
+    min-height: 100px;
 }
 
 .sidebar-cart-addminus-input {

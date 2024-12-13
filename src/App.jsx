@@ -102,8 +102,32 @@ const AppContent = () => {
     setSearchInput(value);
   };
 
+  const detectMobileOS = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/android/i.test(userAgent) || /iPad|iPhone|iPod/i.test(userAgent)) {
+        return true;
+    }
+
+    return false;
+};
+
+const enterFullscreen = () => {
+    const element = document.documentElement;
+    if (window.innerWidth <= 800) {
+        if (detectMobileOS()) {
+            (element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen 
+              || element.msRequestFullscreen)?.call(element);
+        } else {
+            console.log('Fullscreen only allowed on Android or iOS with screen width <= 800px');
+        }
+    } else {
+        console.log('Fullscreen not allowed on desktop/laptop');
+    }
+};
+
   return (
-    <div className="hide-scroll-container">
+    <div className="hide-scroll-container" onClick={enterFullscreen}>
       {isVisible && (
         <AlertMessage
           alert={alert.type}
@@ -114,7 +138,7 @@ const AppContent = () => {
       )}
 
       {openInstallment &&
-        <InstallmentPage onClose={() => {setOpenInstallment(!openInstallment)}}/>
+        <InstallmentPage onClose={() => { setOpenInstallment(!openInstallment) }} />
       }
 
       <div className='hide-scroll-container'>

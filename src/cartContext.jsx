@@ -4,7 +4,6 @@ import { useWish } from "./wishContext";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // Initialize cartList from sessionStorage, or an empty array if not available
   const initialCartList = JSON.parse(sessionStorage.getItem("cartList")) || [];
   const { removeWish } = useWish();
   const [cartDisplayList, setCartDisplayList] = useState(initialCartList);

@@ -41,7 +41,7 @@ const WishListPage = ({ showAlert }) => {
     return (
         <div className="w-100 d-flex flex-column">
             <h2 className="w-100 text-center fs-1 fw-bold font-custom mt-4 mb-4">My Wishlist</h2>
-            {!wishDisplayList &&
+            {wishDisplayList &&
                 wishDisplayList.length > 0 ? (
                     <div className="wishlist-boxes-container d-flex flex-wrap">
                         {wishDisplayList.map((eachWishItem, index) => (
