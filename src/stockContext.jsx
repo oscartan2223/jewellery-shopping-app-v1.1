@@ -1,14 +1,10 @@
 import React, { createContext, useEffect, useState, useContext, useRef } from 'react';
 
-// Create the context
 const StockContext = createContext();
 
-// Provider component
 export const StockProvider = ({ children }) => {
-    // const [stocks, setStocks] = useState();
     const stocks = useRef();
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         // const fetchStocks = async () => {
@@ -18,9 +14,10 @@ export const StockProvider = ({ children }) => {
         //             throw new Error('Failed to fetch stocks');
         //         }
         //         const data = await response.json();
-        //         setStocks(data);
+        //         stocks.current = data;
+        //         setLoading(false);
         //     } catch (err) {
-        //         setError(err.message);
+        //         console.error(err.message);
         //     } finally {
         //         setLoading(false);
         //     }
@@ -50,7 +47,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: false,
                               branchName: "Branch XYZ",
-                              branchCode: "HFR15672D",
+                              branchCode: "A123X",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -100,7 +97,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: false,
                               branchName: "Branch XYZ",
-                              branchCode: "HFR15672D",
+                              branchCode: "A123X",
                               imageUrl: [
                                 {
                                   original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
@@ -122,7 +119,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: false,
                               branchName: "Branch XYZ",
-                              branchCode: "HFR15672D",
+                              branchCode: "A123X",
                               imageUrl: [
                                 {
                                   original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200821_093357.jpg",
@@ -140,7 +137,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: false,
                               branchName: "Branch XYZ",
-                              branchCode: "HFR15672D",
+                              branchCode: "A123X",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -166,7 +163,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: false,
                               branchName: "Branch XYZ",
-                              branchCode: "HFR15672D",
+                              branchCode: "A123X",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -192,7 +189,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: false,
                               branchName: "Branch XYZ",
-                              branchCode: "HFR15672D",
+                              branchCode: "A123X",
                               imageUrl: [
                                 {
                                   original: "https://admin.kianleepd.com/assets/public/img/slide/IMG_20200822_133822.jpg",
@@ -223,7 +220,7 @@ export const StockProvider = ({ children }) => {
                               isCert: false,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -249,7 +246,7 @@ export const StockProvider = ({ children }) => {
                               isCert: false,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -318,7 +315,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -353,7 +350,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -379,7 +376,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -427,7 +424,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -453,7 +450,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -482,7 +479,7 @@ export const StockProvider = ({ children }) => {
                           imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali240201CMYK.png?v=1729153259&width=180",
                           price: 200,
                           branchName: "Branch ABC",
-                          branchCode: "HFR15673D",
+                          branchCode: "V735W",
                           stock: [
                             {
                               stock_id: 1,
@@ -555,7 +552,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -581,7 +578,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -616,7 +613,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -642,7 +639,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -690,7 +687,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -716,7 +713,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -751,7 +748,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -777,7 +774,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -820,7 +817,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -846,7 +843,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -881,7 +878,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -907,7 +904,7 @@ export const StockProvider = ({ children }) => {
                               isCert: true,
                               isBox: true,
                               branchName: "Branch ABC",
-                              branchCode: "HFR15673D",
+                              branchCode: "V735W",
                               imageUrl: [
                                 {
                                   original: "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/mtxx_pic_1655260524745_mh1655261321603.jpg",
@@ -935,18 +932,18 @@ export const StockProvider = ({ children }) => {
                 }
               ];
               stocks.current = boxesData;
+              setLoading(false);
         };
         fetchStocks();
     }, []);
 
     return (
-        <StockContext.Provider value={{ stocks, loading, error }}>
+        <StockContext.Provider value={{ stocks, loading }}>
             {children}
         </StockContext.Provider>
     );
 };
 
-// Custom hook for using the StockContext
 export const useStock = () => {
     return useContext(StockContext);
 };

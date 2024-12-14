@@ -106,25 +106,25 @@ const AppContent = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
     if (/android/i.test(userAgent) || /iPad|iPhone|iPod/i.test(userAgent)) {
-        return true;
+      return true;
     }
 
     return false;
-};
+  };
 
-const enterFullscreen = () => {
+  const enterFullscreen = () => {
     const element = document.documentElement;
     if (window.innerWidth <= 800) {
-        if (detectMobileOS()) {
-            (element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen 
-              || element.msRequestFullscreen)?.call(element);
-        } else {
-            console.log('Fullscreen only allowed on Android or iOS with screen width <= 800px');
-        }
+      if (detectMobileOS()) {
+        (element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen
+          || element.msRequestFullscreen)?.call(element);
+      } else {
+        console.log('Fullscreen only allowed on Android or iOS with screen width <= 800px');
+      }
     } else {
-        console.log('Fullscreen not allowed on desktop/laptop');
+      console.log('Fullscreen not allowed on desktop/laptop');
     }
-};
+  };
 
   return (
     <div className="hide-scroll-container" onClick={enterFullscreen}>
@@ -169,9 +169,11 @@ const enterFullscreen = () => {
              */}
           </Routes>
         </div>
-        {/* <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
-          <i class='bx bx-chat' />
-        </button> */}
+        {openChat &&
+          <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
+            <i class='bx bx-chat' />
+          </button>
+        }
         {openChat &&
           <LiveChat onClose={() => setOpenChat(false)} />
         }

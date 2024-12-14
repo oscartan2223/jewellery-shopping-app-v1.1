@@ -87,10 +87,23 @@ th {
     border: 2px solid rgba(0, 0, 0, 0.3);
     padding: 0 3px;
 }
+
 td {
     border: 2px solid rgba(0, 0, 0, 0.1);
     padding: 5px 3px;
     vertical-align: top;
+}
+
+.border-none {
+    border: none;
+}
+
+.border-top {
+    border-top: 2px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.border-bottom {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
 }
 
 .content-container {
@@ -116,6 +129,17 @@ td {
     padding: 15px;
     font-size: 25px;
     border-radius: 45px;
+    animation: CommentFadeIn 1s 1 forwards;
+}
+
+@keyframes CommentFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @media (min-width: 700px) {

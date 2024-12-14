@@ -30,7 +30,7 @@ const CartPage = ({ showAlert, openCart }) => {
     const handleAddToWish = async (headingValue, stock) => {
         stock["heading"] = headingValue;
         stock["type"] = populateData[1];
-        if (getCart(stock)){
+        if (getCart(stock)) {
             const status = await addWish(stock);
             if (status === "success") {
                 showAlert('success', 'Item has added into wishlist!');
@@ -74,14 +74,14 @@ const CartPage = ({ showAlert, openCart }) => {
                                 <button
                                     className="cart-navcheckout-button btn-secondary mb-2"
                                     type="button"
-                                    onClick={() => {setShowNavigate(!showNavigate); openCart();}}>
+                                    onClick={() => { setShowNavigate(!showNavigate); openCart(); }}>
                                     <strong>Go To Checkout</strong>
                                 </button>
 
                                 <button
                                     className="cart-shopback-button btn-secondary mb-3"
                                     type="button"
-                                    onClick={() => {setShowNavigate(!showNavigate); handleBack(); }}>
+                                    onClick={() => { setShowNavigate(!showNavigate); handleBack(); }}>
                                     <strong>Continue to Shop</strong>
                                 </button>
                             </div>

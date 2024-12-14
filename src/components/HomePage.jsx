@@ -112,7 +112,7 @@ const HomePage = ({ showAlert }) => {
 
       setBrowseCategoriesItem(stocks.current);
       setFilteredData(stocks.current);
-      setOnLoadNotification(false); // true to enable, false to disable pop up notification when initial load in Home Page
+      setOnLoadNotification(true); // true to enable, false to disable pop up notification when initial load in Home Page
     }
   }, [stocks]);
 

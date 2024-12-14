@@ -75,13 +75,13 @@ export const AuthProvider = ({ children }) => {
                 <>
                     <style>{`
                         .display-dot {
-                        display: inline-block;
-                        position: relative;
+                            display: inline-block;
+                            position: relative;
                         }
                         .display-dot::after {
-                        content: '.';
-                        position: absolute;
-                        animation: dot-anim 1.5s steps(3) infinite;
+                            content: '.';
+                            position: absolute;
+                            animation: dot-anim 1.5s steps(3) infinite;
                         }
 
                         @keyframes dot-anim {

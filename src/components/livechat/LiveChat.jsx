@@ -65,7 +65,7 @@ const LiveChat = ({ onClose }) => {
   const handleClose = () => {
     setTimeout(() => {
       onClose();
-    }, 1200);
+    }, 500);
     setCloseChat(!closeChat);
   };
 

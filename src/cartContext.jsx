@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
   }, [cartDisplayList]);
 
   const addCart = (cartItem) => {
-    if (cartDisplayList.length < 5) {
+    if (cartDisplayList.length < 5) { // if (cartDisplayList.length < Infinity) {
       if (!cartDisplayList.some(item => item.stockCode === cartItem.stockCode)) {
         const updatedCartList = [...cartDisplayList, cartItem];
         setCartDisplayList(updatedCartList);
@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
         return "item exist";
       }
     } else {
-      return "length exceed";
+      return "length exceed"; // use infinity for shop who does not set limit or adjust the 5 to other limit
     }
     return "success";
   };

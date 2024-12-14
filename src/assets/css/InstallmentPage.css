@@ -232,3 +232,70 @@
     flex-direction: column;
     flex: 1;
 }
+
+.installment-dialog-payment-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.installment-dialog-payment-container {
+    margin-top: 10vh;
+    min-width: 300px;
+    width: 80%;
+    max-width: 600px;
+    background-color: var(--bg-primary-catagorybox);
+    animation: InstallmentSlideDown 1s 1 forwards;
+}
+
+.installment-dialog-payment-content-container {
+    width: 100%;
+    padding: 15px 10px;
+    height: auto;
+}
+
+/* Payment Log */
+.installment-dialog-paymentlog-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.installment-dialog-paymentlog-container {
+    margin-top: 10vh;
+    min-width: 300px;
+    width: 80%;
+    max-width: 600px;
+    background-color: var(--bg-primary-catagorybox);
+    animation: InstallmentSlideDown 1s 1 forwards;
+}
+
+.installment-dialog-paymentlog-content-container {
+    width: 100%;
+    padding: 15px 20px;
+    height: auto;
+
+}
+
+.installment-dialog-paymentlog-content-container table {
+    width: 100%;
+    min-width: 270px;
+}
+
+.paymentlog-balance-row {
+    background-color: rgb(207, 200, 180);
+}
