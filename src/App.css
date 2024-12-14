@@ -71,6 +71,14 @@ body {
     cursor: pointer;
 }
 
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.mr-3 {
+    margin-right: 1rem !important;
+}
+
 .fs-7 {
     font-size: 14px;
 }

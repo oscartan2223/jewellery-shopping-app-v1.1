@@ -56,6 +56,7 @@ const AppContent = () => {
 
   const [searchInput, setSearchInput] = useState('');
 
+  const [onChatSettings, setOnChatSettings] = useState(false); // useeffect fetch from backend where setting is on or off
   const [openChat, setOpenChat] = useState(false);
 
   const [openInstallment, setOpenInstallment] = useState(false);
@@ -169,7 +170,7 @@ const AppContent = () => {
              */}
           </Routes>
         </div>
-        {openChat &&
+        {!openChat && onChatSettings &&
           <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
             <i class='bx bx-chat' />
           </button>

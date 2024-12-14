@@ -34,6 +34,9 @@ const InstallmentPage = ({ onClose }) => {
     const [openView, setOpenView] = useState(false);
     const [openPayment, setOpenPayment] = useState(false);
     const [openPaymentLog, setOpenPaymentLog] = useState(false);
+    const [paymentAmount, setPaymentAmount] = useState(53);
+    const [paymentMethod, setPaymentMethod] = useState("ipay88");
+    const [selectedPaymentType, setSelectedPaymentType] = useState('');
 
     useEffect(() => {
         if (isLoggedIn === false) {
@@ -43,6 +46,36 @@ const InstallmentPage = ({ onClose }) => {
             return () => clearTimeout(timer);
         }
     }, [isLoggedIn]);
+
+    const handleOpenPayment = (installmentNo) => {
+        //get api here using installmentNo (use await prevent run error by empty data)
+        const item = {
+            deposit: 50,
+            installmentPeriod: "6 Months",
+            monthlyPayment: 53,
+            lastMonthPayment: 55,
+            firstInstallmentDate: "20/07/2021",
+            lastInstallmentDate: "20/02/2022",
+            total: 336,
+            installmentPrice: 370,
+            paidAmount: 50,
+            balance: 320,
+            extraServices: 5.72,
+            paymentType: "full-payment",
+            paymentAmount: 53.00,
+            payMethod: "ipay88"
+        }
+        setSelectedInvoice(item);
+        setPaymentAmount(item.paymentAmount || 0);
+        setPaymentMethod(item.payMethod || "ipay88");
+        setSelectedPaymentType(item.paymentType || '');
+        setOpenPayment(!openPayment);
+    }
+
+    const handleChange = (e) => {
+        setSelectedPaymentType(e.target.value);
+        console.log("handle the get api again here");
+    };
 
     return (
         <div className="installment-dialog-overlay">
@@ -89,7 +122,7 @@ const InstallmentPage = ({ onClose }) => {
                                     </td>
                                     <td className="installment-action-content">
                                         <button className="installment-view-btn" onClick={() => { setSelectedInvoice(item); setOpenView(!openView); }}>View</button>
-                                        <button className="installment-payment-btn" onClick={() => { setSelectedInvoice(item); setOpenPayment(!openPayment); }}>Payment</button>
+                                        <button className="installment-payment-btn" onClick={() => { handleOpenPayment(item.installmentNo) }}>Payment</button>
                                         <button className="installment-paymentlog-btn" onClick={() => { setSelectedInvoice(item); setOpenPaymentLog(!openPaymentLog); }}>Payment log</button>
                                     </td>
                                 </tr>
@@ -132,78 +165,110 @@ const InstallmentPage = ({ onClose }) => {
                             <FaTimes className="installment-dialog-close-btn" onClick={() => { setOpenPayment(!openPayment); }} />
                         </div>
 
-                        <div className="installment-dialog-payment-content-container">
-                            <div>
-                                <span>Deposit:</span>
-                                <span>RM 50.00</span>
+                        <div className="installment-dialog-payment-content-container hide-scroll-container">
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Deposit:</span>
+                                <span className="font-custom-2">RM {selectedInvoice.deposit || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Installment Period:</span>
-                                <span>6 Months</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Installment Period:</span>
+                                <span className="font-custom-2">{selectedInvoice.installmentPeriod || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Monthly Payment:</span>
-                                <span>RM 53.00</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Monthly Payment:</span>
+                                <span className="font-custom-2">RM {selectedInvoice.monthlyPayment || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Last Month Payment:</span>
-                                <span>RM 55.00</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Last Month Payment:</span>
+                                <span className="font-custom-2">RM {selectedInvoice.lastMonthPayment || ''}</span>
                             </div>
 
-                            <div>
-                                <span>First Installment Date:</span>
-                                <span>20/07/2021</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">First Installment Date:</span>
+                                <span className="font-custom-2">{selectedInvoice.firstInstallmentDate || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Last Installment Date:</span>
-                                <span>20/02/2022</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Last Installment Date:</span>
+                                <span className="font-custom-2">{selectedInvoice.lastInstallmentDate || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Total:</span>
-                                <span>RM 336.00</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Total:</span>
+                                <span className="font-custom-2">RM {selectedInvoice.total || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Installment Price:</span>
-                                <span>RM 370.00</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Installment Price:</span>
+                                <span className="font-custom-2">RM {selectedInvoice.installmentPrice || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Paid Amount:</span>
-                                <span>RM 50.00</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Paid Amount:</span>
+                                <span className="fw-bold">RM {selectedInvoice.paidAmount || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Balance:</span>
-                                <span>RM 320</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Balance:</span>
+                                <span className="font-custom-2">RM {selectedInvoice.balance || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Extra Services (Monthly):</span>
-                                <span>RM 5.72</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Extra Services (Monthly):</span>
+                                <span className="font-custom-2">RM {selectedInvoice.extraServices || ''}</span>
                             </div>
 
-                            <div>
-                                <span>Payment Type:<strong className="text-danger">*</strong></span>
-                                <span>Installment (**Dropdown**)</span>
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2 ">Payment Type:<strong className="text-danger">*</strong></span>
+                                <select
+                                    className="feedback_input form-control font-custom-2 installment-input"
+                                    value={selectedPaymentType}
+                                    onChange={handleChange}
+                                >
+                                    <option value="" hidden>-Payment Type-</option>
+                                    <option value="full-payment">Full Payment</option>
+                                    <option value="installment">Installment</option>
+                                </select>
                             </div>
 
-                            <div>
-                                <span>Payment Amount:<strong className="text-danger">*</strong></span>
-                                <input type="number" value="53.00" />
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Payment Amount:<strong className="text-danger">*</strong></span>
+                                <input className="feedback_input form-control font-custom-2 installment-input" type="number" value={paymentAmount}
+                                    onKeyDown={(e) => { if (!/^\d*$/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== ".") { e.preventDefault(); } }}
+                                    onChange={(e) => { setPaymentAmount(e.target.value); }} />
                             </div>
 
-                            <div>
-                                <span>Pay With<strong className="text-danger">*</strong></span>
-                                <label className="sidebar-cart-remark-radio-container">
-                                    <input type="radio" />
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="w-25 mr-3 font-custom-2">Pay With<strong className="text-danger">*</strong></span>
+                                <label className="sidebar-cart-remark-radio-container all-center font-custom-2 fs-6 mr-3">
+                                    <input className="m-0 mr-2" type="radio" checked={paymentMethod === "ipay88"} onClick={() => setPaymentMethod("ipay88")} readOnly />
                                     iPay88
                                 </label>
+                            </div>
+
+                            <div className="mb-4 w-100 d-flex">
+                                <span className="text-danger fs-7 font-custom-2">
+                                    Note: An additional RM 5.72 will be charged monthly for overdue payment made after 20/02/2222. Our company reserves the right to terminate this transaction in the event that payments are not paid for 3 consecutive months. (Please take note that the goods cannot be changed and the order cannot be cancelled or changed for installment)
+                                </span>
+                            </div>
+
+                            <div className="mb-3 d-flex installment-payment-btn-container">
+                                <button
+                                    className="installment-payment-back-button btn-secondary w-100 mb-3"
+                                    type="button"
+                                    onClick={() => { setOpenPayment(!openPayment); onClose(); }}>
+                                    <strong>Back</strong>
+                                </button>
+
+                                <button
+                                    className="installment-payment-submit-button btn-secondary w-100 mb-5"
+                                    type="button"
+                                    onClick={() => { console.log("do further logic here"); }}>
+                                    <strong>Submit</strong>
+                                </button>
                             </div>
                         </div>
                     </div>

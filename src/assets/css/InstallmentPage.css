@@ -208,7 +208,7 @@
 }
 
 .installment-dialog-view-content {
-    width: 100%; 
+    width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.3);
     background-color: var(--bg-primary-catagorybox);
 }
@@ -258,7 +258,73 @@
 .installment-dialog-payment-content-container {
     width: 100%;
     padding: 15px 10px;
-    height: auto;
+    max-height: calc(80vh - 40px);
+}
+
+select.installment-input {
+    display: inline-block;
+    width: 100%;
+    padding: 4px 12px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: var(--bg-primary-catagorybox) !important;
+    cursor: pointer;
+}
+
+select.installment-input:focus {
+    background-color: var(--bg-first-color) !important;
+}
+
+.installment-input {
+    height: 30px !important;
+    padding: 0 10px;
+    width: 40% !important;
+    font-size: 14px;
+}
+
+.installment-payment-btn-container {
+    width: calc(100% - 20px - 20px);
+    margin: 0 20px;
+}
+
+.installment-payment-submit-button {
+    background-color: var(--btn-first-color);
+    height: 30px;
+    width: 45% !important;
+    border: none;
+    color: var(--font-btn-first-color);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.installment-payment-submit-button:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.installment-payment-back-button {
+    background-color: var(--btn-second-color);
+    border: none;
+    width: 45% !important;
+    height: 30px;
+    color: var(--font-btn-second-color);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.installment-payment-back-button:hover {
+    background-color: var(--btn-second-hover-color);
+    color: var(--font-btn-second-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Payment Log */
