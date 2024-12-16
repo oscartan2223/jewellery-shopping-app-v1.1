@@ -56,7 +56,7 @@ const AppContent = () => {
 
   const [searchInput, setSearchInput] = useState('');
 
-  const [onChatSettings, setOnChatSettings] = useState(false); // useeffect fetch from backend where setting is on or off
+  const [onChatSettings, setOnChatSettings] = useState(true); // useeffect fetch from backend where setting is on or off
   const [openChat, setOpenChat] = useState(false);
 
   const [openInstallment, setOpenInstallment] = useState(false);
