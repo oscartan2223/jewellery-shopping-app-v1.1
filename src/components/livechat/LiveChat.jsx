@@ -11,18 +11,17 @@ const LiveChat = ({ onClose }) => {
   const [audioStream, setAudioStream] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [recordingTime, setRecordingTime] = useState(0); // Recording time in seconds
-  const [volume, setVolume] = useState(0); // Volume level (0-255)
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [volume, setVolume] = useState(0);
   const [closeChat, setCloseChat] = useState(false);
   
-  const analyserRef = useRef(null); // For audio analyzer
-  const intervalRef = useRef(null); // For recording time
+  const analyserRef = useRef(null);
+  const intervalRef = useRef(null);
 
-  // Function to format time as mm:ss
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60); // Get minutes part
-    const remainingSeconds = seconds % 60; // Get seconds part
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`; // Format as mm:ss
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
   const sendMessage = () => {
@@ -77,43 +76,35 @@ const LiveChat = ({ onClose }) => {
       mediaRecorder.stop();
       setIsRecording(false);
       setIsPaused(false);
-      clearInterval(intervalRef.current); // Stop the timer when stopped
+      clearInterval(intervalRef.current);
     } else {
-      // Start recording
       navigator.mediaDevices.getUserMedia({ audio: true })
         .then((stream) => {
           setAudioStream(stream);
           const recorder = new MediaRecorder(stream);
           setMediaRecorder(recorder);
-
-          // Create an analyser node for real-time audio analysis
           const audioContext = new (window.AudioContext || window.webkitAudioContext)();
           const analyser = audioContext.createAnalyser();
-          analyser.fftSize = 256; // Defines the frequency bin size (adjust for different visualizations)
+          analyser.fftSize = 256;
           analyserRef.current = analyser;
 
           const source = audioContext.createMediaStreamSource(stream);
           source.connect(analyser);
-
-          // Store audio data in chunks
           recorder.ondataavailable = (e) => {
             setAudioChunks((prevChunks) => [...prevChunks, e.data]);
           };
 
-          // When recording stops, create audio file URL
           recorder.onstop = () => {
             const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
             const audioUrl = URL.createObjectURL(audioBlob);
             setAudioUrl(audioUrl);
-            setAudioChunks([]); // Reset the chunks
-            stream.getTracks().forEach(track => track.stop()); // Stop all tracks to release resources
+            setAudioChunks([]);
+            stream.getTracks().forEach(track => track.stop());
           };
 
           recorder.start();
           setIsRecording(true);
           setIsPaused(false);
-
-          // Start recording time counter
           intervalRef.current = setInterval(() => {
             setRecordingTime((prevTime) => prevTime + 1);
           }, 1000);
@@ -128,13 +119,12 @@ const LiveChat = ({ onClose }) => {
     if (isRecording && !isPaused) {
       mediaRecorder.pause();
       setIsPaused(true);
-      clearInterval(intervalRef.current); // Stop the timer when paused
-      setVolume(0); // Reset the volume to 0 when paused
+      clearInterval(intervalRef.current);
+      setVolume(0);
     } else if (isRecording && isPaused) {
       mediaRecorder.resume();
       setIsPaused(false);
-  
-      // Start a new interval when resuming the recording
+
       intervalRef.current = setInterval(() => {
         setRecordingTime((prevTime) => prevTime + 1);
       }, 1000);
@@ -146,10 +136,8 @@ const LiveChat = ({ onClose }) => {
       mediaRecorder.stop();
       setIsRecording(false);
       setIsPaused(false);
-      setRecordingTime(0); // Reset the recording time to 0 when stopped
-      clearInterval(intervalRef.current); // Stop the timer when stopped
-
-      // Create and send the audio message immediately
+      setRecordingTime(0);
+      clearInterval(intervalRef.current);
       const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
       const audioUrl = URL.createObjectURL(audioBlob);
       const newMessage = {
@@ -159,7 +147,7 @@ const LiveChat = ({ onClose }) => {
       };
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-      setAudioChunks([]); // Reset the chunks
+      setAudioChunks([]);
     }
   };
 
@@ -175,8 +163,6 @@ const LiveChat = ({ onClose }) => {
       const bufferLength = analyserRef.current.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
       analyserRef.current.getByteFrequencyData(dataArray);
-  
-      // Get the average volume level
       const sum = dataArray.reduce((acc, value) => acc + value, 0);
       const averageVolume = sum / dataArray.length;
       setVolume(averageVolume);
@@ -187,9 +173,9 @@ const LiveChat = ({ onClose }) => {
 
   useEffect(() => {
     if (isRecording && !isPaused) {
-      updateVolume(); // Start updating volume when recording is active
+      updateVolume();
     } else {
-      setVolume(0); // Reset volume to 0 when recording is paused
+      setVolume(0);
     }
   }, [isRecording, isPaused]);
 
@@ -208,7 +194,6 @@ const LiveChat = ({ onClose }) => {
         <FaArrowDown className="chat-collapse" onClick={handleClose} />
       </div>
       <div className="message-container hide-scroll-container">
-        {/* Render the chat messages */}
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.currentRole ? 'sent' : 'received'}`}>
             <div className="message-content">
@@ -226,7 +211,6 @@ const LiveChat = ({ onClose }) => {
         ))}
       </div>
 
-      {/* Message input */}
       <div className="message-input-container">
         {!isRecording ? (
           <div className="message-input">
@@ -244,7 +228,7 @@ const LiveChat = ({ onClose }) => {
           <div className="message-input">
             {!isPaused ? <FaPause onClick={handlePause} className="message-input-icon" /> : <FaPlay onClick={handlePause} className="message-input-icon" />}
             <span className="recording-info">
-              <span className="time">{formatTime(recordingTime)}</span> {/* Display the formatted recording time */}
+              <span className="time">{formatTime(recordingTime)}</span>
               <div className="volume-bar">
                 <div style={{ width: `${volume}%` }} className="volume-bar-inner"></div>
               </div>
