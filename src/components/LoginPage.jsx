@@ -103,7 +103,7 @@ const LoginPage = ({ showAlert }) => {
             placeholder="Password"
             value={loginData.password}
             onChange={handleChange}
-            onKeyDown={(e) => { if (e.key === "Enter") { handleLogin(); } }}
+            onKeyDown={(e) => { if (e.key === "Enter") { e.target.blur(); handleLogin(); } }}
           />
           <div className="password-view" onClick={() => { setViewPassword(!viewPassword) }}>
             {viewPassword ? <FaEye /> : <FaEyeSlash />}

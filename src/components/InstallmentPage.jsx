@@ -260,7 +260,7 @@ const InstallmentPage = ({ onClose }) => {
                                     className="installment-payment-back-button btn-secondary w-100 mb-3"
                                     type="button"
                                     onClick={() => { setOpenPayment(!openPayment); onClose(); }}>
-                                    <strong>Back</strong>
+                                    <strong>Close</strong>
                                 </button>
 
                                 <button

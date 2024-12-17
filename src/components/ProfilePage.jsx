@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../assets/css/ProfilePage.css';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../authContext';
+import NavigationBar from "./navigationBar/NavigationBar";
 
 const ProfilePage = () => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const ProfilePage = () => {
     });
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (!isLoggedIn === false) {
           const timer = setTimeout(() => {
             navigate('/login');
           }, 100);
@@ -41,6 +42,7 @@ const ProfilePage = () => {
 
     return (
         <div className="w-100 all-center">
+            <NavigationBar />
             <div className="profile-form">
                 <h1 className="text-center mb-4">Edit account</h1>
                 <div>

@@ -14,7 +14,7 @@ const LiveChat = ({ onClose }) => {
   const [recordingTime, setRecordingTime] = useState(0);
   const [volume, setVolume] = useState(0);
   const [closeChat, setCloseChat] = useState(false);
-  
+
   const analyserRef = useRef(null);
   const intervalRef = useRef(null);
 
@@ -34,6 +34,7 @@ const LiveChat = ({ onClose }) => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     }
     setMessageText('');
+    handleUpdateView();
   };
 
   useEffect(() => {
@@ -66,6 +67,7 @@ const LiveChat = ({ onClose }) => {
       };
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
+      handleUpdateView();
     };
 
     fileInput.click();
@@ -148,6 +150,7 @@ const LiveChat = ({ onClose }) => {
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setAudioChunks([]);
+      handleUpdateView();
     }
   };
 
@@ -167,7 +170,7 @@ const LiveChat = ({ onClose }) => {
       const averageVolume = sum / dataArray.length;
       setVolume(averageVolume);
     }
-  
+
     requestAnimationFrame(updateVolume);
   };
 
@@ -178,6 +181,16 @@ const LiveChat = ({ onClose }) => {
       setVolume(0);
     }
   }, [isRecording, isPaused]);
+
+  const handleUpdateView = () => {
+    setTimeout(() => {
+      const element = document.getElementById("chat-message-container");
+      if (element) {
+        element.scrollTop = element.scrollHeight;
+      }
+    }, 200)
+    
+  }
 
   return (
     <div className={`chat-room ${closeChat ? 'close-animation' : ''}`}>
@@ -193,7 +206,7 @@ const LiveChat = ({ onClose }) => {
         <label>Chat</label>
         <FaArrowDown className="chat-collapse" onClick={handleClose} />
       </div>
-      <div className="message-container hide-scroll-container">
+      <div className="message-container hide-scroll-container" id="chat-message-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.currentRole ? 'sent' : 'received'}`}>
             <div className="message-content">
@@ -221,6 +234,7 @@ const LiveChat = ({ onClose }) => {
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
               placeholder="Type a message"
+              onKeyDown={(e) => {if (e.key === "Enter") { sendMessage(); }}}
             />
             <button onClick={sendMessage}>Send</button>
           </div>
