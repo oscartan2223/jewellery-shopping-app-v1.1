@@ -24,6 +24,7 @@ import LiveChat from './components/livechat/LiveChat';
 import 'boxicons/css/boxicons.min.css';
 import WishListPage from './components/WishListPage';
 import InstallmentPage from './components/InstallmentPage';
+import ChangePasswordPage from './components/ChangePassword';
 
 const App = () => {
   return (
@@ -45,7 +46,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/profile'];
+  const noHeaderSidebarFooterPaths = ['/profile', '/password'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -164,9 +165,10 @@ const AppContent = () => {
             <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => { setHandleOpen('cart') }} />} />
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
+            <Route path="/password" element={<ChangePasswordPage showAlert={showAlert} />} />
             {/*
             <Route path="/order" element={<OrderPage/>} />
-            <Route path="/password" element={<ResetPasswordPage />} />
+            
              */}
           </Routes>
         </div>

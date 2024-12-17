@@ -17,28 +17,131 @@
     bottom: 0;
     background-color: var(--bg-secondary-catagorybox);
     display: flex;
+    flex-direction: column;
     padding-top: 56px;
 }
 
 .navigate-bar-container.open {
-    width: 290px;
+    width: 280px;
     z-index: 1001;
 }
 
 .navigate-bar-content-container {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
     padding: 10px 15px;
+}
+
+.navigate-bar-content-container-detail {
     display: flex;
     flex-direction: column;
 }
 
 .navigate-bar-content {
     position: relative;
+    cursor: pointer;
+}
+
+.navigate-bar-content.selected {
+    border-radius: 7px;
+    background-color: var(--bg-third-catagorybox);
 }
 
 .navigate-bar-icon {
     font-size: 20px;
+}
+
+.navigate-bar-content label {
+    cursor: pointer;
+}
+
+.navigate-bar-content:hover label,
+.navigate-bar-content:hover .navigate-bar-content-status {
+    color: var(--font-primary-body-hover);
+}
+
+
+.navigate-bar-content-status {
+    position: absolute;
+    right: 10px;
+}
+
+.navigate-bar-subcontent-container {
+    cursor: pointer;
+    width: 100%;
+    visibility: hidden;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    transition: max-height 0.1s ease-out, padding-top 0.1s ease-out, padding-bottom 0.1s ease-out, visibility 0s 1s;
+}
+
+.navigate-bar-subcontent-container.show {
+    visibility: visible;
+    max-height: 1000vh;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    transition: max-height 0.1s ease-out, padding-top 0.1s ease-out, padding-bottom 0.1s ease-out, visibility 0s;
+}
+
+.navigate-bar-subcontent-container span {
+    color: var(--font-primary-body);
+}
+
+.navigate-bar-subcontent-container span:hover {
+    color: var(--font-primary-body-hover);
+}
+
+
+.navigate-bar-subcontent {
+    margin-left: 36px;
+}
+
+.navigate-bar-profile-container {
+    width: 100%;
+    height: 60px;
+    padding: 10px 15px;
+    display: flex;
+}
+
+.navigate-bar-profile-image {
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 20px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    padding-bottom: 2px;
+    color: rgb(255, 255, 255);
+}
+
+.navigate-bar-profile-name {
+    display: flex;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 2px;
+}
+
+
+.navigate-bar-profile-password-btn {
+    height: 100%;
+    width: 40px;
+}
+
+.navigate-bar-profile-password-btn:hover .navigate-bar-profile-password-icon {
+    color: var(--font-primary-body-hover);
+}
+
+.navigate-bar-profile-password-icon {
+    font-size: 25px;
 }
 
 .navigate-bar-button {
@@ -56,7 +159,7 @@
 }
 
 .navigate-bar-button.open {
-    left: 290px;
+    left: 280px;
     background-color: rgba(255, 166, 0, 0.6);
 }
 

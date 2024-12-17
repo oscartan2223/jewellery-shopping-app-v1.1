@@ -1,6 +1,3 @@
-Installment (Saturday)
-General side bar (Monday)
-Change Password (middle of Tuesday)
 Dashboard (start from Tuesday to Wednesday)
 Installment Document (thursday to friday)
 Installment List (friday to next monday)

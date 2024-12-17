@@ -56,7 +56,7 @@ const LoginPage = ({ showAlert }) => {
       const json_response = {
         status: true, // true for success, false for failure
         email: "example123@gmail.com",
-        username: "exampleName",
+        username: "Lim",
         ic: "234342424",
         race: null
       };

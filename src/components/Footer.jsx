@@ -48,7 +48,6 @@ const Footer = ({ setOpenInstallment }) => {
                 <div className="footer-menu">
                     <h2 className="font-custom select-none">Our Service</h2>
                     <p className="font-custom select-none" onClick={() => { handleNavigate('contact') }}>Contact</p>
-                    <p className="font-custom select-none" onClick={() => { handleNavigate('tac') }}>Term & Conditions</p>
                     <p className="font-custom select-none" onClick={() => { handleNavigate('faq') }}>FAQ</p>
                     <p className="font-custom select-none" onClick={() => { handleNavigate('location') }}>Find Us</p>
                 </div>

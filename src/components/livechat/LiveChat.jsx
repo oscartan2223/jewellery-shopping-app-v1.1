@@ -29,7 +29,14 @@ const LiveChat = ({ onClose }) => {
       const newMessage = {
         currentRole: true,
         text: messageText,
-        datetime: new Date().toLocaleString(),
+        datetime: new Date().toLocaleString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        }).replace(',', '')
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     }
@@ -63,7 +70,14 @@ const LiveChat = ({ onClose }) => {
       const newMessage = {
         currentRole: true,
         image: imageUrl,
-        datetime: new Date().toLocaleString(),
+        datetime: new Date().toLocaleString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        }).replace(',', '')
       };
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -145,7 +159,14 @@ const LiveChat = ({ onClose }) => {
       const newMessage = {
         currentRole: true,
         audio: audioUrl,
-        datetime: new Date().toLocaleString(),
+        datetime: new Date().toLocaleString('en-GB', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        }).replace(',', '')
       };
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -168,11 +189,14 @@ const LiveChat = ({ onClose }) => {
       analyserRef.current.getByteFrequencyData(dataArray);
       const sum = dataArray.reduce((acc, value) => acc + value, 0);
       const averageVolume = sum / dataArray.length;
-      setVolume(averageVolume);
+      const normalizedVolume = Math.min(Math.max(averageVolume, 0), 100);
+
+      setVolume(normalizedVolume);
     }
 
     requestAnimationFrame(updateVolume);
-  };
+};
+
 
   useEffect(() => {
     if (isRecording && !isPaused) {
@@ -234,7 +258,7 @@ const LiveChat = ({ onClose }) => {
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
               placeholder="Type a message"
-              onKeyDown={(e) => {if (e.key === "Enter") { sendMessage(); }}}
+              onKeyDown={(e) => {if (e.key === "Enter") { sendMessage(); e.target.blur() }}}
             />
             <button onClick={sendMessage}>Send</button>
           </div>
