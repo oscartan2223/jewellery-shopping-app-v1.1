@@ -25,6 +25,7 @@ import 'boxicons/css/boxicons.min.css';
 import WishListPage from './components/WishListPage';
 import InstallmentPage from './components/InstallmentPage';
 import ChangePasswordPage from './components/ChangePassword';
+import DashboardPage from './components/DashboardPage';
 
 const App = () => {
   return (
@@ -46,7 +47,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/profile', '/password'];
+  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -166,6 +167,7 @@ const AppContent = () => {
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
             <Route path="/password" element={<ChangePasswordPage showAlert={showAlert} />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
             {/*
             <Route path="/order" element={<OrderPage/>} />
             

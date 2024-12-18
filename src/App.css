@@ -92,6 +92,10 @@ body {
     flex: 1;
 }
 
+.fw-medium {
+    font-weight: 550 !important;
+}
+
 th {
     border: 2px solid rgba(0, 0, 0, 0.3);
     padding: 0 3px;
