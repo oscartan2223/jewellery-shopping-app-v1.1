@@ -26,6 +26,7 @@ import WishListPage from './components/WishListPage';
 import InstallmentPage from './components/InstallmentPage';
 import ChangePasswordPage from './components/ChangePassword';
 import DashboardPage from './components/DashboardPage';
+import OrderDetailPage from './components/OrderDetailPage';
 
 const App = () => {
   return (
@@ -47,7 +48,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard'];
+  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -168,6 +169,7 @@ const AppContent = () => {
             <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
             <Route path="/password" element={<ChangePasswordPage showAlert={showAlert} />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/orderdetail" element={<OrderDetailPage />} />
             {/*
             <Route path="/order" element={<OrderPage/>} />
             

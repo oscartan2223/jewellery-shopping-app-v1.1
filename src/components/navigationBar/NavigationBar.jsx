@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './NavigationBar.css';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -15,6 +15,7 @@ const NavigationBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isRotated, setIsRotated] = useState(false);
     const [selectedMenu, setSelectedMenu] = useState(null);
+    const [isOverlayVisible, setIsOverlayVisible] = useState(false);
     const [collapseMenu, setCollapseMenu] = useState({
         home: true,
         orderhistory: true,
@@ -48,9 +49,28 @@ const NavigationBar = () => {
         }
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 768) {
+                setIsOverlayVisible(true);
+            } else {
+                setIsOverlayVisible(false);
+                setIsOpen(true);
+            }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
         <>
-            <div className={`navigate-bar-container-overlay ${!isOpen ? 'hide' : ''}`} onClick={handleClick} />
+            {isOverlayVisible &&
+                <div className={`navigate-bar-container-overlay ${!isOpen ? 'hide' : ''}`} onClick={handleClick} />
+            }
 
             <div className={`navigate-bar-container ${isOpen ? 'open' : ''}`}>
                 <div className={isOpen ? 'navigate-bar-content-container hide-scroll-container' : 'hide'}>

@@ -18,14 +18,14 @@ const ProfilePage = () => {
 
     useEffect(() => {
         if (isLoggedIn === false) {
-          const timer = setTimeout(() => {
-            navigate('/login');
-          }, 100);
-          return () => clearTimeout(timer);
+            const timer = setTimeout(() => {
+                navigate('/login');
+            }, 100);
+            return () => clearTimeout(timer);
         } else {
-          //setProfileData();
+            //setProfileData();
         }
-      }, [isLoggedIn, navigate]);
+    }, [isLoggedIn, navigate]);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -132,7 +132,7 @@ const ProfilePage = () => {
                 <button
                     className="profile-back-button btn-secondary w-100 mb-5"
                     type="button"
-                    onClick={() => {navigate(-1);}}>
+                    onClick={() => { navigate(-1); }}>
                     <strong>Back</strong>
                 </button>
             </div>
