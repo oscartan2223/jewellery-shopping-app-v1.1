@@ -5,12 +5,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
+import TrackingOrder from "./trackingOrder/TrackingOrder";
 
 const OrderTrackingPage = ({ showAlert }) => {
     const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedStatus, setSelectedStatus] = useState("Processing");
+    const [tracking, setTracking] = useState(false);
     const [orderTrackingData, setOrderTrackingData] = useState([
         {
             docNo: "S1641121552-603",
@@ -66,14 +68,14 @@ const OrderTrackingPage = ({ showAlert }) => {
     };
 
     const handleTrack = (data) => {
-        showAlert("error", "I havent do yet!", 10);
+        setTracking(true);
     }
 
     const handleMark = (data) => {
         const updatedData = [...orderTrackingData];
         const index = updatedData.findIndex(order => order.docNo === data.docNo);
         if (index !== -1) {
-            updatedData[index].status = "Shipping"; //Delivered
+            updatedData[index].status = "Delivered";
             showAlert("success", "Order had been successful mark as Delivered status");
         }
         setOrderTrackingData(updatedData);
@@ -83,6 +85,9 @@ const OrderTrackingPage = ({ showAlert }) => {
     return (
         <div className="all-center pt-4">
             <NavigationBar />
+            {tracking && 
+                <TrackingOrder onClose={() => { setTracking(false)}}/>
+            }
             <div className="order-tracking-form">
                 <h2 className="font-custom mb-3 fs-2">Order Tracking</h2>
                 <div className="order-tracking-container">

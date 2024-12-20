@@ -1,0 +1,43 @@
+.tracking-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tracking-container {
+    width: 550px;
+    max-width: 90%;
+    height: 630px;
+    max-height: 90%;
+    background-color: var(--bg-primary-catagorybox);
+}
+
+.tracking-header {
+    width: 100%;
+    padding: 30px 10px;
+    font-style: 40px;
+    text-align: center;
+    font-weight: 450;
+    color: rgb(255, 255, 255);
+    background-color: rgb(210, 103, 89);
+}
+
+.tracking-close-btn {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.tracking-close-icon {
+    font-size: 30px;
+}
