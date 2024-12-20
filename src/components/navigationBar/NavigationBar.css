@@ -8,6 +8,16 @@
     z-index: 1000;
 }
 
+.navigate-bar-container-overlay-hidden {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 1000;   
+}
+
 .navigate-bar-container {
     position: fixed;
     width: 0;

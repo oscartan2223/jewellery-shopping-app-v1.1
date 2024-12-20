@@ -123,6 +123,29 @@ td {
     border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
 }
 
+.nav-tab {
+    border: 0 !important;
+}
+
+.nav-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-item.active {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 0;
+}
+
+.nav-link, .nav-link:hover {
+    color: rgb(0, 0, 0);
+}
+
+.nav-tab-empty {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+    display: flex;
+}
+
 .content-container {
     min-height: calc(100vh - 650px - 56px);
     background-color: var(--bg-first-color);

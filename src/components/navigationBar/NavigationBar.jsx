@@ -68,9 +68,7 @@ const NavigationBar = () => {
 
     return (
         <>
-            {isOverlayVisible &&
-                <div className={`navigate-bar-container-overlay ${!isOpen ? 'hide' : ''}`} onClick={handleClick} />
-            }
+            <div className={`${isOverlayVisible ? 'navigate-bar-container-overlay' : 'navigate-bar-container-overlay-hidden'} ${!isOpen ? 'hide' : ''}`} onClick={handleClick} />
 
             <div className={`navigate-bar-container ${isOpen ? 'open' : ''}`}>
                 <div className={isOpen ? 'navigate-bar-content-container hide-scroll-container' : 'hide'}>

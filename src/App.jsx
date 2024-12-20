@@ -27,6 +27,8 @@ import InstallmentPage from './components/InstallmentPage';
 import ChangePasswordPage from './components/ChangePassword';
 import DashboardPage from './components/DashboardPage';
 import OrderDetailPage from './components/OrderDetailPage';
+import OrderPage from './components/OrderPage';
+import OrderTrackingPage from './components/OrderTrackingPage';
 
 const App = () => {
   return (
@@ -48,7 +50,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail'];
+  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail', '/order', '/ordertracking'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -59,7 +61,7 @@ const AppContent = () => {
 
   const [searchInput, setSearchInput] = useState('');
 
-  const [onChatSettings, setOnChatSettings] = useState(true); // useeffect fetch from backend where setting is on or off
+  const [onChatSettings, setOnChatSettings] = useState(true); // useEffect fetch from backend where setting is on or off
   const [openChat, setOpenChat] = useState(false);
 
   const [openInstallment, setOpenInstallment] = useState(false);
@@ -170,10 +172,8 @@ const AppContent = () => {
             <Route path="/password" element={<ChangePasswordPage showAlert={showAlert} />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/orderdetail" element={<OrderDetailPage />} />
-            {/*
-            <Route path="/order" element={<OrderPage/>} />
-            
-             */}
+            <Route path="/orders" element={<OrderPage />} />
+            <Route path="/ordertracking" element={<OrderTrackingPage showAlert={showAlert} />} />
           </Routes>
         </div>
         {!openChat && onChatSettings &&

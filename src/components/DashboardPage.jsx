@@ -10,10 +10,6 @@ const DashboardPage = () => {
     const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
     const [collaseDashboard, setCollapseDashboard] = useState(false);
-    const scrollContainerRef = useRef(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [startX, setStartX] = useState(0);
-    const [scrollLeft, setScrollLeft] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [dashboardData, setDashboardData] = useState([
         {
@@ -115,7 +111,6 @@ const DashboardPage = () => {
     }, [isLoggedIn, navigate]);
 
     const handleNavi = (target_data) => {
-        return;
         setTimeout(() => {
             navigate('/orderdetail', { state: target_data });
         }, 200);
