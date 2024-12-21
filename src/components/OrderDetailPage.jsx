@@ -5,7 +5,7 @@ import '../assets/css/OrderDetailPage.css';
 import { useAuth } from "../authContext";
 
 const OrderDetailPage = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, loading } = useAuth();
     const navigate = useNavigate();
     const viewOrder = useLocation().state;
     const scrollContainerRef = useRef(null);
@@ -39,7 +39,7 @@ const OrderDetailPage = () => {
     }, []);
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 navigate('/login');
             }, 100);

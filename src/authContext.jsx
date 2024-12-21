@@ -23,6 +23,17 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
+    useEffect(() => {
+        if (loading) {
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            document.documentElement.style.overflow = 'auto';
+        }
+        return () => {
+            document.documentElement.style.overflow = 'auto';
+        };
+    }, [loading]);
+
     const autoLogin = async (userInfo) => {
         try {
             const response = await UserService.loginAccount(userInfo.email, userInfo.password);

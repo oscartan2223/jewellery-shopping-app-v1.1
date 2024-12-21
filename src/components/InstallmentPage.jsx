@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import { useAuth } from '../authContext';
 
 const InstallmentPage = ({ onClose }) => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, loading } = useAuth();
     const [searchInput, setSearchInput] = useState('');
     const [installmentData, setInstallmentData] = useState([
         {
@@ -39,7 +39,7 @@ const InstallmentPage = ({ onClose }) => {
     const [selectedPaymentType, setSelectedPaymentType] = useState('');
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 onClose();
             }, 100);

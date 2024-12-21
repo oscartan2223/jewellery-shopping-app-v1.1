@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import './TrackingOrder.css';
 
 
-const TrackingOrder = ({ trackingDetails, onClose }) => {
+const TrackingOrder = ({ trackingDetails="", onClose }) => {
     return (
         <div className="tracking-overlay" onClick={() => { onClose(); }}>
             <div className="tracking-container" onClick={(e) => { e.stopPropagation(); }}>

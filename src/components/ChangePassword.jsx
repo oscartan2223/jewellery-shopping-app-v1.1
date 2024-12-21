@@ -7,7 +7,7 @@ import '../assets/css/ChangePassword.css';
 
 const ChangePasswordPage = ({ showAlert }) => {
     const navigate = useNavigate();
-    const { isLoggedIn, userInformation } = useAuth();
+    const { isLoggedIn, userInformation, loading } = useAuth();
 
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
@@ -18,7 +18,7 @@ const ChangePasswordPage = ({ showAlert }) => {
 
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 navigate('/login');
             }, 100);

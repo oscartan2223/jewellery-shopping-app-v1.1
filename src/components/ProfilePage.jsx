@@ -6,7 +6,7 @@ import NavigationBar from "./navigationBar/NavigationBar";
 
 const ProfilePage = () => {
     const navigate = useNavigate();
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, loading } = useAuth();
     const [profileData, setProfileData] = useState({
         email: "test@gmail.com",
         name: "",
@@ -17,7 +17,7 @@ const ProfilePage = () => {
     });
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 navigate('/login');
             }, 100);

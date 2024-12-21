@@ -10,13 +10,13 @@ const AlertMessage = ({ alert, duration, content, onClose }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setVisible(false);
-            onClose(); // Call onClose function passed from parent to notify it to hide alert
-        }, effectiveDuration * 1000); // Convert seconds to milliseconds
+            onClose();
+        }, effectiveDuration * 1000);
 
-        return () => clearTimeout(timer); // Cleanup timer on component unmount
+        return () => clearTimeout(timer);
     }, [effectiveDuration, onClose]);
 
-    if (!visible) return null; // Don't render if not visible
+    if (!visible) return null;
 
     return (
         <div className={`alert ${alert}`}>
@@ -24,7 +24,7 @@ const AlertMessage = ({ alert, duration, content, onClose }) => {
                 className="closebtn" 
                 onClick={() => { 
                     setVisible(false);
-                    onClose(); // Call onClose function
+                    onClose();
                 }}
             >
                 &times;

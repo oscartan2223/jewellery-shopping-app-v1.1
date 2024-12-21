@@ -11,7 +11,7 @@ import { useAuth } from "../../authContext";
 const NavigationBar = () => {
     const navigate = useNavigate();
     const { userInformation } = useAuth();
-    const location = useLocation();  // Get current location/path
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [isRotated, setIsRotated] = useState(false);
     const [selectedMenu, setSelectedMenu] = useState(null);
@@ -75,7 +75,6 @@ const NavigationBar = () => {
                     <div className="navigate-bar-content-container-detail">
                         <label className="fs-7 fw-bold mb-2">General</label>
 
-                        {/* Home Menu */}
                         <div
                             className={`navigate-bar-content fw-bold fs-6 all-center justify-content-start p-2 ${selectedMenu === "home" && !collapseMenu.home ? 'selected' : ''}`}
                             onClick={() => handleMenuClick("home")}
@@ -108,7 +107,6 @@ const NavigationBar = () => {
                             </span>
                         </div>
 
-                        {/* Order History Menu */}
                         <div
                             className={`navigate-bar-content fw-bold fs-6 all-center justify-content-start p-2 ${selectedMenu === "orderhistory" && !collapseMenu.orderhistory ? 'selected' : ''}`}
                             onClick={() => handleMenuClick("orderhistory")}
@@ -133,7 +131,6 @@ const NavigationBar = () => {
                             </span>
                         </div>
 
-                        {/* Installment History Menu */}
                         <div
                             className={`navigate-bar-content fw-bold fs-6 all-center justify-content-start p-2 ${selectedMenu === "installmenthistory" && !collapseMenu.installmenthistory ? 'selected' : ''}`}
                             onClick={() => handleMenuClick("installmenthistory")}

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 
 const OrderPage = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, loading } = useAuth();
     const navigate = useNavigate();
     const [collaseOrder, setCollapseOrder] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -101,7 +101,7 @@ const OrderPage = () => {
     ]);
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 navigate('/login');
             }, 100);

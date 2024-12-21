@@ -8,7 +8,7 @@ import { useAuth } from "../authContext";
 import TrackingOrder from "./trackingOrder/TrackingOrder";
 
 const OrderTrackingPage = ({ showAlert }) => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, loading } = useAuth();
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedStatus, setSelectedStatus] = useState("Processing");
@@ -46,7 +46,7 @@ const OrderTrackingPage = ({ showAlert }) => {
     ]);
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 navigate('/login');
             }, 100);

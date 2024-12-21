@@ -29,6 +29,7 @@ import DashboardPage from './components/DashboardPage';
 import OrderDetailPage from './components/OrderDetailPage';
 import OrderPage from './components/OrderPage';
 import OrderTrackingPage from './components/OrderTrackingPage';
+import InstallmentDocumentPage from './components/InstallmentDocumentPage';
 
 const App = () => {
   return (
@@ -50,7 +51,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail', '/order', '/ordertracking'];
+  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail', '/order', '/ordertracking', '/installmentdocument'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -124,11 +125,7 @@ const AppContent = () => {
       if (detectMobileOS()) {
         (element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen
           || element.msRequestFullscreen)?.call(element);
-      } else {
-        console.log('Fullscreen only allowed on Android or iOS with screen width <= 800px');
       }
-    } else {
-      console.log('Fullscreen not allowed on desktop/laptop');
     }
   };
 
@@ -174,6 +171,7 @@ const AppContent = () => {
             <Route path="/orderdetail" element={<OrderDetailPage />} />
             <Route path="/orders" element={<OrderPage />} />
             <Route path="/ordertracking" element={<OrderTrackingPage showAlert={showAlert} />} />
+            <Route path="/installmentdocuments" element={<InstallmentDocumentPage />} />
           </Routes>
         </div>
         {!openChat && onChatSettings &&

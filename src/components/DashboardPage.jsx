@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
 
 const DashboardPage = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, loading } = useAuth();
     const navigate = useNavigate();
     const [collaseDashboard, setCollapseDashboard] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -100,7 +100,7 @@ const DashboardPage = () => {
     ]);
 
     useEffect(() => {
-        if (isLoggedIn === false) {
+        if (isLoggedIn === false && loading === false) {
             const timer = setTimeout(() => {
                 navigate('/login');
             }, 100);
