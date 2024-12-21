@@ -12,16 +12,17 @@ const InstallmentDocumentPage = () => {
     const [collapseInstallmentDocument, setCollapseInstallmentDocument] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedStatus, setSelectedStatus] = useState("Success");
-    const [totalPrice, setTotalPrice] = useState(0);
     const [sumPrice, setSumPrice] = useState(0);
-    const [installmentDocumentData, setInstallmentDocumentData] = useState([
+    const [installmentReportDate, setInstallmentReportDate] = useState('');
+    const [installmentDocumentData, setInstallmentDocumentData] = useState([]);
+    const installmentDocumentDataset = useRef([
         {
             installmentDocNo: "S1641121552-603",
             buyerName: "Lim",
             buyerIC: "920831105391",
             amount: 4034,
             deposit: 410,
-            installmentDate: "11/11/2021",
+            installmentDate: "11/12/2021",
             installmentPeriod: "6 Months",
             monthlyPayment: 676,
             lastMonthPayment: 678,
@@ -116,6 +117,30 @@ const InstallmentDocumentPage = () => {
         setSumPrice(totalDeposit);
     }, [installmentDocumentData, selectedStatus]);
 
+    const handleDateChange = (newDate) => {
+        setInstallmentReportDate(newDate);
+
+        if (!newDate) {
+            setInstallmentDocumentData(installmentDocumentDataset.current);
+            return;
+        }
+
+        const formattedData = installmentDocumentDataset.current.filter(item => {
+            const [day, month, year] = item.installmentDate.split('/');
+            const formattedInstallmentDate = `${year}-${month}-${day}`;
+            return formattedInstallmentDate === newDate;
+        });
+
+        setInstallmentDocumentData(formattedData);
+    };
+
+    useEffect(() => {
+        if (installmentDocumentDataset && installmentDocumentDataset.current) {
+            setInstallmentDocumentData(installmentDocumentDataset.current);
+        }
+    }, [installmentDocumentDataset]);
+
+
     return (
         <div className="all-center pt-4">
             <NavigationBar />
@@ -126,10 +151,19 @@ const InstallmentDocumentPage = () => {
                         {!collapseInstallmentDocument ? <ExpandLessIcon className="installment-document-content-header-icon" onClick={() => { setCollapseInstallmentDocument(!collapseInstallmentDocument) }} />
                             : <ExpandMoreIcon className="installment-document-content-header-icon" onClick={() => { setCollapseInstallmentDocument(!collapseInstallmentDocument) }} />} </h3>
                     <div className={collapseInstallmentDocument ? 'hide' : ''}>
-                        <h4 className="fs-7 mt-5 mb-4">Installment Report</h4>
-
-                        <div className="justify-content-end d-flex align-items-center mb-4">
-                            <span className="dashboard-red-square-label" />
+                        <div className="mt-2 p-3">
+                            <label className="mb-2 font-custom-2 w-100">Date</label>
+                            <input type="date" value={installmentReportDate} className="form-control font-custom-2" onChange={(e) => { handleDateChange(e.target); }}/>
+                            <button></button>
+                            <button></button>
+                        </div>
+                        <h4 className="fs-7 mt-3 font-custom ml-2">Installment Report</h4>
+                        <div className="justify-content-end d-flex align-items-center mb-4 font-custom-2">
+                            <span className="installment-document-green-square-label" />
+                            : Available
+                        </div>
+                        <div className="justify-content-end d-flex align-items-center mb-4 font-custom-2">
+                            <span className="installment-document-red-square-label" />
                             : Failed
                         </div>
                         <div className="nav-tabs-container">
@@ -204,7 +238,7 @@ const InstallmentDocumentPage = () => {
                                                 <td className={`${row.status !== "Failed" ? 'success' : ''} installment-document-table-body-content text-nowrap`}>{row.payWith}</td>
                                                 <td className={`${row.status !== "Failed" ? 'success' : ''} installment-document-table-body-content text-nowrap`}>{row.firstInstallmentDate}</td>
                                                 <td className={`${row.status !== "Failed" ? 'success' : ''} installment-document-table-body-content text-nowrap`}>{row.lastInstallmentDate}</td>
-                                                <td className={`${row.status !== "Failed" ? 'success' : ''} installment-document-table-body-content text-nowrap ${row.status === "Failed" ? 'text-danger' : "Success"} fw-medium`}>{row.status}</td>
+                                                <td className={`${row.status !== "Failed" ? 'success' : ''} installment-document-table-body-content text-nowrap ${row.status === "Failed" ? 'text-danger' : "text-success"} fw-medium`}>{row.status === "Success" ? 'Available' : ''}</td>
                                                 <td className={`${row.status !== "Failed" ? 'success' : ''} installment-document-table-body-content d-flex`}>
                                                     <button className="installment-document-table-view-btn" onClick={() => { handleNavi(row.action) }}>
                                                         View

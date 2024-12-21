@@ -171,12 +171,12 @@ const AppContent = () => {
             <Route path="/orderdetail" element={<OrderDetailPage />} />
             <Route path="/orders" element={<OrderPage />} />
             <Route path="/ordertracking" element={<OrderTrackingPage showAlert={showAlert} />} />
-            <Route path="/installmentdocuments" element={<InstallmentDocumentPage />} />
+            <Route path="/installmentdocument" element={<InstallmentDocumentPage />} />
           </Routes>
         </div>
         {!openChat && onChatSettings &&
           <button className="comment-button" title="Live Chat" onClick={() => setOpenChat(true)}>
-            <i class='bx bx-chat' />
+            <i className='bx bx-chat' />
           </button>
         }
         {openChat &&

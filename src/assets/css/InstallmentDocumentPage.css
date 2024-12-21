@@ -66,6 +66,20 @@
     }
 }
 
+.installment-document-red-square-label {
+    height: 20px;
+    aspect-ratio: 1;
+    background-color: rgb(255, 202, 202);
+    margin-right: 10px;
+}
+
+.installment-document-green-square-label {
+    height: 20px;
+    aspect-ratio: 1;
+    background-color: rgb(186, 223, 156);
+    margin-right: 10px;
+}
+
 .installment-document-page-option-select {
     width: 70px;
     height: 28px;
