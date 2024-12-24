@@ -1,16 +1,16 @@
-.installment-document-form {
+.installment-list-form {
     width: 95%;
     min-width: 310px;
 }
 
-.installment-document-container {
+.installment-list-container {
     border-radius: 5px;
     border: 2px solid rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
     background-color: rgb(255, 255, 255);
 }
 
-.installment-document-content-header {
+.installment-list-content-header {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
     font-size: 22px;
@@ -20,67 +20,53 @@
     padding-bottom: 10px;
 }
 
-.installment-document-content-header-icon {
+.installment-list-content-header-icon {
     position: absolute;
     right: 0;
     cursor: pointer;
 }
 
-.installment-document-page-search-container {
+.installment-list-page-search-container {
     display: flex;
 }
 
-.installment-document-page-search-container div {
+.installment-list-page-search-container div {
     width: 50%;
     padding-bottom: 20px;
 }
 
-.installment-document-page-manage-container {
+.installment-list-page-manage-container {
     display: flex;
 }
 
-.installment-document-page-manage-container div {
+.installment-list-page-manage-container div {
     width: 50%;
     padding-bottom: 20px;
 }
 
 @media (max-width: 500px) {
-    .installment-document-page-search-container {
+    .installment-list-page-search-container {
         flex-direction: column;
     }
 
-    .installment-document-page-search-container div {
+    .installment-list-page-search-container div {
         width: 100%;
         padding-bottom: 10px;
         justify-content: flex-start !important;
     }
 
-    .installment-document-page-manage-container {
+    .installment-list-page-manage-container {
         flex-direction: column;
     }
 
-    .installment-document-page-manage-container div {
+    .installment-list-page-manage-container div {
         width: 100%;
         padding-bottom: 10px;
         justify-content: flex-start !important;
     }
 }
 
-.installment-document-red-square-label {
-    height: 20px;
-    aspect-ratio: 1;
-    background-color: rgb(255, 202, 202);
-    margin-right: 10px;
-}
-
-.installment-document-green-square-label {
-    height: 20px;
-    aspect-ratio: 1;
-    background-color: rgb(186, 223, 156);
-    margin-right: 10px;
-}
-
-.installment-document-page-option-select {
+.installment-list-page-option-select {
     width: 70px;
     height: 28px;
     margin: 0 10px;
@@ -89,51 +75,59 @@
     box-shadow: 0px 2px 3px inset rgba(0, 0, 0, 0.2);
 }
 
-.installment-document-content-search {
+.installment-list-content-search {
     width: 50%;
     min-width: 100px;
     height: 28px;
 }
 
-.installment-document-table-head-content {
+.installment-list-table-head-content {
     padding: 7px 15px;
 }
 
-.installment-document-table-body-content {
+.installment-list-table-body-content {
     background-color: rgb(255, 202, 202);
     padding: 5px 15px;
     font-weight: 350;
 }
 
-.installment-document-table-body-content.origin {
+.installment-list-table-body-content.origin {
     background-color: rgb(255, 255, 255);
 }
 
-.installment-document-table-body-content.success {
+.installment-list-table-body-content.success {
     background-color: rgb(186, 223, 156);
 }
 
-.installment-document-table-view-btn {
+.installment-list-table-view-btn {
+    display: flex;
+    align-items: center;
     margin: 3px 0;
     background-color: var(--btn-first-color);
     color: var(--font-btn-first-color);
     padding: 5px 15px;
     border-radius: 5px;
+    font-size: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.installment-document-table-view-btn:hover {
+.installment-list-table-view-btn:hover {
     background-color: var(--btn-first-hover-color);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
-.installment-document-table-view-btn:active {
+.installment-list-table-view-btn:active {
     transform: translateY(1px);
 }
 
-.installment-document-table-download-btn {
+.installment-list-table-download-icon {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.installment-list-table-download-btn {
     margin: 3px 0;
     margin-left: 10px;
     background-color: var(--btn-first-color);
@@ -144,28 +138,28 @@
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.installment-document-table-download-btn:hover {
+.installment-list-table-download-btn:hover {
     background-color: var(--btn-first-hover-color);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
-.installment-document-table-download-btn:active {
+.installment-list-table-download-btn:active {
     transform: translateY(1px);
 }
 
-.installment-document-page-manage-container button {
+.installment-list-page-manage-container button {
     background-color: rgb(172, 172, 172);
     padding: 5px 10px;
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.installment-document-page-manage-container button:hover,
-.installment-document-page-manage-container button.current {
+.installment-list-page-manage-container button:hover,
+.installment-list-page-manage-container button.current {
     color: rgb(224, 224, 224);
 }
 
-.installment-document-back-btn {
+.installment-list-back-btn {
     height: 40px;
     background-color: var(--btn-first-color);
     color: var(--font-btn-first-color);
@@ -177,55 +171,12 @@
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.installment-document-back-btn:hover {
+.installment-list-back-btn:hover {
     background-color: var(--btn-first-hover-color);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
-.installment-document-back-btn:active {
-    transform: translateY(1px);
-}
-
-.react-datepicker-wrapper, .react-datepicker__input-container,
-.react-datepicker__input-container input {
-    width: 100%;
-    height: 45px;
-}
-
-.react-datepicker__input-container>input {
-    padding-left: 40px;
-    padding-right: 90px;
-}
-
-.installment-document-calender-icon {
-    position: absolute;
-    left: 15px;
-    color: rgba(0, 0, 0, 0.6);
-    cursor: default;
-    z-index: 1;
-}
-
-.installment-document-reset-date-btn {
-    right: 15px;
-    position: absolute;
-    background-color: var(--btn-first-color);
-    color: var(--font-btn-first-color);
-    padding: 3px 15px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-}
-
-.installment-document-reset-date-btn:hover {
-    background-color: var(--btn-first-hover-color);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
-}
-
-.installment-document-reset-date-btn:active {
+.installment-list-back-btn:active {
     transform: translateY(1px);
 }

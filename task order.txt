@@ -1,5 +1,1 @@
-Installment Document (friday to next monday)
-Installment List (next tuesday to next thursday)
 My Order (do all on following days)
-
-react-datepicker

@@ -5,6 +5,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../authContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaCalendar } from "react-icons/fa";
 
 const InstallmentDocumentPage = () => {
     const { isLoggedIn, loading } = useAuth();
@@ -13,8 +16,9 @@ const InstallmentDocumentPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedStatus, setSelectedStatus] = useState("Success");
     const [sumPrice, setSumPrice] = useState(0);
-    const [installmentReportDate, setInstallmentReportDate] = useState('');
+    const [installmentReportDate, setInstallmentReportDate] = useState(null);
     const [installmentDocumentData, setInstallmentDocumentData] = useState([]);
+    const dateInputRef = useRef(null);
     const installmentDocumentDataset = useRef([
         {
             installmentDocNo: "S1641121552-603",
@@ -125,13 +129,25 @@ const InstallmentDocumentPage = () => {
             return;
         }
 
+        const formattedNewDate = formatDate(newDate);
         const formattedData = installmentDocumentDataset.current.filter(item => {
-            const [day, month, year] = item.installmentDate.split('/');
-            const formattedInstallmentDate = `${year}-${month}-${day}`;
-            return formattedInstallmentDate === newDate;
+            const formattedInstallmentDate = formatDateFromDataset(item.installmentDate);
+            return formattedNewDate === formattedInstallmentDate;
         });
 
         setInstallmentDocumentData(formattedData);
+    };
+
+    const formatDate = (date) => {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+    const formatDateFromDataset = (installmentDate) => {
+        const [day, month, year] = installmentDate.split('/');
+        return `${day}/${month}/${year}`;
     };
 
     useEffect(() => {
@@ -140,6 +156,19 @@ const InstallmentDocumentPage = () => {
         }
     }, [installmentDocumentDataset]);
 
+    const handleResetDate = () => {
+        setInstallmentReportDate(null);
+        handleDateChange(null);
+        const date_input = document.getElementsByClassName("react-datepicker-ignore-onclickoutside")[0]
+        if (date_input) { date_input.blur(); }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            const date_input = document.getElementsByClassName("react-datepicker-ignore-onclickoutside")[0];
+            if (date_input) { date_input.blur(); }
+        }
+    };
 
     return (
         <div className="all-center pt-4">
@@ -152,20 +181,30 @@ const InstallmentDocumentPage = () => {
                             : <ExpandMoreIcon className="installment-document-content-header-icon" onClick={() => { setCollapseInstallmentDocument(!collapseInstallmentDocument) }} />} </h3>
                     <div className={collapseInstallmentDocument ? 'hide' : ''}>
                         <div className="mt-2 p-3">
+                            <div className="justify-content-end d-flex align-items-center mb-4 font-custom-2">
+                                <span className="installment-document-green-square-label" />
+                                : Available
+                            </div>
+                            <div className="justify-content-end d-flex align-items-center mb-3 font-custom-2">
+                                <span className="installment-document-red-square-label" />
+                                : Failed
+                            </div>
                             <label className="mb-2 font-custom-2 w-100">Date</label>
-                            <input type="date" value={installmentReportDate} className="form-control font-custom-2" onChange={(e) => { handleDateChange(e.target); }}/>
-                            <button></button>
-                            <button></button>
+                            <div className="w-100 d-flex position-relative align-items-center mb-3">
+                                <FaCalendar className="installment-document-calender-icon" />
+                                <DatePicker
+                                    selected={installmentReportDate}
+                                    onChange={(e) => { handleDateChange(e); }}
+                                    onKeyDown={handleKeyDown}
+                                    className="form-control w-100 font-custom-2"
+                                    dateFormat="dd/MM/yyyy"
+                                    ref={dateInputRef}
+                                />
+                                <button className="installment-document-reset-date-btn" onClick={() => { handleResetDate(); }}>Reset</button>
+                            </div>
                         </div>
-                        <h4 className="fs-7 mt-3 font-custom ml-2">Installment Report</h4>
-                        <div className="justify-content-end d-flex align-items-center mb-4 font-custom-2">
-                            <span className="installment-document-green-square-label" />
-                            : Available
-                        </div>
-                        <div className="justify-content-end d-flex align-items-center mb-4 font-custom-2">
-                            <span className="installment-document-red-square-label" />
-                            : Failed
-                        </div>
+                        <h4 className="fs-6 mt-3 font-custom ml-2 mb-4">Installment Report</h4>
+
                         <div className="nav-tabs-container">
                             <ul className="nav nav-tabs">
                                 <li className={`nav-item ${selectedStatus === "Success" ? 'active' : ''}`}

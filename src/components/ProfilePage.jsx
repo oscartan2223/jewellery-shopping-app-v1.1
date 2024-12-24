@@ -76,7 +76,7 @@ const ProfilePage = () => {
                         value={profileData.race}
                         onChange={handleChange}
                     >
-                        <option value="">--RACE--</option>
+                        <option value="">--Race--</option>
                         <option value="Cina">Cina</option>
                         <option value="India">India</option>
                         <option value="Melayu">Melayu</option>

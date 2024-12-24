@@ -30,6 +30,7 @@ import OrderDetailPage from './components/OrderDetailPage';
 import OrderPage from './components/OrderPage';
 import OrderTrackingPage from './components/OrderTrackingPage';
 import InstallmentDocumentPage from './components/InstallmentDocumentPage';
+import InstallmentListPage from './components/InstallmentListPage';
 
 const App = () => {
   return (
@@ -51,7 +52,7 @@ const AppContent = () => {
   const { userInformation } = useAuth();
   const location = useLocation();
 
-  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail', '/order', '/ordertracking', '/installmentdocument'];
+  const noHeaderSidebarFooterPaths = ['/profile', '/password', '/dashboard', '/orderdetail', '/order', '/ordertracking', '/installmentdocument', '/installmentlist'];
   const shouldRenderHeaderSidebarFooter = !noHeaderSidebarFooterPaths.includes(location.pathname);
 
   const [handleOpen, setHandleOpen] = useState('');
@@ -172,6 +173,7 @@ const AppContent = () => {
             <Route path="/orders" element={<OrderPage />} />
             <Route path="/ordertracking" element={<OrderTrackingPage showAlert={showAlert} />} />
             <Route path="/installmentdocument" element={<InstallmentDocumentPage />} />
+            <Route path="/installmentlists" element={<InstallmentListPage />} />
           </Routes>
         </div>
         {!openChat && onChatSettings &&
