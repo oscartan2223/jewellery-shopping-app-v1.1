@@ -31,6 +31,7 @@ import OrderPage from './components/OrderPage';
 import OrderTrackingPage from './components/OrderTrackingPage';
 import InstallmentDocumentPage from './components/InstallmentDocumentPage';
 import InstallmentListPage from './components/InstallmentListPage';
+import MyOrderPage from './components/MyOrderPage';
 
 const App = () => {
   return (
@@ -167,13 +168,14 @@ const AppContent = () => {
             <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => { setHandleOpen('cart') }} />} />
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
+            <Route path='/myorder' element={<MyOrderPage showAlert={showAlert} />} />
             <Route path="/password" element={<ChangePasswordPage showAlert={showAlert} />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/orderdetail" element={<OrderDetailPage />} />
             <Route path="/orders" element={<OrderPage />} />
             <Route path="/ordertracking" element={<OrderTrackingPage showAlert={showAlert} />} />
             <Route path="/installmentdocument" element={<InstallmentDocumentPage />} />
-            <Route path="/installmentlists" element={<InstallmentListPage />} />
+            <Route path="/installmentlist" element={<InstallmentListPage />} />
           </Routes>
         </div>
         {!openChat && onChatSettings &&

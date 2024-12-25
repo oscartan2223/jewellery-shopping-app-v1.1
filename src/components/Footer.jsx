@@ -56,8 +56,8 @@ const Footer = ({ setOpenInstallment }) => {
                     <h2 className="font-custom select-none">My Account</h2>
                     <p className="font-custom select-none" onClick={() => { handleNavigate('profile') }}>{isLoggedIn ? 'Profile' : 'Login'}</p>
                     {isLoggedIn && <p className="font-custom select-none" onClick={() => { logout(); navigate('/'); }}>Logout</p>}
-                    {isLoggedIn && <p className="font-custom select-none" onClick={() => { handleNavigate('order') }}>My Order</p>}
-                    {isLoggedIn && <p className="font-custom select-none" onClick={() =>  setOpenInstallment(true) }>Installment</p>}
+                    {isLoggedIn && <p className="font-custom select-none" onClick={() => { handleNavigate('myorder') }}>My Order</p>}
+                    {isLoggedIn && <p className="font-custom select-none" onClick={() =>  setOpenInstallment(!true) }>Installment</p>}
                 </div>
             </div>
             <div className="footer-social-container">

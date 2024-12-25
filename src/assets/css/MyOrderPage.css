@@ -1,0 +1,21 @@
+.myorder-container {
+    padding: 40px 30px;
+    width: 100%;
+    display: flex;
+}
+
+.myorder-content {
+    background-color: var(--bg-secondary-catagorybox);
+    width: 100%;
+    padding: 24px 20px;
+    border-radius: 5px;
+}
+
+.myorder-title {
+    color: var(--font-primary-heading);
+    font-size: 40px;
+    text-align: flex-start;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    margin-bottom: 48px;
+}

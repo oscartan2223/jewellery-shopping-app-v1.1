@@ -85,7 +85,6 @@ const OrderDetailPage = () => {
                         <a className="text-black fs-7 text-decoration-none" href={`mailto:${orderDetailData && orderDetailData.length > 0 ? orderDetailData[0].email : ''}`}>
                             {orderDetailData && orderDetailData.length > 0 ? orderDetailData[0].email : ''}
                         </a>
-
                         <h1 className="fs-1 mt-3 mb-3">{orderDetailData && orderDetailData.length > 0 ? orderDetailData[0].docNo : ''}</h1>
                         <h4 className="fs-6">Document Date: {orderDetailData && orderDetailData.length > 0 ? orderDetailData[0].documentDate : ''}</h4>
                         <h4 className="fs-6">Pay With: {orderDetailData && orderDetailData.length > 0 ? orderDetailData[0].payWith : ''}</h4>

@@ -26,7 +26,7 @@ const InstallmentListPage = () => {
             phone: "0169551982",
             email: "ginnz30@gmail.com",
             temporaryInvoice: "TIV220102-0003",
-            transactionDate: "02/01/2022 19:05:52",
+            transactionDate: "02/01/2022",
             remark: "testing",
             status: "Pending Payment",
             action: 603
@@ -63,7 +63,8 @@ const InstallmentListPage = () => {
             buyerIC: "920831105391",
             phone: "0169551982",
             email: "ginnz30@gmail.com",
-            transactionDate: "02/01/2023 11:32:06",
+            temporaryInvoice: "TIV220102-0006",
+            transactionDate: "02/01/2023",
             remark: "insufficient amount",
             status: "Pending Payment",
             action: 604
@@ -80,7 +81,7 @@ const InstallmentListPage = () => {
             phone: "0169551982",
             email: "ginnz30@gmail.com",
             temporaryInvoice: "TIV220102-0003",
-            transactionDate: "02/01/2023 11:32:06",
+            transactionDate: "02/01/2023",
             remark: "insufficient amount",
             status: "Pending Payment",
             action: 604
@@ -138,7 +139,7 @@ const InstallmentListPage = () => {
                 <div className="installment-list-container">
                     <h3 className="installment-list-content-header">Installment
                         {!collapseInstallmentList ? <ExpandLessIcon className="installment-list-content-header-icon" onClick={() => { setCollapseInstallmentList(!collapseInstallmentList) }} />
-                            : <ExpandMoreIcon className="installment-list-content-header-icon" onClick={() => { setCollapseInstallmentList(!collapseInstallmentList) }} />} </h3>
+                         : <ExpandMoreIcon className="installment-list-content-header-icon" onClick={() => { setCollapseInstallmentList(!collapseInstallmentList) }} />} </h3>
                     <div className={collapseInstallmentList ? 'hide' : ''}>
                         <div className="nav-tabs-container">
                             <ul className="nav nav-tabs">
@@ -150,10 +151,10 @@ const InstallmentListPage = () => {
                                     onClick={() => handleTabClick("Pending Approve")}>
                                     <span className="nav-link" href="#">Pending Approve</span>
                                 </li>
-                                <li className={`nav-item ${selectedStatus === "Success" ? 'active' : ''}`}
+                                {/* <li className={`nav-item ${selectedStatus === "Success" ? 'active' : ''}`}
                                     onClick={() => handleTabClick("Success")}>
                                     <span className="nav-link" href="#">Approved</span>
-                                </li>
+                                </li> */}
                                 <div className="nav-tab-empty" />
                             </ul>
                         </div>

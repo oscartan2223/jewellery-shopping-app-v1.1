@@ -131,6 +131,10 @@ td {
     border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
 }
 
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
 ul {
     border: 0 !important;
 }
