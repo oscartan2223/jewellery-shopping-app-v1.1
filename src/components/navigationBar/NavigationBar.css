@@ -1,3 +1,11 @@
+.navigate-bar-desktop-open {
+    width: calc(100% - 280px) !important;
+}
+
+.navigate-bar-desktop-close {
+    width: calc(100% - 70px) !important;
+}
+
 .navigate-bar-container-overlay {
     position: fixed;
     width: 100vw;
@@ -8,20 +16,18 @@
     z-index: 1000;
 }
 
-.navigate-bar-container-overlay-hidden {
+.navigate-bar-container-overlay-desktop {
     position: fixed;
     width: 100vw;
     left: 0;
     top: 0;
     height: 100vh;
-    background-color: transparent;
-    z-index: 1000;   
+    z-index: 1000;
 }
 
 .navigate-bar-container {
     position: fixed;
-    width: 0;
-    transition: width 0.2s ease-out;
+    width: 280px;
     left: 0;
     top: 0;
     bottom: 0;
@@ -29,11 +35,43 @@
     display: flex;
     flex-direction: column;
     padding-top: 56px;
+    transform: translateX(-100%);
 }
 
 .navigate-bar-container.open {
+    z-index: 1001;
+    animation: SlideIn 0.5s 1 forwards;
+    transition: width 1s ease-out;
+}
+
+.navigate-bar-container-desktop {
+    position: fixed;
+    width: 60px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--bg-secondary-catagorybox);
+    display: flex;
+    flex-direction: column;
+    padding: 0 8px;
+    padding-top: 80px;
+}
+
+.navigate-bar-container-desktop.open {
     width: 280px;
     z-index: 1001;
+    padding: 10px 0;
+    padding-top: 70px;
+}
+
+@keyframes SlideIn {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .navigate-bar-content-container {
@@ -59,6 +97,12 @@
 
 .navigate-bar-icon {
     font-size: 20px;
+    margin-right: 1rem;
+}
+
+.navigate-bar-icon.collapsed {
+    font-size: 20px;
+    margin-right: 0;
 }
 
 .navigate-bar-content label {
@@ -165,11 +209,40 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: left 0.2s ease-out, transform 1s ease-out;
+    transition: transform 1s ease-out;
 }
 
 .navigate-bar-button.open {
-    left: 280px;
+    background-color: rgba(255, 166, 0, 0.6);
+    animation: SlideBtnIn 0.5s 1 forwards;
+}
+
+@keyframes SlideBtnIn {
+    0% {
+        left: 0;  
+    }
+
+    100% {
+        left: 280px;
+    }
+}
+
+.navigate-bar-button.origin {
+    animation: SlideBtnOut 0.05s 1 forwards;
+}
+
+@keyframes SlideBtnOut {
+    0% {
+        left: 280px;  
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+.navigate-bar-button.close {
+    left: 60px;
     background-color: rgba(255, 166, 0, 0.6);
 }
 

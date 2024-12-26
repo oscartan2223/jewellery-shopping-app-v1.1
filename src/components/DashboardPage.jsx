@@ -9,6 +9,8 @@ import { useAuth } from "../authContext";
 const DashboardPage = () => {
     const { isLoggedIn, loading } = useAuth();
     const navigate = useNavigate();
+    const [isNavBarOpen, setIsNavBarOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const [collaseDashboard, setCollapseDashboard] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [dashboardData, setDashboardData] = useState([
@@ -118,110 +120,112 @@ const DashboardPage = () => {
     }
 
     return (
-        <div className="all-center pt-4">
-            <NavigationBar />
-            <div className="dashboard-form">
-                <h2 className="font-custom mb-3 fs-2">Customer</h2>
-                <div className="dashboard-container">
-                    <h3 className="dashboard-content-header">Order Activities
-                        {!collaseDashboard ? <ExpandLessIcon className="dashboard-content-header-icon" onClick={() => { setCollapseDashboard(!collaseDashboard) }} />
-                            : <ExpandMoreIcon className="dashboard-content-header-icon" onClick={() => { setCollapseDashboard(!collaseDashboard) }} />} </h3>
-                    <div className={collaseDashboard ? 'hide' : ''}>
-                        <h4 className="fs-5">Your Order</h4>
-                        <div className="justify-content-end d-flex align-items-center">
-                            <span className="dashboard-red-square-label" />
-                            : Failed
-                        </div>
-                        <div className="dashboard-page-search-container pt-4">
-                            <div className="d-flex justify-content-start align-items-center">
-                                Showing
-                                <select className="dashboard-page-option-select">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                entries
+        <div className="w-100 all-center justify-content-end">
+            <div className={`w-100 all-center pt-4 ${!isMobile ? isNavBarOpen ? 'navigate-bar-desktop-open' : 'navigate-bar-desktop-close' : ''}`}>
+                <NavigationBar setMobileState={setIsMobile} setOpenState={setIsNavBarOpen} />
+                <div className="dashboard-form">
+                    <h2 className="font-custom mb-3 fs-2">Customer</h2>
+                    <div className="dashboard-container">
+                        <h3 className="dashboard-content-header">Order Activities
+                            {!collaseDashboard ? <ExpandLessIcon className="dashboard-content-header-icon" onClick={() => { setCollapseDashboard(!collaseDashboard) }} />
+                                : <ExpandMoreIcon className="dashboard-content-header-icon" onClick={() => { setCollapseDashboard(!collaseDashboard) }} />} </h3>
+                        <div className={collaseDashboard ? 'hide' : ''}>
+                            <h4 className="fs-5">Your Order</h4>
+                            <div className="justify-content-end d-flex align-items-center">
+                                <span className="dashboard-red-square-label" />
+                                : Failed
                             </div>
-                            <div className="d-flex justify-content-end">
-                                <label className="mr-2">Search</label>
-                                <input className="dashboard-content-search d-flex" type="text" />
+                            <div className="dashboard-page-search-container pt-4">
+                                <div className="d-flex justify-content-start align-items-center">
+                                    Showing
+                                    <select className="dashboard-page-option-select">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    entries
+                                </div>
+                                <div className="d-flex justify-content-end">
+                                    <label className="mr-2">Search</label>
+                                    <input className="dashboard-content-search d-flex" type="text" />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="w-100 overflow-auto mb-3">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th className="dashboard-table-head-content text-nowrap">#</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Doc No.</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Total</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Payment Amt</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Payment Method</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Pay With</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Collect Type</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Buyer Name</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Buyer IC</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Phone</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Email</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Temporary Invoice</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Transaction Date</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Remark</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Status</th>
-                                        <th className="dashboard-table-head-content text-nowrap">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {dashboardData && dashboardData.map((row, index) => (
-                                        <tr key={index}>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{index + 1}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.docNo}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.total}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.paymentAmt}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.paymentMethod}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.payWith}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.collectType}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.buyerName}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.buyerIC}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.phone}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.email}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.temporaryInvoice}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.transactionDate}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.remark}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap ${row && row.status === "Failed" ? 'text-danger' : row && row.status === "Success" ? 'text-success' : 'text-warning'} fw-medium`}>{row.status}</td>
-                                            <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content`}>
-                                                <button className="dashboard-table-view-btn" onClick={() => { handleNavi(row.action) }}>
-                                                    View
-                                                </button>
-                                            </td>
+                            <div className="w-100 overflow-auto mb-3">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th className="dashboard-table-head-content text-nowrap">#</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Doc No.</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Total</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Payment Amt</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Payment Method</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Pay With</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Collect Type</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Buyer Name</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Buyer IC</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Phone</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Email</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Temporary Invoice</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Transaction Date</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Remark</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Status</th>
+                                            <th className="dashboard-table-head-content text-nowrap">Action</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div className="dashboard-page-manage-container d-flex align-items-center">
-                            <div className="fs-7 d-flex justify-content-start align-items-center">
-                                {dashboardData && dashboardData.length > 0 ? `Showing 1 Page 1 of 1` : `No Record Found, Sorry (Filtered from 1 Total Record)`}
+                                    </thead>
+                                    <tbody>
+                                        {dashboardData && dashboardData.map((row, index) => (
+                                            <tr key={index}>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{index + 1}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.docNo}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.total}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.paymentAmt}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.paymentMethod}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.payWith}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.collectType}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.buyerName}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.buyerIC}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.phone}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.email}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.temporaryInvoice}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.transactionDate}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap`}>{row.remark}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content text-nowrap ${row && row.status === "Failed" ? 'text-danger' : row && row.status === "Success" ? 'text-success' : 'text-warning'} fw-medium`}>{row.status}</td>
+                                                <td className={`${row && row.status !== "Failed" ? 'origin' : ''} dashboard-table-body-content`}>
+                                                    <button className="dashboard-table-view-btn" onClick={() => { handleNavi(row.action) }}>
+                                                        View
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <div className="d-flex justify-content-end">
-                                <button className="">
-                                    Previous
-                                </button>
-                                <button className="current">
-                                    {currentPage}
-                                </button>
-                                <button className="">
-                                    Next
-                                </button>
-                            </div>
-                        </div>
+                            <div className="dashboard-page-manage-container d-flex align-items-center">
+                                <div className="fs-7 d-flex justify-content-start align-items-center">
+                                    {dashboardData && dashboardData.length > 0 ? `Showing 1 Page 1 of 1` : `No Record Found, Sorry (Filtered from 1 Total Record)`}
+                                </div>
 
+                                <div className="d-flex justify-content-end">
+                                    <button className="">
+                                        Previous
+                                    </button>
+                                    <button className="current">
+                                        {currentPage}
+                                    </button>
+                                    <button className="">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <button className="dashboard-back-btn" onClick={() => { navigate(-1); }}>
+                            Back
+                        </button>
                     </div>
-                    <button className="dashboard-back-btn" onClick={() => { navigate(-1); }}>
-                        Back
-                    </button>
                 </div>
             </div>
         </div>

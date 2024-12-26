@@ -9,6 +9,8 @@ import { useAuth } from "../authContext";
 const OrderPage = () => {
     const { isLoggedIn, loading } = useAuth();
     const navigate = useNavigate();
+    const [isNavBarOpen, setIsNavBarOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const [collaseOrder, setCollapseOrder] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedStatus, setSelectedStatus] = useState("Pending Payment");
@@ -123,8 +125,9 @@ const OrderPage = () => {
     };
 
     return (
-        <div className="all-center pt-4">
-            <NavigationBar />
+        <div className="w-100 all-center justify-content-end">
+        <div className={`w-100 all-center pt-4 ${!isMobile ? isNavBarOpen ? 'navigate-bar-desktop-open' : 'navigate-bar-desktop-close' : ''}`}>
+            <NavigationBar setMobileState={setIsMobile} setOpenState={setIsNavBarOpen} />
             <div className="order-form">
                 <h2 className="font-custom mb-3 fs-2">Order History</h2>
                 <div className="order-container">
@@ -248,6 +251,7 @@ const OrderPage = () => {
                     </button>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
