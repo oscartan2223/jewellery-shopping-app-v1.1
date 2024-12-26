@@ -45,7 +45,7 @@ const MyOrderPage = () => {
                             View Item
                         </button>
                     </div>
-                    <div>
+                    <div className="w-100 hide-scroll-container">
                         <table>
                             <tbody>
                                 <tr>
@@ -63,6 +63,9 @@ const MyOrderPage = () => {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div className="myorder-item-bottom">
+                        <label><strong>Remark: </strong>TEST</label>
                     </div>
                 </div>
             </div>

@@ -73,3 +73,9 @@
 .myorder-table-data {
     padding: 15px 10px;
 }
+
+.myorder-item-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 24px;
+}
