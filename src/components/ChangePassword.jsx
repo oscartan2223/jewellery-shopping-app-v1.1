@@ -9,6 +9,9 @@ const ChangePasswordPage = ({ showAlert }) => {
     const navigate = useNavigate();
     const { isLoggedIn, userInformation, loading } = useAuth();
 
+    const [isNavBarOpen, setIsNavBarOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
 
@@ -88,72 +91,74 @@ const ChangePasswordPage = ({ showAlert }) => {
     };
 
     return (
-        <div className="w-100 all-center">
-            <NavigationBar />
-            <div className="changepassword-form">
-                <h1 className="text-center mb-4">Change Password</h1>
-                <div>
-                    <label>Old Password<strong className="text-danger font-bold">*</strong></label>
-                    <div className="changepassword-input-container mb-4">
-                        <input
-                            className="feedback_input form-control"
-                            type={showOldPassword ? "text" : "password"}
-                            id="o_p"
-                            placeholder="Old Password"
-                            value={oldPassword}
-                            onKeyDown={(e) => handleAutoNextLine(e, 'n_p')}
-                            onChange={(e) => handleChange(e.target.value, "old")}
-                        />
-                        {showOldPassword ? <FaEye className="changepassword-input-password-icon" onClick={() => { setShowOldPassword(!showOldPassword) }} />
-                            : <FaEyeSlash className="changepassword-input-password-icon" onClick={() => { setShowOldPassword(!showOldPassword) }} />}
+        <div className="w-100 all-center justify-content-end">
+            <div className={`w-100 all-center ${!isMobile ? isNavBarOpen ? 'navigate-bar-desktop-open' : 'navigate-bar-desktop-close' : ''}`}>
+                <NavigationBar setMobileState={setIsMobile} setOpenState={setIsNavBarOpen} />
+                <div className="changepassword-form">
+                    <h1 className="text-center mb-4">Change Password</h1>
+                    <div>
+                        <label>Old Password<strong className="text-danger font-bold">*</strong></label>
+                        <div className="changepassword-input-container mb-4">
+                            <input
+                                className="feedback_input form-control"
+                                type={showOldPassword ? "text" : "password"}
+                                id="o_p"
+                                placeholder="Old Password"
+                                value={oldPassword}
+                                onKeyDown={(e) => handleAutoNextLine(e, 'n_p')}
+                                onChange={(e) => handleChange(e.target.value, "old")}
+                            />
+                            {showOldPassword ? <FaEye className="changepassword-input-password-icon" onClick={() => { setShowOldPassword(!showOldPassword) }} />
+                                : <FaEyeSlash className="changepassword-input-password-icon" onClick={() => { setShowOldPassword(!showOldPassword) }} />}
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <label>New Password<strong className="text-danger font-bold">*</strong></label>
-                    <div className="changepassword-input-container mb-4">
-                        <input
-                            className="feedback_input form-control"
-                            type={showNewPassword ? "text" : "password"}
-                            id="n_p"
-                            placeholder="New Password"
-                            value={newPassword}
-                            onKeyDown={(e) => handleAutoNextLine(e, 'rn_p')}
-                            onChange={(e) => handleChange(e.target.value, "new")}
-                        />
-                        {showNewPassword ? <FaEye className="changepassword-input-password-icon" onClick={() => { setShowNewPassword(!showNewPassword) }} />
-                            : <FaEyeSlash className="changepassword-input-password-icon" onClick={() => { setShowNewPassword(!showNewPassword) }} />}
+                    <div>
+                        <label>New Password<strong className="text-danger font-bold">*</strong></label>
+                        <div className="changepassword-input-container mb-4">
+                            <input
+                                className="feedback_input form-control"
+                                type={showNewPassword ? "text" : "password"}
+                                id="n_p"
+                                placeholder="New Password"
+                                value={newPassword}
+                                onKeyDown={(e) => handleAutoNextLine(e, 'rn_p')}
+                                onChange={(e) => handleChange(e.target.value, "new")}
+                            />
+                            {showNewPassword ? <FaEye className="changepassword-input-password-icon" onClick={() => { setShowNewPassword(!showNewPassword) }} />
+                                : <FaEyeSlash className="changepassword-input-password-icon" onClick={() => { setShowNewPassword(!showNewPassword) }} />}
+                        </div>
                     </div>
+
+                    <div>
+                        <label>Re-enter New Password<strong className="text-danger font-bold">*</strong></label>
+                        <input
+                            className="feedback_input form-control mb-5"
+                            type="password"
+                            id="rn_p"
+                            placeholder="Re-enter Password"
+                            value={reenterPassword}
+                            onKeyDown={(e) => handleSubmit(e)}
+                            onChange={(e) => handleChange(e.target.value, "reenter")}
+                        />
+                    </div>
+
+
+
+                    <button
+                        className="changepassword-update-button btn-secondary w-100 mb-4"
+                        type="button"
+                        onClick={handleUpdateClick}>
+                        <strong>Update</strong>
+                    </button>
+
+                    <button
+                        className="changepassword-back-button btn-secondary w-100 mb-5"
+                        type="button"
+                        onClick={() => { navigate(-1); }}>
+                        <strong>Back</strong>
+                    </button>
                 </div>
-
-                <div>
-                    <label>Re-enter New Password<strong className="text-danger font-bold">*</strong></label>
-                    <input
-                        className="feedback_input form-control mb-5"
-                        type="password"
-                        id="rn_p"
-                        placeholder="Re-enter Password"
-                        value={reenterPassword}
-                        onKeyDown={(e) => handleSubmit(e)}
-                        onChange={(e) => handleChange(e.target.value, "reenter")}
-                    />
-                </div>
-
-
-
-                <button
-                    className="changepassword-update-button btn-secondary w-100 mb-4"
-                    type="button"
-                    onClick={handleUpdateClick}>
-                    <strong>Update</strong>
-                </button>
-
-                <button
-                    className="changepassword-back-button btn-secondary w-100 mb-5"
-                    type="button"
-                    onClick={() => { navigate(-1); }}>
-                    <strong>Back</strong>
-                </button>
             </div>
         </div>
     );

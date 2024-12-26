@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NavigationBar from "./navigationBar/NavigationBar";
 import '../assets/css/OrderPage.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

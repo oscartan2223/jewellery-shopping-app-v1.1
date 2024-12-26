@@ -18,16 +18,16 @@ const ProfilePage = () => {
         phone: "0123456789",
     });
 
-    // useEffect(() => {
-    //     if (isLoggedIn === false && loading === false) {
-    //         const timer = setTimeout(() => {
-    //             navigate('/login');
-    //         }, 100);
-    //         return () => clearTimeout(timer);
-    //     } else {
-    //         //setProfileData();
-    //     }
-    // }, [isLoggedIn, navigate]);
+    useEffect(() => {
+        if (isLoggedIn === false && loading === false) {
+            const timer = setTimeout(() => {
+                navigate('/login');
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            //setProfileData();
+        }
+    }, [isLoggedIn, navigate]);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
