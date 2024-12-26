@@ -38,23 +38,27 @@ const MyOrderPage = () => {
                     </ul>
                 </div>
 
-                <div className="">
-                    <h2>TIV220608-0004</h2>
-                    <button>View Item</button>
+                <div className="myorder-item-container">
+                    <div className="myorder-item-heading">
+                        <h2>TIV220608-0004</h2>
+                        <button className="myorder-view-btn">
+                            View Item
+                        </button>
+                    </div>
                     <div>
                         <table>
                             <tbody>
                                 <tr>
-                                    <td className="border-none">Payment Type: Cash</td>
-                                    <td className="border-none">Collect Type: taken</td>
-                                    <td className="border-none">Delivery Charge: RM 0.00</td>
-                                    <td className="border-none">Payment Amount: RM 645</td>
-                                    <td className="border-none vertical-align-middle" rowSpan="4">
+                                    <td className="myorder-table-data border-none">Payment Type: Cash</td>
+                                    <td className="myorder-table-data border-none">Collect Type: taken</td>
+                                    <td className="myorder-table-data border-none">Delivery Charge: RM 0.00</td>
+                                    <td className="myorder-table-data border-none">Payment Amount: RM 645</td>
+                                    <td className="myorder-table-data border-none vertical-align-middle" rowSpan="4">
                                         <button>Upload Bank Slip</button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className="border-none">Order Date: 08/06/2022</td>
+                                    <td className="myorder-table-data border-none">Order Date: 08/06/2022</td>
                                     <td className="border-none" colSpan="3" />
                                 </tr>
                             </tbody>

@@ -2,13 +2,63 @@
     padding: 40px 30px;
     width: 100%;
     display: flex;
+    justify-content: center;
 }
 
 .myorder-content {
     background-color: var(--bg-secondary-catagorybox);
     width: 100%;
+    max-width: 1000px;
     padding: 24px 20px;
     border-radius: 5px;
+}
+
+.myorder-item-container {
+    width: 100%;
+    padding: 20px 25px;
+    position: relative;
+}
+
+.myorder-item-container:after {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 10px;
+    left: 10px;
+    content: '';
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.myorder-item-heading {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.myorder-item-heading h2 {
+    font-size: 26px;
+    margin: 0;
+    margin-right: 10px;
+}
+
+.myorder-view-btn {
+    background-color: var(--btn-first-color);
+    color: var(--font-btn-first-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.myorder-view-btn:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.myorder-view-btn:active {
+    transform: translateY(1px);
 }
 
 .myorder-title {
@@ -18,4 +68,8 @@
     padding-bottom: 10px;
     padding-left: 20px;
     margin-bottom: 48px;
+}
+
+.myorder-table-data {
+    padding: 15px 10px;
 }
