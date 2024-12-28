@@ -107,8 +107,6 @@ const DashboardPage = () => {
                 navigate('/login');
             }, 100);
             return () => clearTimeout(timer);
-        } else {
-            //setProfileData();
         }
     }, [isLoggedIn, navigate]);
 

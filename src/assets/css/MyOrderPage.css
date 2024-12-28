@@ -21,6 +21,10 @@
     width: 100%;
     padding: 20px 25px;
     position: relative;
+    min-width: 800px;
+}
+
+.myorder-item-spacing {
     margin-bottom: 60px;
 }
 
@@ -104,7 +108,7 @@
 }
 
 .myorder-item-bottom.view {
-    margin-bottom: 250px; /* here dynamic */
+    margin-bottom: 250px;
 }
 
 .myorder-item-details {
@@ -140,4 +144,40 @@
 .nav-tabs-container.myorder-approved {
     padding: 25px;
     padding-top: 30px;
+}
+
+.myorder-item-receipt {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 24px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+
+.myorder-item-receipt.view {
+    margin-bottom: 250px;
+}
+
+.myorder-item-receipt-img {
+    height: 377px;
+    width: 377px;
+}
+
+.myorder-item-picture-video {
+    display: flex;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 24px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+
+.myorder-item-picture-video.view {
+    margin-bottom: 250px;
+}
+
+.myorder-table-border-top {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

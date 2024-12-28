@@ -108,6 +108,10 @@ body {
     text-align: right;
 }
 
+.mw-100 {
+    min-width: 100%;
+}
+
 th {
     border: 2px solid rgba(0, 0, 0, 0.3);
     padding: 0 3px;

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import '../assets/css/MyOrderPage.css';
 import { useAuth } from "../authContext";
 import { useNavigate } from "react-router-dom";
+import TrackingOrder from "./trackingOrder/TrackingOrder";
 
 const MyOrderPage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, loading } = useAuth();
     const [selectedStatus, setSelectedStatus] = useState('Pending Payment');
-    const [selectedApprovedStatus, setSelectedApprovedStatus] = useState('Self Collect')
+    const [selectedApprovedStatus, setSelectedApprovedStatus] = useState('Self Collect');
     const [orders, setOrders] = useState([
         {
             invoice: "TIV220608-00789",
@@ -49,6 +50,7 @@ const MyOrderPage = () => {
         }
     ]);
     const [openView, setOpenView] = useState('');
+    const [tracking, setTracking] = useState(false);
 
     const handleApprovedTabClick = (selectedTab) => {
         setSelectedApprovedStatus(selectedTab);
@@ -99,7 +101,57 @@ const MyOrderPage = () => {
                 }
             ]);
         } else if (selectedTab === 'Approved') {
-
+            setOrders([
+                {
+                    invoice: "TIV220608-00789",
+                    paymentType: "Installment",
+                    collectType: "taken",
+                    deliveryCharge: "RM 1.00",
+                    paymentAmount: "RM 1912",
+                    orderDate: "21/09/2021",
+                    collectStatus: "Collected",
+                    name: "Tan Lun",
+                    phone: "0193035699",
+                    email: "yourstyle1100@yahoo.com.my",
+                    collectDetails: "11/11/2020 1:22pm ~ 11/11/2020 1:22pm",
+                    remark: "test only",
+                    itemDetails: {
+                        name: "PS CLIP",
+                        code: "[S1BPSXXBD00119]",
+                        price: "RM 645",
+                        temporaryInvoice: "TIV220608-0004",
+                        transactionDate: "08/06/2022 11:06:28",
+                        collectType: "Self-Collect",
+                        status: "Pending Payment",
+                        imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali2401cmyk.png?v=1729153204&width=180"
+                    }
+                },
+                {
+                    invoice: "TIV220608-00789",
+                    paymentType: "Installment",
+                    collectType: "delivery",
+                    deliveryCharge: "RM 0.00",
+                    paymentAmount: "RM 1912",
+                    orderDate: "21/09/2021",
+                    trackingNumber: "testing",
+                    posCourier: "pos laju",
+                    name: "Tan Lun",
+                    phone: "0193035699",
+                    email: "yourstyle1100@yahoo.com.my",
+                    deliveryDetails: "2124, Cities, 443244, STATES, Malaysia",
+                    remark: "test only",
+                    itemDetails: {
+                        name: "PS CLIP",
+                        code: "[S1BPSXXBD00119]",
+                        price: "RM 645",
+                        temporaryInvoice: "TIV220608-0004",
+                        transactionDate: "08/06/2022 11:06:28",
+                        collectType: "Delivery",
+                        status: "Pending Payment",
+                        imageUrl: "https://www.pohkong.com.my/cdn/shop/files/Deepavali2401cmyk.png?v=1729153204&width=180"
+                    }
+                }
+            ]);
         } else if (selectedTab === 'Reject') {
             setOrders([
                 {
@@ -162,8 +214,6 @@ const MyOrderPage = () => {
                 navigate('/login');
             }, 100);
             return () => clearTimeout(timer);
-        } else {
-            //setProfileData();
         }
     }, [isLoggedIn, navigate]);
 
@@ -174,6 +224,9 @@ const MyOrderPage = () => {
 
     return (
         <div className="myorder-container">
+            {tracking &&
+                <TrackingOrder onClose={() => { setTracking(false) }} />
+            }
             <div className="myorder-content">
                 <h1 className="myorder-title font-custom-2 border-bottom">Order</h1>
                 <div className="nav-tabs-container mb-3">
@@ -205,78 +258,15 @@ const MyOrderPage = () => {
                 {selectedStatus && (selectedStatus === "Pending Payment" || selectedStatus === "Pending Approve") &&
                     <div className="myorder-item-content-container hide-scroll-container">
                         {orders.map((order, index) => (
-                            <div className="myorder-item-container" key={index}>
-                                <div className="myorder-item-heading">
-                                    <h2>{order.invoice}</h2>
-                                    <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
-                                </div>
-                                <div className="w-100 hide-scroll-container">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
-                                                <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
-                                                <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
-                                                <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
-                                                <td className="myorder-table-data border-none vertical-align-middle" rowSpan="2">
-                                                    <button className="myorder-table-btn">Upload Bank Slip</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
-                                                <td className="border-none" colSpan="3" />
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className={`myorder-item-bottom ${openView === order.invoice ? 'view' : ''}`}>
-                                    <label><strong>Remark: </strong>{order.remark}</label>
-                                </div>
-
-                                <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
-                                    <div className="myorder-item-details-container">
-                                        <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
-                                        <div className="myorder-item-details-description">
-                                            <label className="fs-6 font-custom">{order.itemDetails.name}</label>
-                                            <label className="fs-5 font-custom">{order.itemDetails.code}</label>
-                                            <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
-                                            <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
-                                            <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
-                                            <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
-                                            <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                }
-
-                {selectedStatus && selectedStatus === "Approved" &&
-                    <div>
-                        <div className="nav-tabs-container myorder-approved mb-3">
-                            <ul className="nav nav-tabs">
-                                <li className={`nav-item ${selectedApprovedStatus === "Self Collect" ? 'active' : ''}`}
-                                    onClick={() => handleApprovedTabClick("Self Collect")}>
-                                    <span className="nav-link" href="#">Self Collect</span>
-                                </li>
-                                <li className={`nav-item ${selectedApprovedStatus === "Delivery" ? 'active' : ''}`}
-                                    onClick={() => handleApprovedTabClick("Delivery")}>
-                                    <span className="nav-link" href="#">Delivery</span>
-                                </li>
-                                <div className="nav-tab-empty" />
-                            </ul>
-                        </div>
-                        {selectedApprovedStatus === "Self Collect" &&
-                            <div className="myorder-item-content-container hide-scroll-container">
-                                {orders.map((order, index) => (
+                            <>
+                                <div className="w-100 overflow-x-auto">
                                     <div className="myorder-item-container" key={index}>
                                         <div className="myorder-item-heading">
                                             <h2>{order.invoice}</h2>
                                             <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
                                         </div>
                                         <div className="w-100 hide-scroll-container">
-                                            <table>
+                                            <table className="mw-100">
                                                 <tbody>
                                                     <tr>
                                                         <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
@@ -298,21 +288,184 @@ const MyOrderPage = () => {
                                             <label><strong>Remark: </strong>{order.remark}</label>
                                         </div>
 
-                                        <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
-                                            <div className="myorder-item-details-container">
-                                                <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
-                                                <div className="myorder-item-details-description">
-                                                    <label className="fs-6 font-custom">{order.itemDetails.name}</label>
-                                                    <label className="fs-5 font-custom">{order.itemDetails.code}</label>
-                                                    <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
-                                                    <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
-                                                    <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
-                                                    <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
-                                                    <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                                        {order && order.itemDetails &&
+                                            <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
+                                                <div className="myorder-item-details-container">
+                                                    <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
+                                                    <div className="myorder-item-details-description">
+                                                        <label className="fs-6 font-custom">{order.itemDetails.name}</label>
+                                                        <label className="fs-5 font-custom">{order.itemDetails.code}</label>
+                                                        <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
+                                                        <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
+                                                        <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
+                                                        <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
+                                                        <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
+                                </div>
+                                <div className="myorder-item-spacing" />
+                            </>
+                        ))}
+                    </div>
+                }
+
+                {selectedStatus && selectedStatus === "Approved" &&
+                    <div>
+                        <div className="nav-tabs-container myorder-approved mb-3">
+                            <ul className="nav nav-tabs">
+                                <li className={`nav-item ${selectedApprovedStatus === "Self Collect" ? 'active' : ''}`}
+                                    onClick={() => handleApprovedTabClick("Self Collect")}>
+                                    <span className="nav-link" href="#">Self Collect</span>
+                                </li>
+                                <li className={`nav-item ${selectedApprovedStatus === "Delivery" ? 'active' : ''}`}
+                                    onClick={() => handleApprovedTabClick("Delivery")}>
+                                    <span className="nav-link" href="#">Delivery</span>
+                                </li>
+                                <div className="nav-tab-empty" />
+                            </ul>
+                        </div>
+                        {selectedApprovedStatus === "Self Collect" &&
+                            <div className="myorder-item-content-container hide-scroll-container">
+                                {orders.filter(order => order.collectType === "taken").map((order, index) => (
+                                    <>
+                                        <div className="w-100 overflow-x-auto">
+                                            <div className="myorder-item-container" key={index}>
+                                                <div className="myorder-item-heading">
+                                                    <h2>{order.invoice}</h2>
+                                                    <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
+                                                </div>
+                                                <div className="w-100 hide-scroll-container">
+                                                    <table className="mw-100">
+                                                        <tbody>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
+                                                                <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
+                                                                <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
+                                                                <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
+                                                            </tr>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
+                                                                <td className="myorder-table-data border-none">Collect Status: Collected</td>
+                                                                <td className="myorder-table-data border-none">Name: Tan Lun</td>
+                                                                <td className="myorder-table-data border-none">Phone: 0193035699</td>
+                                                            </tr>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none" colSpan="4">Email: yourstyle1100@yahoo.com.my</td>
+                                                            </tr>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none" colSpan="4">Collect Details:<br /> 11/11/2020 1:22pm ~ 11/11/2020 1:22pm</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div className="myorder-item-bottom">
+                                                    <label><strong>Remark: </strong>{order.remark}</label>
+                                                </div>
+
+                                                <div className={`myorder-item-receipt ${openView === order.invoice ? 'view' : ''}`}>
+                                                    <label>Collect Receipt:</label>
+                                                    <img className="myorder-item-receipt-img" alt="image"
+                                                        src="https://upload.kianleepd.com/assets/public/img/collect/AE9043/approve_img.jpg" />
+                                                </div>
+
+                                                {order && order.itemDetails &&
+                                                    <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
+                                                        <div className="myorder-item-details-container">
+                                                            <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
+                                                            <div className="myorder-item-details-description">
+                                                                <label className="fs-6 font-custom">{order.itemDetails.name}</label>
+                                                                <label className="fs-5 font-custom">{order.itemDetails.code}</label>
+                                                                <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
+                                                                <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
+                                                                <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
+                                                                <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
+                                                                <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="myorder-item-spacing" />
+                                    </>
+                                ))}
+                            </div>
+                        }
+
+                        {selectedApprovedStatus === "Delivery" &&
+                            <div className="myorder-item-content-container hide-scroll-container">
+                                {orders.filter(order => order.collectType === "delivery").map((order, index) => (
+                                    <>
+                                        <div className="w-100 overflow-x-auto">
+                                            <div className="myorder-item-container" key={index}>
+                                                <div className="myorder-item-heading">
+                                                    <h2>{order.invoice}</h2>
+                                                    <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
+                                                </div>
+                                                <div className="">
+                                                    <table className="mw-100">
+                                                        <tbody>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
+                                                                <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
+                                                                <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
+                                                                <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
+                                                                <td className="border-none" />
+                                                            </tr>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
+                                                                <td className="myorder-table-data border-none">
+                                                                    Tracking Number: {order.trackingNumber}
+                                                                    <br /><button className="myorder-table-btn mt-3" onClick={() => { setTracking(!tracking) }}>Track Order</button>
+                                                                </td>
+                                                                <td className="myorder-table-data border-none">Pos Courier: {order.posCourier}</td>
+                                                                <td className="myorder-table-data border-none">Name: {order.name}</td>
+                                                                <td className="myorder-table-data border-none">Phone: {order.phone}</td>
+                                                            </tr>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none" colSpan="5">Email: {order.email}</td>
+                                                            </tr>
+                                                            <tr className="myorder-table-border-top">
+                                                                <td className="myorder-table-data border-none" colSpan="5">
+                                                                    Delivery Details:<br />
+                                                                    {order.deliveryDetails}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div className="myorder-item-bottom">
+                                                    <label><strong>Remark: </strong>{order.remark}</label>
+                                                </div>
+
+                                                <div className={`myorder-item-picture-video pt-3 ${openView === order.invoice ? 'view' : ''}`}>
+                                                    <button className="myorder-table-btn mr-3">Pictures</button>
+                                                    <button className="myorder-table-btn">Videos</button>
+                                                </div>
+
+                                                {order && order.itemDetails &&
+                                                    <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
+                                                        <div className="myorder-item-details-container">
+                                                            <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
+                                                            <div className="myorder-item-details-description">
+                                                                <label className="fs-6 font-custom">{order.itemDetails.name}</label>
+                                                                <label className="fs-5 font-custom">{order.itemDetails.code}</label>
+                                                                <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
+                                                                <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
+                                                                <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
+                                                                <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
+                                                                <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="myorder-item-spacing" />
+                                    </>
                                 ))}
                             </div>
                         }
@@ -322,59 +475,66 @@ const MyOrderPage = () => {
                 {selectedStatus && selectedStatus === "Reject" &&
                     <div className="myorder-item-content-container hide-scroll-container">
                         {orders.map((order, index) => (
-                            <div className="myorder-item-container" key={index}>
-                                <div className="myorder-item-heading">
-                                    <h2>{order.invoice}</h2>
-                                    <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
-                                </div>
-                                <div className="w-100 hide-scroll-container">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
-                                                <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
-                                                <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
-                                                <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
-                                                <td className="myorder-table-data border-none">Reason: {order.reason}</td>
-                                                <td className="myorder-table-data border-none">
-                                                    <button className="myorder-table-btn">Document</button>
-                                                </td>
-                                                <td className="myorder-table-data border-none" />
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Name: {order.name}</td>
-                                                <td className="myorder-table-data border-none">Phone: {order.phone}</td>
-                                                <td className="myorder-table-data border-none">Email: {order.email}</td>
-                                                <td className="myorder-table-data border-none" />
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none" colSpan="4">Collect Details: {order.collectDetails}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className={`myorder-item-bottom ${openView === order.invoice ? 'view' : ''}`}>
-                                    <label><strong>Remark: </strong>{order.remark}</label>
-                                </div>
-
-                                <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
-                                    <div className="myorder-item-details-container">
-                                        <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
-                                        <div className="myorder-item-details-description">
-                                            <label className="fs-6 font-custom">{order.itemDetails.name}</label>
-                                            <label className="fs-5 font-custom">{order.itemDetails.code}</label>
-                                            <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
-                                            <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
-                                            <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
-                                            <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
-                                            <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                            <>
+                                <div className="w-100 overflow-x-auto">
+                                    <div className="myorder-item-container" key={index}>
+                                        <div className="myorder-item-heading">
+                                            <h2>{order.invoice}</h2>
+                                            <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
                                         </div>
+                                        <div className="w-100 hide-scroll-container">
+                                            <table className="mw-100">
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
+                                                        <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
+                                                        <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
+                                                        <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
+                                                        <td className="myorder-table-data border-none">Reason: {order.reason}</td>
+                                                        <td className="myorder-table-data border-none">
+                                                            <button className="myorder-table-btn">Document</button>
+                                                        </td>
+                                                        <td className="myorder-table-data border-none" />
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none">Name: {order.name}</td>
+                                                        <td className="myorder-table-data border-none">Phone: {order.phone}</td>
+                                                        <td className="myorder-table-data border-none">Email: {order.email}</td>
+                                                        <td className="myorder-table-data border-none" />
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none" colSpan="4">Collect Details: {order.collectDetails}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div className={`myorder-item-bottom ${openView === order.invoice ? 'view' : ''}`}>
+                                            <label><strong>Remark: </strong>{order.remark}</label>
+                                        </div>
+
+                                        {order && order.itemDetails &&
+                                            <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
+                                                <div className="myorder-item-details-container">
+                                                    <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
+                                                    <div className="myorder-item-details-description">
+                                                        <label className="fs-6 font-custom">{order.itemDetails.name}</label>
+                                                        <label className="fs-5 font-custom">{order.itemDetails.code}</label>
+                                                        <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
+                                                        <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
+                                                        <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
+                                                        <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
+                                                        <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                            </div>
+                                <div className="myorder-item-spacing" />
+                            </>
                         ))}
                     </div>
                 }
@@ -382,58 +542,65 @@ const MyOrderPage = () => {
                 {selectedStatus && selectedStatus === "Failed" &&
                     <div className="myorder-item-content-container hide-scroll-container">
                         {orders.map((order, index) => (
-                            <div className="myorder-item-container" key={index}>
-                                <div className="myorder-item-heading">
-                                    <h2>{order.invoice}</h2>
-                                    <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
-                                </div>
-                                <div className="w-100 hide-scroll-container">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
-                                                <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
-                                                <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
-                                                <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
-                                                <td className="myorder-table-data border-none">
-                                                    <button className="myorder-table-btn">Document</button>
-                                                </td>
-                                                <td className="myorder-table-data border-none" colSpan="2" />
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none">Name: {order.name}</td>
-                                                <td className="myorder-table-data border-none">Phone: {order.phone}</td>
-                                                <td className="myorder-table-data border-none">Email: {order.email}</td>
-                                                <td className="myorder-table-data border-none" />
-                                            </tr>
-                                            <tr>
-                                                <td className="myorder-table-data border-none" colSpan="4">Collect Details: {order.collectDetails}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className={`myorder-item-bottom ${openView === order.invoice ? 'view' : ''}`}>
-                                    <label><strong>Remark: </strong>{order.remark}</label>
-                                </div>
-
-                                <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
-                                    <div className="myorder-item-details-container">
-                                        <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
-                                        <div className="myorder-item-details-description">
-                                            <label className="fs-6 font-custom">{order.itemDetails.name}</label>
-                                            <label className="fs-5 font-custom">{order.itemDetails.code}</label>
-                                            <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
-                                            <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
-                                            <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
-                                            <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
-                                            <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                            <>
+                                <div className="w-100 overflow-x-auto">
+                                    <div className="myorder-item-container" key={index}>
+                                        <div className="myorder-item-heading">
+                                            <h2>{order.invoice}</h2>
+                                            <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
                                         </div>
+                                        <div className="w-100 hide-scroll-container">
+                                            <table className="mw-100">
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none">Payment Type: {order.paymentType}</td>
+                                                        <td className="myorder-table-data border-none">Collect Type: {order.collectType}</td>
+                                                        <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
+                                                        <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
+                                                        <td className="myorder-table-data border-none">
+                                                            <button className="myorder-table-btn">Document</button>
+                                                        </td>
+                                                        <td className="myorder-table-data border-none" colSpan="2" />
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none">Name: {order.name}</td>
+                                                        <td className="myorder-table-data border-none">Phone: {order.phone}</td>
+                                                        <td className="myorder-table-data border-none">Email: {order.email}</td>
+                                                        <td className="myorder-table-data border-none" />
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="myorder-table-data border-none" colSpan="4">Collect Details: {order.collectDetails}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div className={`myorder-item-bottom ${openView === order.invoice ? 'view' : ''}`}>
+                                            <label><strong>Remark: </strong>{order.remark}</label>
+                                        </div>
+
+                                        {order && order.itemDetails &&
+                                            <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
+                                                <div className="myorder-item-details-container">
+                                                    <img className="myorder-item-details-image" src={order.itemDetails.imageUrl} alt="item" />
+                                                    <div className="myorder-item-details-description">
+                                                        <label className="fs-6 font-custom">{order.itemDetails.name}</label>
+                                                        <label className="fs-5 font-custom">{order.itemDetails.code}</label>
+                                                        <label className="fs-5 font-custom text-danger fw-bold">{order.itemDetails.price}</label>
+                                                        <em className="fs-7 font-custom fw-bold">Temporary Invoice: {order.itemDetails.temporaryInvoice}</em>
+                                                        <em className="fs-7 font-custom">Transaction Date: {order.itemDetails.transactionDate}</em>
+                                                        <em className="fs-7 font-custom">Collect Type: {order.itemDetails.collectType}</em>
+                                                        <em className="fs-7 font-custom">Status: {order.itemDetails.status}</em>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                            </div>
+                                <div className="myorder-item-spacing" />
+                            </>
                         ))}
                     </div>
                 }
