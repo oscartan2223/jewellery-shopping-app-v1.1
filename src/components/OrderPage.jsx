@@ -141,7 +141,7 @@ const OrderPage = () => {
                                     onClick={() => handleTabClick("Pending Payment")}>
                                     <span className="nav-link" href="#">Pending Payment</span>
                                 </li>
-                                <li className={`nav-item ${selectedStatus === "Pending Approve" ? 'active' : ''}`}
+                                {/* <li className={`nav-item ${selectedStatus === "Pending Approve" ? 'active' : ''}`}
                                     onClick={() => handleTabClick("Pending Approve")}>
                                     <span className="nav-link" href="#">Pending Approve</span>
                                 </li>
@@ -152,7 +152,7 @@ const OrderPage = () => {
                                 <li className={`nav-item ${selectedStatus === "Failed" ? 'active' : ''}`}
                                     onClick={() => handleTabClick("Failed")}>
                                     <span className="nav-link" href="#">Failed</span>
-                                </li>
+                                </li> */}
                                 <div className="nav-tab-empty" />
                             </ul>
                         </div>

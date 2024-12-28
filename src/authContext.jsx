@@ -17,7 +17,12 @@ export const AuthProvider = ({ children }) => {
         const userInfo = userInfoLocal ? JSON.parse(userInfoLocal) : null;
 
         if (userInfo) {
-            autoLogin(userInfo);
+            //remove these two line after production
+            setIsLoggedIn(true);
+            setLoading(false);
+
+            //use this line
+            // autoLogin(userInfo);
         } else {
             setLoading(false);
         }
@@ -52,6 +57,7 @@ export const AuthProvider = ({ children }) => {
                 localStorage.removeItem('userInfo');
                 setUserInfo(null);
                 setIsLoggedIn(false);
+                alert('Session expired, please login again!');
             }
 
         } catch (error) {
