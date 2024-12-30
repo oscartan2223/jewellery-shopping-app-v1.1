@@ -115,6 +115,7 @@ const MyOrderPage = () => {
                     email: "yourstyle1100@yahoo.com.my",
                     collectDetails: "11/11/2020 1:22pm ~ 11/11/2020 1:22pm",
                     remark: "test only",
+                    collectReceipt: "https://upload.kianleepd.com/assets/public/img/collect/AE9043/approve_img.jpg",
                     itemDetails: {
                         name: "PS CLIP",
                         code: "[S1BPSXXBD00119]",
@@ -162,6 +163,7 @@ const MyOrderPage = () => {
                     paymentAmount: "RM 1912",
                     orderDate: "21/09/2021",
                     reason: "none",
+                    document: "http://localhost:3000/image.png",
                     name: "lim",
                     phone: "0169551982",
                     email: "ginnz30@gmail.com",
@@ -188,6 +190,7 @@ const MyOrderPage = () => {
                     deliveryCharge: "RM 10.00",
                     paymentAmount: "RM 1912",
                     orderDate: "21/09/2021",
+                    document: "http://192.168.42.109:3000/image.png",
                     name: "lim",
                     phone: "0169551982",
                     email: "ginnz30@gmail.com",
@@ -221,6 +224,41 @@ const MyOrderPage = () => {
         setOpenView((prevState) => (prevState === invoice ? '' : invoice));
     };
 
+    const handleNavi = (invoice) => {
+
+        //get api the get the data
+        const target_data = {
+            docNo: "S1641121552-111",
+            total: "4249.00",
+            paymentAmt: "21.00",
+            paymentMethod: "Half Payment",
+            payWith: "ipay88",
+            collectType: "Delivery",
+            buyerName: "Lim",
+            buyerIC: "920831105391",
+            phone: "0169551982",
+            email: "ginnz30@gmail.com",
+            temporaryInvoice: "TIV220102-0009",
+            transactionDate: "02/01/2023 12:32:06",
+            remark: "insufficient amount",
+            status: "Success",
+            action: 604
+        }
+        setTimeout(() => {
+            navigate('/orderdetail', { state: { ...target_data, path: true } });
+        }, 200);
+        window.scrollTo(0, 0);
+    }
+
+    const handleDocumentClick = (documentLink) => {
+        var link = document.createElement('a');
+        link.href = documentLink;
+        link.download = 'Receipt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.close();
+    }
 
     return (
         <div className="myorder-container">
@@ -258,9 +296,9 @@ const MyOrderPage = () => {
                 {selectedStatus && (selectedStatus === "Pending Payment" || selectedStatus === "Pending Approve") &&
                     <div className="myorder-item-content-container hide-scroll-container">
                         {orders.map((order, index) => (
-                            <>
+                            <div key={index}>
                                 <div className="w-100 overflow-x-auto">
-                                    <div className="myorder-item-container" key={index}>
+                                    <div className="myorder-item-container">
                                         <div className="myorder-item-heading">
                                             <h2>{order.invoice}</h2>
                                             <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
@@ -274,7 +312,7 @@ const MyOrderPage = () => {
                                                         <td className="myorder-table-data border-none">Delivery Charge: {order.deliveryCharge}</td>
                                                         <td className="myorder-table-data border-none">Payment Amount: {order.paymentAmount}</td>
                                                         <td className="myorder-table-data border-none vertical-align-middle" rowSpan="2">
-                                                            <button className="myorder-table-btn">Upload Bank Slip</button>
+                                                            <button className="myorder-table-btn" onClick={() => { handleNavi(order.invoice) }}>Upload Bank Slip</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -307,7 +345,7 @@ const MyOrderPage = () => {
                                     </div>
                                 </div>
                                 <div className="myorder-item-spacing" />
-                            </>
+                            </div>
                         ))}
                     </div>
                 }
@@ -330,9 +368,9 @@ const MyOrderPage = () => {
                         {selectedApprovedStatus === "Self Collect" &&
                             <div className="myorder-item-content-container hide-scroll-container">
                                 {orders.filter(order => order.collectType === "taken").map((order, index) => (
-                                    <>
+                                    <div key={index}>
                                         <div className="w-100 overflow-x-auto">
-                                            <div className="myorder-item-container" key={index}>
+                                            <div className="myorder-item-container">
                                                 <div className="myorder-item-heading">
                                                     <h2>{order.invoice}</h2>
                                                     <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
@@ -368,7 +406,7 @@ const MyOrderPage = () => {
                                                 <div className={`myorder-item-receipt ${openView === order.invoice ? 'view' : ''}`}>
                                                     <label>Collect Receipt:</label>
                                                     <img className="myorder-item-receipt-img" alt="image"
-                                                        src="https://upload.kianleepd.com/assets/public/img/collect/AE9043/approve_img.jpg" />
+                                                        src={order.collectReceipt} />
                                                 </div>
 
                                                 {order && order.itemDetails &&
@@ -390,7 +428,7 @@ const MyOrderPage = () => {
                                             </div>
                                         </div>
                                         <div className="myorder-item-spacing" />
-                                    </>
+                                    </div>
                                 ))}
                             </div>
                         }
@@ -398,9 +436,9 @@ const MyOrderPage = () => {
                         {selectedApprovedStatus === "Delivery" &&
                             <div className="myorder-item-content-container hide-scroll-container">
                                 {orders.filter(order => order.collectType === "delivery").map((order, index) => (
-                                    <>
+                                    <div key={index}>
                                         <div className="w-100 overflow-x-auto">
-                                            <div className="myorder-item-container" key={index}>
+                                            <div className="myorder-item-container">
                                                 <div className="myorder-item-heading">
                                                     <h2>{order.invoice}</h2>
                                                     <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
@@ -465,7 +503,7 @@ const MyOrderPage = () => {
                                             </div>
                                         </div>
                                         <div className="myorder-item-spacing" />
-                                    </>
+                                    </div>
                                 ))}
                             </div>
                         }
@@ -475,9 +513,9 @@ const MyOrderPage = () => {
                 {selectedStatus && selectedStatus === "Reject" &&
                     <div className="myorder-item-content-container hide-scroll-container">
                         {orders.map((order, index) => (
-                            <>
+                            <div key={index}>
                                 <div className="w-100 overflow-x-auto">
-                                    <div className="myorder-item-container" key={index}>
+                                    <div className="myorder-item-container">
                                         <div className="myorder-item-heading">
                                             <h2>{order.invoice}</h2>
                                             <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
@@ -495,7 +533,7 @@ const MyOrderPage = () => {
                                                         <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
                                                         <td className="myorder-table-data border-none">Reason: {order.reason}</td>
                                                         <td className="myorder-table-data border-none">
-                                                            <button className="myorder-table-btn">Document</button>
+                                                            <button className="myorder-table-btn" onClick={() => { handleDocumentClick(order.document); }}>Document</button>
                                                         </td>
                                                         <td className="myorder-table-data border-none" />
                                                     </tr>
@@ -534,7 +572,7 @@ const MyOrderPage = () => {
                                     </div>
                                 </div>
                                 <div className="myorder-item-spacing" />
-                            </>
+                            </div>
                         ))}
                     </div>
                 }
@@ -542,9 +580,9 @@ const MyOrderPage = () => {
                 {selectedStatus && selectedStatus === "Failed" &&
                     <div className="myorder-item-content-container hide-scroll-container">
                         {orders.map((order, index) => (
-                            <>
+                            <div key={index}>
                                 <div className="w-100 overflow-x-auto">
-                                    <div className="myorder-item-container" key={index}>
+                                    <div className="myorder-item-container">
                                         <div className="myorder-item-heading">
                                             <h2>{order.invoice}</h2>
                                             <button className="myorder-view-btn" onClick={() => handleViewClick(order.invoice)}>View Item</button>
@@ -561,7 +599,7 @@ const MyOrderPage = () => {
                                                     <tr>
                                                         <td className="myorder-table-data border-none">Order Date: {order.orderDate}</td>
                                                         <td className="myorder-table-data border-none">
-                                                            <button className="myorder-table-btn">Document</button>
+                                                            <button className="myorder-table-btn" onClick={() => { handleDocumentClick(order.document); }}>Document</button>
                                                         </td>
                                                         <td className="myorder-table-data border-none" colSpan="2" />
                                                     </tr>
@@ -600,7 +638,7 @@ const MyOrderPage = () => {
                                     </div>
                                 </div>
                                 <div className="myorder-item-spacing" />
-                            </>
+                            </div>
                         ))}
                     </div>
                 }
