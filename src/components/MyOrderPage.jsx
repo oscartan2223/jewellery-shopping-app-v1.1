@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../assets/css/MyOrderPage.css';
 import { useAuth } from "../authContext";
 import { useNavigate } from "react-router-dom";
 import TrackingOrder from "./trackingOrder/TrackingOrder";
+import DownloadReceipt from "./downloadReceipt/downloadReceipt";
+import TacDialog from "./tacDialog/tacDialog";
 
 const MyOrderPage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, loading } = useAuth();
     const [selectedStatus, setSelectedStatus] = useState('Pending Payment');
     const [selectedApprovedStatus, setSelectedApprovedStatus] = useState('Self Collect');
+    const [firstPromptTAC, setFirstPromptTAC] = useState(true);
     const [orders, setOrders] = useState([
         {
             invoice: "TIV220608-00789",
@@ -51,6 +54,11 @@ const MyOrderPage = () => {
     ]);
     const [openView, setOpenView] = useState('');
     const [tracking, setTracking] = useState(false);
+    const [openCollectReceipt, setOpenCollectReceipt] = useState(false);
+    const downloadLink = useRef('');
+
+    const [openPictures, setOpenPictures] = useState(false);
+    const [openVideos, setOpenVideos] = useState(false);
 
     const handleApprovedTabClick = (selectedTab) => {
         setSelectedApprovedStatus(selectedTab);
@@ -226,7 +234,7 @@ const MyOrderPage = () => {
 
     const handleNavi = (invoice) => {
 
-        //get api the get the data
+        //use get api with "invoice" to get the data
         const target_data = {
             docNo: "S1641121552-111",
             total: "4249.00",
@@ -250,14 +258,9 @@ const MyOrderPage = () => {
         window.scrollTo(0, 0);
     }
 
-    const handleDocumentClick = (documentLink) => {
-        var link = document.createElement('a');
-        link.href = documentLink;
-        link.download = 'Receipt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.close();
+    const handleDocumentClick = (documentLink = '') => {
+        downloadLink.current = documentLink;
+        setOpenCollectReceipt(!openCollectReceipt);
     }
 
     return (
@@ -265,6 +268,31 @@ const MyOrderPage = () => {
             {tracking &&
                 <TrackingOrder onClose={() => { setTracking(false) }} />
             }
+
+            {openCollectReceipt &&
+                <DownloadReceipt onClose={handleDocumentClick} downloadUrl={downloadLink.current} />
+            }
+
+            {firstPromptTAC && selectedStatus === "Approved" && selectedApprovedStatus === "Delivery" &&
+                <TacDialog onClose={() => { setFirstPromptTAC(false); }} />
+            }
+
+            {openPictures &&
+                <div className="myorder-pictures-container-overlay">
+                    <div className="myorder-pictures-container">
+
+                    </div>
+                </div>
+            }
+
+            {openVideos &&
+                <div className="myorder-video-container-overlay">
+                    <div className="myorder-video-container">
+
+                    </div>
+                </div>
+            }
+
             <div className="myorder-content">
                 <h1 className="myorder-title font-custom-2 border-bottom">Order</h1>
                 <div className="nav-tabs-container mb-3">
@@ -278,15 +306,15 @@ const MyOrderPage = () => {
                             <span className="nav-link" href="#">Pending Approve</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Approved" ? 'active' : ''}`}
-                            onClick={() => handleTabClick("Approved")}>
+                            onClick={() => handleTabClick("Approveds")}>
                             <span className="nav-link" href="#">Approved</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Reject" ? 'active' : ''}`}
-                            onClick={() => handleTabClick("Reject")}>
+                            onClick={() => handleTabClick("Rejects")}>
                             <span className="nav-link" href="#">Reject</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Failed" ? 'active' : ''}`}
-                            onClick={() => handleTabClick("Failed")}>
+                            onClick={() => handleTabClick("Faileds")}>
                             <span className="nav-link" href="#">Failed</span>
                         </li>
                         <div className="nav-tab-empty" />

@@ -147,10 +147,10 @@ const OrderPage = () => {
                                         onClick={() => handleTabClick("Success")}>
                                         <span className="nav-link" href="#">Approved</span>
                                     </li>
-                                    {/* <li className={`nav-item ${selectedStatus === "Failed" ? 'active' : ''}`}
-                                    onClick={() => handleTabClick("Failed")}>
-                                    <span className="nav-link" href="#">Failed</span>
-                                </li> */}
+                                    <li className={`nav-item ${selectedStatus === "Failed" ? 'active' : ''}`}
+                                        onClick={() => handleTabClick("Failed")}>
+                                        <span className="nav-link" href="#">Failed</span>
+                                    </li>
                                     <div className="nav-tab-empty" />
                                 </ul>
                             </div>

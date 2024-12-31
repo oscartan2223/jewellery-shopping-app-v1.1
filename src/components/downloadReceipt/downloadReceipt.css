@@ -1,0 +1,83 @@
+.downloadreceipt-container-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    z-index: 9500000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.downloadreceipt-container {
+    margin-top: 70px;
+    min-width: 230px;
+    width: 60%;
+    max-width: 350px;
+    background-color: var(--bg-secondary-catagorybox);
+    animation: SlideReceiptDown 0.8s 1 forwards;
+}
+
+@keyframes SlideReceiptDown {
+    0% {
+        transform: translateY(-50vh);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.downloadreceipt-container.close {
+    animation: SlideReceiptUp 0.8s 1 forwards;
+}
+
+@keyframes SlideReceiptUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-50vh);
+    }
+}
+
+.downloadreceipt-dialog-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 15px 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downloadreceipt-dialog-close-btn {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.downloadreceipt-button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-width: 100px;
+    font-size: 12px;
+    background-color: var(--btn-first-color);
+    color: var(--font-btn-first-color);
+    padding: 3px 5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.downloadreceipt-button:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.downloadreceipt-button:active {
+    transform: translateY(1px);
+}

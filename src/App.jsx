@@ -168,7 +168,7 @@ const AppContent = () => {
             <Route path="/cart" element={<CartPage showAlert={showAlert} openCart={() => { setHandleOpen('cart') }} />} />
             <Route path="/promotion" element={<PromotionPage showAlert={showAlert} />} />
             <Route path="/wishlist" element={<WishListPage showAlert={showAlert} />} />
-            <Route path='/myorders' element={<MyOrderPage showAlert={showAlert} />} />
+            <Route path='/myorder' element={<MyOrderPage showAlert={showAlert} />} />
             <Route path="/password" element={<ChangePasswordPage showAlert={showAlert} />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/orderdetail" element={<OrderDetailPage />} />

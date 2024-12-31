@@ -1,0 +1,95 @@
+.tacdialog-container-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    z-index: 9500000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tacdialog-container {
+    min-width: 280px;
+    width: 60%;
+    max-width: 500px;
+    background-color: var(--bg-secondary-catagorybox);
+    animation: SlideReceiptDown 0.8s 1 forwards;
+}
+
+.tacdialog-dialog-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 10px;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tacdialog-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+    max-height: 150px;
+}
+
+.checkbox-input {
+    display: inline-block;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.checkbox-input:checked::before {
+    content: '\2713';
+    position: absolute;
+    left: 3px !important;
+    top: -3px !important;
+    color: white;
+    font-size: 14px !important;
+}
+
+.checkbox-label {
+    display: inline;
+    white-space: normal;
+}
+
+
+.tacdialog-dialog-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tacsubmit-button {
+    width: 100%;
+    background-color: var(--btn-first-color);
+    color: var(--font-btn-first-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.tacsubmit-button:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.tacsubmit-button:active {
+    transform: translateY(1px);
+}
+
+.tacsubmit-button:disabled {
+    background-color: var(--btn-second-hover-color);
+    color: var(--font-btn-first-color);
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
+}
