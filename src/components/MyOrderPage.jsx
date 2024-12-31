@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import TrackingOrder from "./trackingOrder/TrackingOrder";
 import DownloadReceipt from "./downloadReceipt/downloadReceipt";
 import TacDialog from "./tacDialog/tacDialog";
+import { FaTimes } from "react-icons/fa";
 
 const MyOrderPage = () => {
     const navigate = useNavigate();
@@ -59,6 +60,8 @@ const MyOrderPage = () => {
 
     const [openPictures, setOpenPictures] = useState(false);
     const [openVideos, setOpenVideos] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState('');
+    const [selectedPictures, setSelectedPictures] = useState([]);
 
     const handleApprovedTabClick = (selectedTab) => {
         setSelectedApprovedStatus(selectedTab);
@@ -149,6 +152,7 @@ const MyOrderPage = () => {
                     email: "yourstyle1100@yahoo.com.my",
                     deliveryDetails: "2124, Cities, 443244, STATES, Malaysia",
                     remark: "test only",
+                    video: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
                     itemDetails: {
                         name: "PS CLIP",
                         code: "[S1BPSXXBD00119]",
@@ -277,18 +281,33 @@ const MyOrderPage = () => {
                 <TacDialog onClose={() => { setFirstPromptTAC(false); }} />
             }
 
-            {openPictures &&
-                <div className="myorder-pictures-container-overlay">
-                    <div className="myorder-pictures-container">
-
+            {openPictures && selectedStatus === "Approved" && selectedApprovedStatus === "Delivery" &&
+                <div className="myorder-picturevideo-container-overlay">
+                    <div className="myorder-picturevideo-container">
+                        <div className="myorder-picturevideo-header">
+                            Pictures
+                            <FaTimes className="myorder-picturevideo-close-btn" onClick={() => { setOpenPictures(false); }} />
+                        </div>
+                        <div className="myorder-picturevideo-content">
+                            
+                        </div>
                     </div>
                 </div>
             }
 
-            {openVideos &&
-                <div className="myorder-video-container-overlay">
-                    <div className="myorder-video-container">
-
+            {openVideos && selectedStatus === "Approved" && selectedApprovedStatus === "Delivery" &&
+                <div className="myorder-picturevideo-container-overlay">
+                    <div className="myorder-picturevideo-container">
+                        <div className="myorder-picturevideo-header">
+                            Videos
+                            <FaTimes className="myorder-picturevideo-close-btn" onClick={() => { setOpenVideos(false); }} />
+                        </div>
+                        <div className="myorder-picturevideo-content hide-scroll-container">
+                            <video controls className="myorder-video-player">
+                                <source src={selectedVideo} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
                 </div>
             }
@@ -306,7 +325,7 @@ const MyOrderPage = () => {
                             <span className="nav-link" href="#">Pending Approve</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Approved" ? 'active' : ''}`}
-                            onClick={() => handleTabClick("Approveds")}>
+                            onClick={() => handleTabClick("Approved")}>
                             <span className="nav-link" href="#">Approved</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Reject" ? 'active' : ''}`}
@@ -508,8 +527,8 @@ const MyOrderPage = () => {
                                                 </div>
 
                                                 <div className={`myorder-item-picture-video pt-3 ${openView === order.invoice ? 'view' : ''}`}>
-                                                    <button className="myorder-table-btn mr-3">Pictures</button>
-                                                    <button className="myorder-table-btn">Videos</button>
+                                                    <button className="myorder-table-btn mr-3" onClick={() => { setOpenPictures(true); setSelectedPictures(order.pictures || []) }}>Pictures</button>
+                                                    <button className="myorder-table-btn" onClick={() => { setOpenVideos(true); setSelectedVideo(order.video || '') }}>Videos</button>
                                                 </div>
 
                                                 {order && order.itemDetails &&
