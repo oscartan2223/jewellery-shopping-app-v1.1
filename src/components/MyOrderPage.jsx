@@ -6,6 +6,7 @@ import TrackingOrder from "./trackingOrder/TrackingOrder";
 import DownloadReceipt from "./downloadReceipt/downloadReceipt";
 import TacDialog from "./tacDialog/tacDialog";
 import { FaTimes } from "react-icons/fa";
+import OwlCarouselComponent from "./owlCarousel/owlCarousel";
 
 const MyOrderPage = () => {
     const navigate = useNavigate();
@@ -153,6 +154,13 @@ const MyOrderPage = () => {
                     deliveryDetails: "2124, Cities, 443244, STATES, Malaysia",
                     remark: "test only",
                     video: "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
+                    pictures: [
+                        "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/IMG-20220311-WA0003.jpg",
+                        "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/IMG_20220615_170130_mh1655300995072.jpg",
+                        "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/IMG-20220310-WA0249.jpg",
+                        "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/IMG-20220320-WA0008.jpg",
+                        "https://admin.kedaiemasmetroprima.com/assets/public/img/slide/FB_IMG_1652964891532.jpg"
+                    ],
                     itemDetails: {
                         name: "PS CLIP",
                         code: "[S1BPSXXBD00119]",
@@ -283,13 +291,13 @@ const MyOrderPage = () => {
 
             {openPictures && selectedStatus === "Approved" && selectedApprovedStatus === "Delivery" &&
                 <div className="myorder-picturevideo-container-overlay">
-                    <div className="myorder-picturevideo-container">
+                    <div className="myorder-picturevideo-container pic">
                         <div className="myorder-picturevideo-header">
                             Pictures
                             <FaTimes className="myorder-picturevideo-close-btn" onClick={() => { setOpenPictures(false); }} />
                         </div>
                         <div className="myorder-picturevideo-content">
-                            
+                            <OwlCarouselComponent imageList={selectedPictures} />
                         </div>
                     </div>
                 </div>
@@ -328,14 +336,14 @@ const MyOrderPage = () => {
                             onClick={() => handleTabClick("Approved")}>
                             <span className="nav-link" href="#">Approved</span>
                         </li>
-                        <li className={`nav-item ${selectedStatus === "Reject" ? 'active' : ''}`}
+                        {/* <li className={`nav-item ${selectedStatus === "Reject" ? 'active' : ''}`}
                             onClick={() => handleTabClick("Rejects")}>
                             <span className="nav-link" href="#">Reject</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Failed" ? 'active' : ''}`}
                             onClick={() => handleTabClick("Faileds")}>
                             <span className="nav-link" href="#">Failed</span>
-                        </li>
+                        </li> */}
                         <div className="nav-tab-empty" />
                     </ul>
                 </div>
