@@ -32,6 +32,7 @@ import OrderTrackingPage from './components/OrderTrackingPage';
 import InstallmentDocumentPage from './components/InstallmentDocumentPage';
 import InstallmentListPage from './components/InstallmentListPage';
 import MyOrderPage from './components/MyOrderPage';
+import PaymentDetailsPage from './components/PaymentDetailsPage';
 
 const App = () => {
   return (
@@ -176,6 +177,7 @@ const AppContent = () => {
             <Route path="/ordertracking" element={<OrderTrackingPage showAlert={showAlert} />} />
             <Route path="/installmentdocument" element={<InstallmentDocumentPage />} />
             <Route path="/installmentlist" element={<InstallmentListPage />} />
+            <Route path="/paymentdetails" element={<PaymentDetailsPage showAlert={showAlert} />} />
           </Routes>
         </div>
         {!openChat && onChatSettings &&

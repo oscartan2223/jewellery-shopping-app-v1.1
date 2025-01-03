@@ -6,6 +6,7 @@ import { useAuth } from '../authContext';
 import { useStock } from '../stockContext'
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../cartContext';
+import CheckoutTAC from './checkoutTac/checkoutTac';
 
 const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', showAlert }) => {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
     const [remarkAccName, setRemarkAccName] = useState();
     const [remarkBankName, setRemarkBankName] = useState();
     const [remarkContent, setRemarkContent] = useState();
+    const [openTac, setOpenTac] = useState(false);
 
     useEffect(() => {
         // api (fetch to get popular catagories)
@@ -92,6 +94,26 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
             showAlert("warning", "Please select any of item before checkout!");
             return;
         }
+
+        setOpenTac(true);
+    }
+
+    const proceedPayment = () => {
+        setOpenTac(false);
+        let price_amount = 0;
+        selectedCartItem.forEach((eachCartItem) => {
+            if (eachCartItem.promotion_price) {
+                price_amount += eachCartItem.promotion_price;
+            } else {
+                price_amount += eachCartItem.actual_price;
+            }
+        })
+        handleClose();
+
+        setTimeout(() => {
+            navigate('/paymentdetails', { state: price_amount });
+        }, 200)
+        window.scrollTo(0, 0);
     }
 
     const handleRemark = (cartItem) => {
@@ -161,7 +183,7 @@ const SideBar = ({ value = "", onClose, SearchInput, searchInputValue = '', show
 
                 {value === "cart" &&
                     <div className={`sidebar-cart-list ${closeAmination ? "close" : ""}`} onClick={(event) => event.stopPropagation()}>
-
+                        {openTac && <CheckoutTAC onClose={() => { setOpenTac(false); }} proceedPayment={proceedPayment} /> }
                         {openRemark &&
                             <div className="sidebar-cart-remark-overlay">
                                 <div className="sidebar-cart-remark-container">

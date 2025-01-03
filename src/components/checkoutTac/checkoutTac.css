@@ -1,0 +1,115 @@
+.checkouttac-dialog-container-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.checkouttac-dialog-container {
+    width: 80%;
+    max-width: 500px;
+    height: 80%;
+    max-height: 600px;
+    background-color: rgb(255, 255, 255);
+}
+
+.checkouttac-pay-dialog-container {
+    min-width: 260px;
+    width: 80%;
+    max-width: 500px;
+    background-color: rgb(255, 255, 255);
+}
+
+.checkouttac-dialog-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 10px;
+    padding-right: 40px;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.checkouttac-close-btn {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+}
+
+.checkouttac-dialog-content-container {
+    height: calc(100% - 135px);
+    display: flex;
+    flex: 1;
+    padding: 15px 20px;
+}
+
+@media (max-width: 412px) {
+    .checkouttac-dialog-content-container {
+        height: calc(100% - 158px);
+    }
+}
+
+.checkouttac-pay-dialog-content-container {
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkouttac-dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkouttac-dialog-content span {
+    margin-bottom: 15px;
+}
+
+.checkouttac-dialog-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.checkouttac-button {
+    width: 100%;
+    background-color: var(--btn-first-color);
+    color: var(--font-btn-first-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.checkouttac-button.pay {
+    width: 120px;
+    font-size: 15px;
+    padding: 7px 15px;
+    margin-bottom: 10px;
+}
+
+.checkouttac-button:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.checkouttac-button:active {
+    transform: translateY(1px);
+}
+
+.checkouttac-button:disabled {
+    background-color: var(--btn-second-hover-color);
+    color: var(--font-btn-first-color);
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
+}
