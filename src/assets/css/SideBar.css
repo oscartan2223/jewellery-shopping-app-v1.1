@@ -22,7 +22,7 @@
     background-color: var(--bg-first-color);
     min-height: 56px;
     max-height: 400px;
-    animation: SlideIn 1s 1;
+    animation: SlideSearchIn 1s 1;
     display: flex;
     justify-content: center;
 }
@@ -33,7 +33,7 @@
     }
 }
 
-@keyframes SlideIn {
+@keyframes SlideSearchIn {
     0% {
         transform: translateY(-100%);
         opacity: 0;
@@ -58,10 +58,10 @@
 }
 
 .sidebar-search-list.close {
-    animation: SlideOut 0.5s 1;
+    animation: SlideSearchOut 0.5s 1;
 }
 
-@keyframes SlideOut {
+@keyframes SlideSearchOut {
     0% {
         transform: translateY(0);
         opacity: 1;

@@ -1,0 +1,86 @@
+.section-divider {
+    width: 100%;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: block;
+    box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.4);
+    margin-top: 6.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.paymentdetails-ordersummary-spacing {
+    margin: 0 10px;
+    width: calc(100% - 20px);
+}
+
+.paymentdetails-ordersummary-heading {
+    margin-bottom: 30px;
+    width: 100%;
+    padding: 8px 10px;
+    background-color: rgb(200, 200, 200);
+    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.4);
+    font-weight: 550;
+}
+
+.paymentdetails-ordersummary-total {
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgb(160, 160, 160);
+    font-weight: 650;
+}
+
+.paymentdetails-ordersummary-total label {
+    position: absolute;
+    right: 5px;
+    color: rgb(70, 70, 70);
+}
+
+.paymentdetails-ordersummary-total a {
+    text-decoration: none;
+    color: rgb(132, 188, 252) !important;
+}
+
+.paymentdetails-ordersummary-total a:hover,
+.paymentdetails-ordersummary-total a:active {
+    color: rgb(100, 173, 255) !important;
+}
+
+.paymentdetails-confirm-button {
+    background-color: var(--btn-first-color);
+    border: none;
+    color: var(--font-btn-first-color);
+    margin-bottom: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.paymentdetails-confirm-button:hover {
+    background-color: var(--btn-first-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.paymentdetails-back-button {
+    background-color: var(--btn-second-color);
+    border: none;
+    color: var(--font-btn-second-color);
+    margin-bottom: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.paymentdetails-back-button:hover {
+    background-color: var(--btn-second-hover-color);
+    color: var(--font-btn-second-hover-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}

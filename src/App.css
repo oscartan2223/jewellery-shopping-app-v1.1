@@ -56,6 +56,18 @@ body {
     -moz-user-select: none;
 }
 
+select:disabled {
+    color: rgb(110, 110, 110) !important;
+    background-color: rgb(235, 234, 234) !important;
+    cursor: not-allowed;
+}
+
+input:disabled {
+    color: rgb(110, 110, 110) !important;
+    background-color: rgb(235, 234, 234) !important;
+    cursor: not-allowed;
+}
+
 .z-first {
     z-index: 1000000000000;
 }
@@ -86,6 +98,10 @@ body {
 
 .mr-3 {
     margin-right: 1rem !important;
+}
+
+.mr-4 {
+    margin-right: 1.5rem !important;
 }
 
 .fs-7 {

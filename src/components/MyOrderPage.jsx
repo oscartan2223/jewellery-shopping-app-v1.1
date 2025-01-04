@@ -183,7 +183,7 @@ const MyOrderPage = () => {
                     paymentAmount: "RM 1912",
                     orderDate: "21/09/2021",
                     reason: "none",
-                    document: "http://localhost:3000/image.png",
+                    document: "http://localhost:3000/example.pdf",
                     name: "lim",
                     phone: "0169551982",
                     email: "ginnz30@gmail.com",
@@ -210,7 +210,7 @@ const MyOrderPage = () => {
                     deliveryCharge: "RM 10.00",
                     paymentAmount: "RM 1912",
                     orderDate: "21/09/2021",
-                    document: "http://192.168.42.109:3000/image.png",
+                    document: "http://192.168.42.109:3000/example.pdf",
                     name: "lim",
                     phone: "0169551982",
                     email: "ginnz30@gmail.com",
@@ -337,11 +337,11 @@ const MyOrderPage = () => {
                             <span className="nav-link" href="#">Approved</span>
                         </li>
                         {/* <li className={`nav-item ${selectedStatus === "Reject" ? 'active' : ''}`}
-                            onClick={() => handleTabClick("Rejects")}>
+                            onClick={() => handleTabClick("Reject")}>
                             <span className="nav-link" href="#">Reject</span>
                         </li>
                         <li className={`nav-item ${selectedStatus === "Failed" ? 'active' : ''}`}
-                            onClick={() => handleTabClick("Faileds")}>
+                            onClick={() => handleTabClick("Failed")}>
                             <span className="nav-link" href="#">Failed</span>
                         </li> */}
                         <div className="nav-tab-empty" />
@@ -534,10 +534,10 @@ const MyOrderPage = () => {
                                                     <label><strong>Remark: </strong>{order.remark}</label>
                                                 </div>
 
-                                                <div className={`myorder-item-picture-video pt-3 ${openView === order.invoice ? 'view' : ''}`}>
+                                                {/* <div className={`myorder-item-picture-video pt-3 ${openView === order.invoice ? 'view' : ''}`}>
                                                     <button className="myorder-table-btn mr-3" onClick={() => { setOpenPictures(true); setSelectedPictures(order.pictures || []) }}>Pictures</button>
                                                     <button className="myorder-table-btn" onClick={() => { setOpenVideos(true); setSelectedVideo(order.video || '') }}>Videos</button>
-                                                </div>
+                                                </div> */}
 
                                                 {order && order.itemDetails &&
                                                     <div className={`${openView !== order.invoice ? 'hide' : 'myorder-item-details'}`}>
